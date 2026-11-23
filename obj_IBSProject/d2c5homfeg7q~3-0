@@ -13,9 +13,23 @@
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[2]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
     <implementation_language lang="TTE" />
   </testsequence>
+  <testsequence name="WorkCurrentTest" comment="10 至 14 V 每点一次：2 s 内到压、1 s 内核对 LIN 电压反馈、连续积分 10 分钟并判定平均电流小于 25 mA" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="e4b91c73-5d62-4f18-a870-2b9c31d6f045">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[3]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+    <nestedTcIds>b7c1a2d3-0002-4a01-9b01-000000000010</nestedTcIds>
+    <nestedTcIds>b7c1a2d3-0002-4a01-9b01-000000000011</nestedTcIds>
+    <nestedTcIds>b7c1a2d3-0002-4a01-9b01-000000000012</nestedTcIds>
+    <nestedTcIds>b7c1a2d3-0002-4a01-9b01-000000000013</nestedTcIds>
+    <nestedTcIds>b7c1a2d3-0002-4a01-9b01-000000000014</nestedTcIds>
+  </testsequence>
   <testcase name="SleepCurrent" comment="单个电压点的休眠平均电流：每点 3 轮，每轮关输出、设压限流、开输出、等到压、LIN 通讯 60 s、监控 10 s（三帧有效性）、停 LIN、静置 60 s、连续积分 20 min 并判定平均电流小于 0.250 mA。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="b7c1a2d3-0000-4a01-9b01-000000000000">
     <parameter name="OutPutVoltage" type="float" raw_type="float" />
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[1]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="WorkCurrent" comment="单个电压点的工作平均电流：设压与 1 A 限流、开输出、2 s 内到压、启动 LIN 并 1 s 内核对 IBS 电压反馈、连续积分 10 分钟并判定平均电流小于 25 mA，随后关输出。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="b7c1a2d3-0002-4a01-9b01-000000000000">
+    <parameter name="OutPutVoltage" type="float" raw_type="float" />
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[2]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
     <implementation_language lang="TTE" />
   </testcase>
   <function name="PHASE_Prepare" comment="准备段：开日志、停 LIN、关唤醒节点、关输出、继电器切 IDLE" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true" guid="1a4d6e92-73c5-4f08-9b21-5d8e0c7a3f61">

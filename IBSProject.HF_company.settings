@@ -20,7 +20,7 @@
           <string>ActiveDocumentIndex</string>
         </key>
         <value type="System.Int32">
-          <int>0</int>
+          <int>1</int>
         </value>
       </item>
       <item>
@@ -61,14 +61,6 @@
               <ContextGUID>d2c5homfeg7q</ContextGUID>
               <ContextGUIDForGUI>d2c5homfeg7q</ContextGUIDForGUI>
             </DocumentInfo>
-            <DocumentInfo>
-              <PositionInContainer>4</PositionInContainer>
-              <ContainerIndex>0</ContainerIndex>
-              <DocType>TTTestModule</DocType>
-              <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="IBSTest\IBSTest.vtt" /&gt;</SerializedBasedFileName>
-              <ContextGUID>d2c5homfeg7q</ContextGUID>
-              <ContextGUIDForGUI>d2c5homfeg7q</ContextGUIDForGUI>
-            </DocumentInfo>
           </ArrayOfDocumentInfo>
         </value>
       </item>
@@ -89,12 +81,11 @@
 		&lt;UIElement xsi:type="SplitContainer" Orientation="Vertical" DockedSize="1139,681.2"&gt;
 			&lt;UIElement xsi:type="Workspace"&gt;
 				&lt;Content xsi:type="TabbedMdiHost"&gt;
-					&lt;Content xsi:type="TabbedMdiContainer" SelectedWindowUniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605"&gt;
+					&lt;Content xsi:type="TabbedMdiContainer" DockedSize="1139,322" SelectedWindowUniqueId="547a4420-d9d6-495f-9221-114479e636a7"&gt;
 						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605" /&gt;
 						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="547a4420-d9d6-495f-9221-114479e636a7" /&gt;
 						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="be4fc28c-073d-4a05-bb66-d62babbd7856" /&gt;
-						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="caa6655e-70c2-4d1e-a744-e4cc5e96828c" /&gt;
-						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="df2bf424-77cc-473a-bb22-6cf6e27062b9" /&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="dd4f6409-713b-4930-bd46-ab0c7c5fd7cd" /&gt;
 					&lt;/Content&gt;
 				&lt;/Content&gt;
 			&lt;/UIElement&gt;
@@ -103,26 +94,24 @@
 				&lt;UIElement xsi:type="ToolWindowRef" UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" /&gt;
 			&lt;/UIElement&gt;
 		&lt;/UIElement&gt;
-		&lt;UIElement xsi:type="ToolWindowContainer" DockedSize="332,679.6" SelectedWindowUniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5"&gt;
+		&lt;UIElement xsi:type="ToolWindowContainer" DockedSize="332,679.6" SelectedWindowUniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b"&gt;
 			&lt;UIElement xsi:type="ToolWindowRef" UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" /&gt;
-			&lt;UIElement xsi:type="ToolWindowRef" UniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5" /&gt;
 		&lt;/UIElement&gt;
 	&lt;/Content&gt;
 	&lt;DocumentWindows&gt;
-		&lt;DocumentWindow UniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605" SerializationId="ParameterEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam" IsOpen="true" LastActiveDateTime="2026-11-23T14:05:56.2211265+08:00" State="Document" /&gt;
-		&lt;DocumentWindow UniqueId="547a4420-d9d6-495f-9221-114479e636a7" SerializationId="CaplEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T13:36:30.1491588+08:00" State="Document" /&gt;
-		&lt;DocumentWindow UniqueId="be4fc28c-073d-4a05-bb66-d62babbd7856" SerializationId="ProjectSettingsEditor" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T13:36:25.7816318+08:00" State="Document" /&gt;
-		&lt;DocumentWindow UniqueId="caa6655e-70c2-4d1e-a744-e4cc5e96828c" SerializationId="TestUnitConfiguration:d2c5homfeg7q" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T13:36:27.4280817+08:00" State="Document" /&gt;
-		&lt;DocumentWindow UniqueId="df2bf424-77cc-473a-bb22-6cf6e27062b9" SerializationId="TtEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T13:36:29.4686759+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605" SerializationId="ParameterEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam" IsOpen="true" LastActiveDateTime="2026-11-23T14:13:07.2763908+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="547a4420-d9d6-495f-9221-114479e636a7" SerializationId="CaplEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T14:30:39.4227776+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="be4fc28c-073d-4a05-bb66-d62babbd7856" SerializationId="ProjectSettingsEditor" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T14:17:40.7260856+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="dd4f6409-713b-4930-bd46-ab0c7c5fd7cd" SerializationId="TestUnitConfiguration:d2c5homfeg7q" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T14:18:54.0119841+08:00" State="Document" /&gt;
 	&lt;/DocumentWindows&gt;
 	&lt;ToolWindows&gt;
-		&lt;ToolWindow UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" SerializationId="ProjectView" ContainerDockedSize="332,679.6" IsOpen="true" LastActiveDateTime="2026-11-23T00:50:16.8726116+08:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" SerializationId="ProjectView" ContainerDockedSize="332,679.6" IsOpen="true" LastActiveDateTime="2026-11-23T14:30:46.7331132+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="284e2df0-0932-4854-9bf2-dbb96b34796a" SerializationId="LibraryView" ContainerDockedSize="211,266" IsOpen="false" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="0ce8c2bf-4325-402d-8ebc-52ba6d40ccf2" SerializationId="HomeDirectoryView" ContainerDockedSize="211,266" IsOpen="false" LastActiveDateTime="2026-11-06T09:13:40.7612585+08:00" State="Docked" /&gt;
-		&lt;ToolWindow UniqueId="b0825994-7121-418f-bf5b-233d0dedd923" SerializationId="OutputService" ContainerDockedSize="1139,354" IsOpen="true" LastActiveDateTime="2026-11-23T13:48:48.9633199+08:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="b0825994-7121-418f-bf5b-233d0dedd923" SerializationId="OutputService" ContainerDockedSize="1139,354" IsOpen="true" LastActiveDateTime="2026-11-23T14:26:27.9642606+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" SerializationId="FindResults1" ContainerDockedSize="1139,354" IsOpen="true" LastActiveDateTime="2026-11-18T01:19:00.4190524+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="273e697c-d09c-47e6-9cf8-19391a67d987" SerializationId="CaplFunctionExplorer" ContainerDockedSize="211,676" IsOpen="false" State="Docked" /&gt;
-		&lt;ToolWindow UniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5" SerializationId="SymbolExplorer" ContainerDockedSize="332,679.6" IsOpen="true" LastActiveDateTime="2026-11-23T11:23:22.8009252+08:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5" SerializationId="SymbolExplorer" ContainerDockedSize="332,679.6" IsOpen="false" LastActiveDateTime="2026-11-23T11:23:22.8009252+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="c6ddf369-eb82-4a69-9937-df3f2de48fcc" SerializationId="InterfaceFunctionExplorer" ContainerDockedSize="1282,198" IsOpen="false" LastActiveDateTime="2026-11-05T17:58:16.9064808+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="792c075c-8ac2-4c17-94e9-8809753bdf66" SerializationId="TteLanguageExplorer" ContainerDockedSize="399,198" IsOpen="false" LastActiveDateTime="2026-11-19T09:30:10.3920969+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="72257bb0-24fb-4c42-b42a-d7666b985d2e" SerializationId="TraceItemExplorer" ContainerDockedSize="250,676" IsOpen="false" State="Docked" /&gt;
@@ -515,7 +504,7 @@
                       <string>ProjectView_Focused</string>
                     </key>
                     <value type="System.String">
-                      <string>IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vparam</string>
+                      <string>IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vtt</string>
                     </value>
                   </item>
                   <item>
@@ -524,7 +513,7 @@
                     </key>
                     <value type="System.Collections.ArrayList">
                       <ArrayOfAnyType>
-                        <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d13p1:type="q1:string" xmlns:d13p1="http://www.w3.org/2001/XMLSchema-instance">IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vparam</anyType>
+                        <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d13p1:type="q1:string" xmlns:d13p1="http://www.w3.org/2001/XMLSchema-instance">IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vtt</anyType>
                       </ArrayOfAnyType>
                     </value>
                   </item>
@@ -601,7 +590,7 @@
         <value type="Vector.ITE.DocumentManagement.DocumentPool.DocSettingList">
           <ArrayOfDocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="ConfigurationSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T06:07:54.7000546Z</LastTouched>
+              <LastTouched>2026-11-23T08:06:40.4550486Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -615,7 +604,7 @@
               <SerializedKey>ProjectConfiguration_</SerializedKey>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="DocumentSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T06:07:54.8086504Z</LastTouched>
+              <LastTouched>2026-11-23T06:23:14.6564785Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -635,7 +624,7 @@
                         <SplitPosition>150</SplitPosition>
                         <Expanded>true</Expanded>
                       </SplitterSettingsLv>
-                      <ActiveView>1</ActiveView>
+                      <ActiveView>4</ActiveView>
                     </TtEditorSettings>
                   </value>
                 </item>
@@ -653,7 +642,7 @@
                           <value type="System.Int32[]">
                             <ArrayOfInt>
                               <int>300</int>
-                              <int>44</int>
+                              <int>50</int>
                               <int>150</int>
                             </ArrayOfInt>
                           </value>
@@ -748,7 +737,7 @@
                           </TtTreeListColumnSettings>
                         </TreeListColumnSettings>
                       </TreeListSettings>
-                      <RootNodeId>:0</RootNodeId>
+                      <RootNodeId>:1</RootNodeId>
                       <MruList>
                         <TtCustomPopupListItemData>
                           <ItemText>Test Group</ItemText>
@@ -812,7 +801,7 @@
               <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="IBSTest\IBSTest.vtt" /&gt;</SerializedBasedFileName>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="DocumentSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T06:07:54.8561396Z</LastTouched>
+              <LastTouched>2026-11-23T08:06:40.7045244Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -890,7 +879,7 @@
               <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="IBSTest\IBSTest.vparam" /&gt;</SerializedBasedFileName>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="ConfigurationSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T06:07:54.7859842Z</LastTouched>
+              <LastTouched>2026-11-23T08:06:40.6898899Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -919,7 +908,7 @@
               <SerializedKey>TestUnitConfiguration_d2c5homfeg7q</SerializedKey>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="DocumentSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T06:07:54.9054007Z</LastTouched>
+              <LastTouched>2026-11-23T08:06:40.716349Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -968,6 +957,318 @@
                           <boolean>true</boolean>
                         </value>
                       </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>19</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>33</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>510</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>1152</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>1430</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>1846</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>2472</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>2685</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>3161</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>3673</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>4275</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>4779</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>5170</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>5983</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>8850</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>10906</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>10996</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>11260</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>12021</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>17376</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>17697</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>17918</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>19561</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>19959</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>21980</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>22531</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>24499</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>25531</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>26395</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>26512</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>26952</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>27414</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>27659</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>27961</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>28194</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>28583</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>28991</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>29391</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
+                      <item>
+                        <key type="System.Int32">
+                          <int>29651</int>
+                        </key>
+                        <value type="System.Boolean">
+                          <boolean>true</boolean>
+                        </value>
+                      </item>
                     </SerializableDictionaryOfInt32Boolean>
                   </value>
                 </item>
@@ -984,18 +1285,13 @@
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>CaplNavigator_TopIndex</string>
+                    <string>CaplNavigator_Expanded</string>
                   </key>
-                  <value type="System.Int32">
-                    <int>26</int>
-                  </value>
-                </item>
-                <item>
-                  <key type="System.String">
-                    <string>CaplNavigator_Focused</string>
-                  </key>
-                  <value type="System.String">
-                    <string>LIN_OpenNormal(): int</string>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType>
+                      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d7p1:type="q1:string">Functions</anyType>
+                      <anyType xmlns:q2="http://www.w3.org/2001/XMLSchema" d7p1:type="q2:string">Test Functions</anyType>
+                    </ArrayOfAnyType>
                   </value>
                 </item>
                 <item>
@@ -1004,19 +1300,24 @@
                   </key>
                   <value type="System.Collections.ArrayList">
                     <ArrayOfAnyType>
-                      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d7p1:type="q1:string">LIN_OpenNormal(): int</anyType>
+                      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d7p1:type="q1:string">PWR_Configure(float V, float Ichg, float Idchg): int</anyType>
                     </ArrayOfAnyType>
                   </value>
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>CaplNavigator_Expanded</string>
+                    <string>CaplNavigator_Focused</string>
                   </key>
-                  <value type="System.Collections.ArrayList">
-                    <ArrayOfAnyType>
-                      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d7p1:type="q1:string">Functions</anyType>
-                      <anyType xmlns:q2="http://www.w3.org/2001/XMLSchema" d7p1:type="q2:string">Test Functions</anyType>
-                    </ArrayOfAnyType>
+                  <value type="System.String">
+                    <string>PWR_Configure(float V, float Ichg, float Idchg): int</string>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CaplNavigator_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
                   </value>
                 </item>
                 <item>

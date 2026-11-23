@@ -1,136 +1,156 @@
-﻿14:26:30 # Build of test unit 'IBSTest' started...
-14:26:30 - Build Step #0: BuildPreparation (ArtefactID: -1)
-14:26:30 - ------------------------------------------------
-14:26:30 - ============================== Build Step #0 finished ==============================
-14:26:30 - Build Step #1: PreBuildEvent (ArtefactID: -1)
-14:26:30 - ---------------------------------------------
-14:26:30 - ============================== Build Step #1 finished ==============================
-14:26:30 - Build Step #2: BuildTestSequenceDiagramDependencyTree (ArtefactID: -1)
-14:26:30 - ----------------------------------------------------------------------
-14:26:30 - Nothing to do (no Test Sequence Diagram Files)
-14:26:30 - ============================== Build Step #2 finished ==============================
-14:26:30 - Build Step #3: TraceArtefactIds (ArtefactID: -1)
-14:26:30 - ------------------------------------------------
-14:26:30 - Artefact IDs:
-14:26:30 -   0 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt
-14:26:30 -   1 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam
-14:26:30 -   2 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can
-14:26:30 - ============================== Build Step #3 finished ==============================
-14:26:30 - Build Step #4: ValidateTestUnit (ArtefactID: -1)
-14:26:30 - ------------------------------------------------
-14:26:30 # Checking test unit consistency
-14:26:30 - ============================== Build Step #4 finished ==============================
-14:26:30 - Build Step #13: CopyParameterFile (ArtefactID: 1)
-14:26:30 - -------------------------------------------------
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vparam' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - ============================== Build Step #13 finished ==============================
-14:26:30 - Build Step #5: BuildParameterTypeLibs (ArtefactID: -1)
-14:26:30 - ------------------------------------------------------
-14:26:30 - Nothing to do (no C# documents and no .NET assemblies)
-14:26:30 - ============================== Build Step #5 finished ==============================
-14:26:30 - Build Step #6: BuildCaplTypeLibs (ArtefactID: -1)
-14:26:30 - -------------------------------------------------
-14:26:30 - Nothing to do (no C# documents and no .NET assemblies)
-14:26:30 - ============================== Build Step #6 finished ==============================
-14:26:30 - Build Step #7: BuildSysVarTypeLibs (ArtefactID: -1)
-14:26:30 - ---------------------------------------------------
-14:26:30 - Nothing to do (no C# documents and no .NET assemblies)
-14:26:30 - ============================== Build Step #7 finished ==============================
-14:26:30 - Build Step #8: BuildCoTypeLib (ArtefactID: -1)
-14:26:30 - ----------------------------------------------
-14:26:30 - Nothing to do (no C# documents and no .NET assemblies or no CO-Lib)
-14:26:30 - ============================== Build Step #8 finished ==============================
-14:26:30 - Build Step #9: ValidateTteFile (ArtefactID: 0)
-14:26:30 - ----------------------------------------------
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' is up to date (regarding to export table hash)
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - ============================== Build Step #9 finished ==============================
-14:26:30 - Build Step #10: ValidateParameterFile (ArtefactID: 1)
-14:26:30 - -----------------------------------------------------
-14:26:30 - Dependent files:
-14:26:30 - C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q=VP.vvarprop
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - ============================== Build Step #10 finished ==============================
-14:26:30 - Build Step #11: ValidateCaplFile (ArtefactID: 2)
-14:26:30 - ------------------------------------------------
-14:26:30 - CAPL file dependencies (direct dependencies only):
-14:26:30 - C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can --> <IBSTest.vparam>, <d2c5homfeg7q=VP.vvarprop>
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSFunctions.cbf' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - ============================== Build Step #11 finished ==============================
-14:26:30 - Build Step #12: ConditionalBuildAbort (ArtefactID: -1)
-14:26:30 - ------------------------------------------------------
-14:26:30 - All Validation succeeded - continue build.
-14:26:30 - ============================== Build Step #12 finished ==============================
-14:26:30 - Build Step #14: CollectNavigationInfo (ArtefactID: 0)
-14:26:30 - -----------------------------------------------------
-14:26:30 - ============================== Build Step #14 finished ==============================
-14:26:30 - Build Step #15: CompileVtt2Vxtx (ArtefactID: 0)
-14:26:30 - -----------------------------------------------
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx' is up to date (regarding to export table hash)
-14:26:30 - ============================== Build Step #15 finished ==============================
-14:26:30 - Build Step #16: CompileGeneratedCapl (ArtefactID: 0)
-14:26:30 - ----------------------------------------------------
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.cbf' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - ============================== Build Step #16 finished ==============================
-14:26:30 - Build Step #17: MergeCaplDocument (ArtefactID: 2)
-14:26:30 - -------------------------------------------------
-14:26:30 - CAPL file dependencies (direct dependencies only):
-14:26:30 - C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can --> <IBSTest.vparam>, <d2c5homfeg7q=VP.vvarprop>
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSFunctions.can' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - ============================== Build Step #17 finished ==============================
-14:26:30 - Build Step #18: MoveCSharpXmlDocumentation (ArtefactID: -1)
-14:26:30 - -----------------------------------------------------------
-14:26:30 - MoveCSharpXmlDocumentation: Skipped because option is deactivated
-14:26:30 - ============================== Build Step #18 finished ==============================
-14:26:30 - Build Step #19: ValidateTteFile (ArtefactID: 0)
-14:26:30 - -----------------------------------------------
-14:26:30 - ============================== Build Step #19 finished ==============================
-14:26:30 - Build Step #20: ValidateIdUsage (ArtefactID: -1)
-14:26:30 - ------------------------------------------------
-14:26:30 - ============================== Build Step #20 finished ==============================
-14:26:30 - Build Step #21: ExportTraceabilityMatrix (ArtefactID: -1)
-14:26:30 - ---------------------------------------------------------
-14:26:30 - ExportTraceabilityMatrix: Skipped because option is deactivated
-14:26:30 - ============================== Build Step #21 finished ==============================
-14:26:30 - Build Step #22: IncludeSources (ArtefactID: -1)
-14:26:30 - -----------------------------------------------
-14:26:30 - IncludeSources: Skipped because option is deactivated
-14:26:30 - ============================== Build Step #22 finished ==============================
-14:26:30 - Build Step #23: WriteSystemEnvironment (ArtefactID: -1)
-14:26:30 - -------------------------------------------------------
-14:26:30 - Copy merged Test System Variable file...
-14:26:30 - Copy <0ksehen3jd7c-MTSV> to C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\TestSysVars.vsysvar
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\TestSysVars.vsysvar' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - Add variant property file...
-14:26:30 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest_ctrlvars1.vvarprop' is up to date (regarding to dependencies in MAKE database)
-14:26:30 - ============================== Build Step #23 finished ==============================
-14:26:30 - Build Step #24: WriteTUProperties (ArtefactID: -1)
-14:26:30 - --------------------------------------------------
-14:26:30 - ============================== Build Step #24 finished ==============================
-14:26:30 - Build Step #25: WriteTetEntries (ArtefactID: -1)
-14:26:30 - ------------------------------------------------
-14:26:30 - ============================== Build Step #25 finished ==============================
-14:26:30 - Build Step #26: WriteManifest (ArtefactID: -1)
-14:26:30 - ----------------------------------------------
-14:26:30 - Writing manifest C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vtumanifest
-14:26:30 - ============================== Build Step #26 finished ==============================
-14:26:30 - Build Step #31: RemoveOrphanedBuildArtfacts (ArtefactID: -1)
-14:26:30 - ------------------------------------------------------------
-14:26:30 - Removing orphaned build artefacts from the vtuexe's main folder...
-14:26:30 - Nothing to do.
-14:26:30 - ============================== Build Step #31 finished ==============================
-14:26:30 - Build Step #27: WriteMetainfo (ArtefactID: -1)
-14:26:30 - ----------------------------------------------
-14:26:30 - BUILD TIME excluding ZIP/UNZIP (hours:minutes:seconds:milliseconds): 00:00:00:067
-14:26:30 - ============================== Build Step #27 finished ==============================
-14:26:30 - Build Step #28: WriteVtuexe (ArtefactID: -1)
-14:26:30 - --------------------------------------------
-14:26:30 # Test unit created 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtuexe'
-14:26:30 - ============================== Build Step #28 finished ==============================
-14:26:30 - Build Step #29: PostBuildEvent (ArtefactID: -1)
-14:26:30 - -----------------------------------------------
-14:26:30 - ============================== Build Step #29 finished ==============================
-14:26:30 - Build Step #30: BuildCleanup (ArtefactID: -1)
-14:26:30 - ---------------------------------------------
+﻿16:23:00 # Build of test unit 'IBSTest' started...
+16:23:00 - Build Step #0: BuildPreparation (ArtefactID: -1)
+16:23:00 - ------------------------------------------------
+16:23:01 - ============================== Build Step #0 finished ==============================
+16:23:01 - Build Step #1: PreBuildEvent (ArtefactID: -1)
+16:23:01 - ---------------------------------------------
+16:23:01 - ============================== Build Step #1 finished ==============================
+16:23:01 - Build Step #2: BuildTestSequenceDiagramDependencyTree (ArtefactID: -1)
+16:23:01 - ----------------------------------------------------------------------
+16:23:01 - Nothing to do (no Test Sequence Diagram Files)
+16:23:01 - ============================== Build Step #2 finished ==============================
+16:23:01 - Build Step #3: TraceArtefactIds (ArtefactID: -1)
+16:23:01 - ------------------------------------------------
+16:23:01 - Artefact IDs:
+16:23:01 -   0 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt
+16:23:01 -   1 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam
+16:23:01 -   2 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can
+16:23:01 - ============================== Build Step #3 finished ==============================
+16:23:01 - Build Step #4: ValidateTestUnit (ArtefactID: -1)
+16:23:01 - ------------------------------------------------
+16:23:01 # Checking test unit consistency
+16:23:01 - ============================== Build Step #4 finished ==============================
+16:23:01 - Build Step #13: CopyParameterFile (ArtefactID: 1)
+16:23:01 - -------------------------------------------------
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vparam' is outdated
+16:23:01 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:21:03) differs from 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:07:01) stored in MAKE database
+16:23:01 - Copied file 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vparam'
+16:23:01 - ============================== Build Step #13 finished ==============================
+16:23:01 - Build Step #5: BuildParameterTypeLibs (ArtefactID: -1)
+16:23:01 - ------------------------------------------------------
+16:23:01 - Nothing to do (no C# documents and no .NET assemblies)
+16:23:01 - ============================== Build Step #5 finished ==============================
+16:23:01 - Build Step #6: BuildCaplTypeLibs (ArtefactID: -1)
+16:23:01 - -------------------------------------------------
+16:23:01 - Nothing to do (no C# documents and no .NET assemblies)
+16:23:01 - ============================== Build Step #6 finished ==============================
+16:23:01 - Build Step #7: BuildSysVarTypeLibs (ArtefactID: -1)
+16:23:01 - ---------------------------------------------------
+16:23:01 - Nothing to do (no C# documents and no .NET assemblies)
+16:23:01 - ============================== Build Step #7 finished ==============================
+16:23:01 - Build Step #8: BuildCoTypeLib (ArtefactID: -1)
+16:23:01 - ----------------------------------------------
+16:23:01 - Nothing to do (no C# documents and no .NET assemblies or no CO-Lib)
+16:23:01 - ============================== Build Step #8 finished ==============================
+16:23:01 - Build Step #9: ValidateTteFile (ArtefactID: 0)
+16:23:01 - ----------------------------------------------
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' is up to date (regarding to export table hash)
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' is outdated
+16:23:01 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:21:03) differs from 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:07:01) stored in MAKE database
+16:23:01 # Compiling file 'IBSTest.vtt' in test unit 'IBSTest'
+16:23:01 # Compilation succeeded (16:23:01) -- 0 errors, 0 warnings
+16:23:01 - ============================== Build Step #9 finished ==============================
+16:23:01 - Build Step #10: ValidateParameterFile (ArtefactID: 1)
+16:23:01 - -----------------------------------------------------
+16:23:01 - Dependent files:
+16:23:01 - C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q=VP.vvarprop
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' is outdated
+16:23:01 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:21:03) differs from 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:07:01) stored in MAKE database
+16:23:01 # Compiling file 'IBSTest.vparam' in test unit 'IBSTest'
+16:23:01 # Compilation succeeded (16:23:01) -- 0 errors, 0 warnings
+16:23:01 - ============================== Build Step #10 finished ==============================
+16:23:01 - Build Step #11: ValidateCaplFile (ArtefactID: 2)
+16:23:01 - ------------------------------------------------
+16:23:01 - CAPL file dependencies (direct dependencies only):
+16:23:01 - C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can --> <IBSTest.vparam>, <d2c5homfeg7q=VP.vvarprop>
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSFunctions.cbf' is outdated
+16:23:01 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:21:03) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:07:01) stored in MAKE database
+16:23:01 - BuildStepUtilities.CompileCaplFile: 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can' --> 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSFunctions.cbf'
+16:23:01 # Compiling file 'IBSFunctions.can' in test unit 'IBSTest'
+16:23:01 # Compilation succeeded (16:23:01) -- 0 errors, 0 warnings
+16:23:01 - ============================== Build Step #11 finished ==============================
+16:23:01 - Build Step #12: ConditionalBuildAbort (ArtefactID: -1)
+16:23:01 - ------------------------------------------------------
+16:23:01 - All Validation succeeded - continue build.
+16:23:01 - ============================== Build Step #12 finished ==============================
+16:23:01 - Build Step #14: CollectNavigationInfo (ArtefactID: 0)
+16:23:01 - -----------------------------------------------------
+16:23:01 - ============================== Build Step #14 finished ==============================
+16:23:01 - Build Step #15: CompileVtt2Vxtx (ArtefactID: 0)
+16:23:01 - -----------------------------------------------
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx' is outdated
+16:23:01 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:21:03) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:07:01) stored in MAKE database
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' is outdated
+16:23:01 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:21:03) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:07:01) stored in MAKE database
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx' is up to date (regarding to export table hash)
+16:23:01 - ============================== Build Step #15 finished ==============================
+16:23:01 - Build Step #16: CompileGeneratedCapl (ArtefactID: 0)
+16:23:01 - ----------------------------------------------------
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.cbf' is outdated
+16:23:01 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' (2026-11-23 16:23:01) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' (2026-11-23 16:15:21) stored in MAKE database
+16:23:01 - BuildStepUtilities.CompileCaplFile: 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' --> 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.cbf'
+16:23:01 - Export table file 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q~3-0.' not copied to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__ExpTbl_\IBSTest.vtt.export.xml' because export tables have not changed
+16:23:01 - Copied file 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vtt'
+16:23:01 - ============================== Build Step #16 finished ==============================
+16:23:01 - Build Step #17: MergeCaplDocument (ArtefactID: 2)
+16:23:01 - -------------------------------------------------
+16:23:01 - CAPL file dependencies (direct dependencies only):
+16:23:01 - C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can --> <IBSTest.vparam>, <d2c5homfeg7q=VP.vvarprop>
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSFunctions.can' is outdated
+16:23:01 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:21:03) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 16:07:01) stored in MAKE database
+16:23:01 - Export table file 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q~0-0.' not copied to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__ExpTbl_\IBSFunctions.can.export.xml' because export tables have not changed
+16:23:01 - ============================== Build Step #17 finished ==============================
+16:23:01 - Build Step #18: MoveCSharpXmlDocumentation (ArtefactID: -1)
+16:23:01 - -----------------------------------------------------------
+16:23:01 - MoveCSharpXmlDocumentation: Skipped because option is deactivated
+16:23:01 - ============================== Build Step #18 finished ==============================
+16:23:01 - Build Step #19: ValidateTteFile (ArtefactID: 0)
+16:23:01 - -----------------------------------------------
+16:23:01 - ============================== Build Step #19 finished ==============================
+16:23:01 - Build Step #20: ValidateIdUsage (ArtefactID: -1)
+16:23:01 - ------------------------------------------------
+16:23:01 - ============================== Build Step #20 finished ==============================
+16:23:01 - Build Step #21: ExportTraceabilityMatrix (ArtefactID: -1)
+16:23:01 - ---------------------------------------------------------
+16:23:01 - ExportTraceabilityMatrix: Skipped because option is deactivated
+16:23:01 - ============================== Build Step #21 finished ==============================
+16:23:01 - Build Step #22: IncludeSources (ArtefactID: -1)
+16:23:01 - -----------------------------------------------
+16:23:01 - IncludeSources: Skipped because option is deactivated
+16:23:01 - ============================== Build Step #22 finished ==============================
+16:23:01 - Build Step #23: WriteSystemEnvironment (ArtefactID: -1)
+16:23:01 - -------------------------------------------------------
+16:23:01 - Copy merged Test System Variable file...
+16:23:01 - Copy <0ksehen3jd7c-MTSV> to C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\TestSysVars.vsysvar
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\TestSysVars.vsysvar' is up to date (regarding to dependencies in MAKE database)
+16:23:01 - Add variant property file...
+16:23:01 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest_ctrlvars1.vvarprop' is up to date (regarding to dependencies in MAKE database)
+16:23:01 - ============================== Build Step #23 finished ==============================
+16:23:01 - Build Step #24: WriteTUProperties (ArtefactID: -1)
+16:23:01 - --------------------------------------------------
+16:23:01 - ============================== Build Step #24 finished ==============================
+16:23:01 - Build Step #25: WriteTetEntries (ArtefactID: -1)
+16:23:01 - ------------------------------------------------
+16:23:02 - ============================== Build Step #25 finished ==============================
+16:23:02 - Build Step #26: WriteManifest (ArtefactID: -1)
+16:23:02 - ----------------------------------------------
+16:23:02 - Writing manifest C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vtumanifest
+16:23:02 - ============================== Build Step #26 finished ==============================
+16:23:02 - Build Step #31: RemoveOrphanedBuildArtfacts (ArtefactID: -1)
+16:23:02 - ------------------------------------------------------------
+16:23:02 - Removing orphaned build artefacts from the vtuexe's main folder...
+16:23:02 - Nothing to do.
+16:23:02 - ============================== Build Step #31 finished ==============================
+16:23:02 - Build Step #27: WriteMetainfo (ArtefactID: -1)
+16:23:02 - ----------------------------------------------
+16:23:02 - BUILD TIME excluding ZIP/UNZIP (hours:minutes:seconds:milliseconds): 00:00:01:107
+16:23:02 - ============================== Build Step #27 finished ==============================
+16:23:02 - Build Step #28: WriteVtuexe (ArtefactID: -1)
+16:23:02 - --------------------------------------------
+16:23:02 # Test unit created 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtuexe'
+16:23:02 - ============================== Build Step #28 finished ==============================
+16:23:02 - Build Step #29: PostBuildEvent (ArtefactID: -1)
+16:23:02 - -----------------------------------------------
+16:23:02 - ============================== Build Step #29 finished ==============================
+16:23:02 - Build Step #30: BuildCleanup (ArtefactID: -1)
+16:23:02 - ---------------------------------------------

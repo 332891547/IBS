@@ -8,6 +8,10 @@
         <title>休眠平均电流测试</title>
         <name>SleepCurrentTest</name>
       </tttestsequence>
+      <tttestsequence navid="e4b91c73-5d62-4f18-a870-2b9c31d6f045">
+        <title>工作电流测试（10–14 V）</title>
+        <name>WorkCurrentTest</name>
+      </tttestsequence>
     </tg>
     <tg navid="906cf73e-91f7-4f5a-9ece-6afc23215787">
       <title>基本功能测试</title>
@@ -169,6 +173,88 @@ write("[PARAM][STRUCT] RelayIdle = %d / %d / %d", rBattery, rCAB1500, rIBS);</co
         <completion>
           <title xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">收尾：停 LIN、关输出、等回零、继电器 SAFE、停日志</title>
           <ttfunction xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+            <title>PHASE_Complete</title>
+            <name>PHASE_Complete</name>
+          </ttfunction>
+        </completion>
+      </ts_definition>
+      <ts_definition navid="e4b91c73-5d62-4f18-a870-2b9c31d6f045">
+        <name>WorkCurrentTest</name>
+        <description>10 至 14 V 每点一次：2 s 内到压、1 s 内核对 LIN 电压反馈、连续积分 10 分钟并判定平均电流小于 25 mA</description>
+        <parameters />
+        <variables />
+        <preparation>
+          <title>准备测试环境</title>
+          <ttfunction>
+            <title>PHASE_Prepare</title>
+            <name>PHASE_Prepare</name>
+            <param>
+              <type>string</type>
+              <value>
+                <const>WorkCurrentTest</const>
+              </value>
+            </param>
+          </ttfunction>
+        </preparation>
+        <breakonfail>false</breakonfail>
+        <tttestcase>
+          <title>10 V 工作平均电流</title>
+          <name>WorkCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>10</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0002-4a01-9b01-000000000010</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>11 V 工作平均电流</title>
+          <name>WorkCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>11</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0002-4a01-9b01-000000000011</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>12 V 工作平均电流</title>
+          <name>WorkCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>12</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0002-4a01-9b01-000000000012</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>13 V 工作平均电流</title>
+          <name>WorkCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>13</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0002-4a01-9b01-000000000013</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>14 V 工作平均电流</title>
+          <name>WorkCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>14</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0002-4a01-9b01-000000000014</tcid>
+        </tttestcase>
+        <completion>
+          <title>完成测试并恢复安全态</title>
+          <ttfunction>
             <title>PHASE_Complete</title>
             <name>PHASE_Complete</name>
           </ttfunction>
@@ -474,6 +560,300 @@ write("[SLEEP][TIMEOUT] window_ms=%d timeout_ms=%d", (int)syspar::IBS::SC_Integr
         <caplinline>
           <title>记录本点结束</title>
           <code>write("[SLEEP][POINT][END] V=%.1f repeats=%d", OutPutVoltage, Repeat);</code>
+        </caplinline>
+      </tc_definition>
+      <tc_definition>
+        <name>WorkCurrent</name>
+        <description>单个电压点的工作平均电流：设压与 1 A 限流、开输出、2 s 内到压、启动 LIN 并 1 s 内核对 IBS 电压反馈、连续积分 10 分钟并判定平均电流小于 25 mA，随后关输出。</description>
+        <tcid>b7c1a2d3-0002-4a01-9b01-000000000000</tcid>
+        <parameters>
+          <parameter_definition>
+            <name>OutPutVoltage</name>
+            <type>float</type>
+          </parameter_definition>
+        </parameters>
+        <variables>
+          <variable_definition>
+            <name>WindowSeconds</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>WindowSecondsMin</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>IntegrationTimeoutMs</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+        </variables>
+        <breakonfail>false</breakonfail>
+        <caplinline>
+          <title>记录本点开始</title>
+          <code>write("[WORK][POINT][BEGIN] V=%.1f t=%I64d", OutPutVoltage, timeNowInt64());</code>
+        </caplinline>
+        <caplfunction>
+          <title>设定电压与 1 A 限流</title>
+          <name>PWR_Configure_Check</name>
+          <param>
+            <type>float</type>
+            <value>
+              <variable>OutPutVoltage</variable>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_ChargeLimit_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_DischargeLimit_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+        </caplfunction>
+        <caplfunction>
+          <title>开启电源输出</title>
+          <name>PWR_On_Check</name>
+        </caplfunction>
+        <awaitvaluematch>
+          <title>2 s 内等待 DVM 到达目标电压容差范围</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <variable>OutPutVoltage</variable>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <caplfunction>
+          <title>开启 LIN Normal 调度并等首帧</title>
+          <name>LIN_OpenNormal_Check</name>
+        </caplfunction>
+        <awaitvaluematch>
+          <title>1 s 内等待 LIN 电压反馈接近目标电压</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_UbattTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|ResetUBattV|LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <variable>OutPutVoltage</variable>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_UbattTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_UbattTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <set>
+          <title>写入积分窗口并清零积分状态</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Window_ms|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_IntegrationWindow_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Clear|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Done|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_StartNs|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <wait>
+          <title>清零释放后等待 20 ms</title>
+          <time>
+            <value>
+              <const>20</const>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>触发积分窗口</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Clear|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>1</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>确认积分窗口已启动</title>
+          <timeout>
+            <value>
+              <const>2000</const>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>any</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_StartNs|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <gt>
+              <const>0</const>
+            </gt>
+          </compare>
+        </awaitvaluematch>
+        <caplinline>
+          <title>计算积分超时与有效时长下限</title>
+          <code>IntegrationTimeoutMs = (int)syspar::IBS::WC_IntegrationWindow_ms + 5000;
+WindowSeconds = (float)syspar::IBS::WC_IntegrationWindow_ms / 1000.0;
+WindowSecondsMin = WindowSeconds - (float)syspar::IBS::WC_TimeTolerance_s;
+write("[WORK][WINDOW] window_ms=%d timeout_ms=%d min_s=%.3f",
+      (int)syspar::IBS::WC_IntegrationWindow_ms, IntegrationTimeoutMs, WindowSecondsMin);</code>
+        </caplinline>
+        <awaitvaluematch>
+          <title>等待积分完成（窗口时长 + 5 s）</title>
+          <timeout>
+            <value>
+              <variable>IntegrationTimeoutMs</variable>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>any</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Done|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <eq>
+              <const>1</const>
+            </eq>
+          </compare>
+        </awaitvaluematch>
+        <statecheck>
+          <title>判据：积分已完成</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Done|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </value>
+              <eq>
+                <const>1</const>
+              </eq>
+            </compare>
+          </expected>
+        </statecheck>
+        <statecheck>
+          <title>判据：积分时长覆盖窗口</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Time|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </value>
+              <ge>
+                <variable>WindowSecondsMin</variable>
+              </ge>
+            </compare>
+          </expected>
+        </statecheck>
+        <statecheck>
+          <title>判据：平均电流严格小于 25 mA</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Avg|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </value>
+              <lt>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::WC_AvgLimit_mA|END_OF_OBJECT_ChParScalar|</dbobject>
+              </lt>
+            </compare>
+          </expected>
+        </statecheck>
+        <caplinline>
+          <title>记录本点结果</title>
+          <code>write("[WORK][RESULT] V=%.1f done=%d time=%.3fs sum=%.6fmAs avg=%.6fmA limit=%.3fmA",
+      OutPutVoltage, @sysvar::IBS_LIN::StaticCurrent_Done,
+      @sysvar::IBS_LIN::StaticCurrent_Time, @sysvar::IBS_LIN::StaticCurrent_Sum,
+      @sysvar::IBS_LIN::StaticCurrent_Avg, (float)syspar::IBS::WC_AvgLimit_mA);</code>
+        </caplinline>
+        <caplfunction>
+          <title>关闭电源输出</title>
+          <name>PWR_Off_Check</name>
+        </caplfunction>
+        <caplinline>
+          <title>记录本点结束</title>
+          <code>write("[WORK][POINT][END] V=%.1f", OutPutVoltage);</code>
         </caplinline>
       </tc_definition>
     </tc_definitions>

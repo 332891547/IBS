@@ -76,3 +76,27 @@ IBS::SC_LinMonitor_ms	Auto	随后监控 ms	10000	2000
 IBS::SC_SleepWait_ms	Auto	停 LIN 后静置 ms，TBD	60000	2000
 IBS::SC_IntegrationWindow_ms	Auto	连续积分窗口 ms	1200000	20000
 
+
+Group	工作电流测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::WC_StartVoltage_V	Integer	起始电压 V	10
+IBS::WC_EndVoltage_V	Integer	终止电压 V	14
+IBS::WC_VoltageStep_V	Integer	步长 V	1
+IBS::WC_ChargeLimit_A	Float	充电限流 A，原文 1 A	1.0
+IBS::WC_DischargeLimit_A	Float	放电限流 A，原文 1 A	1.0
+IBS::WC_VoltageTimeout_ms	Integer	到压限时 ms，原文 2 s	2000
+IBS::WC_VoltageTolerance_V	Float	DVM 到压允许差 V	0.5
+IBS::WC_UbattTimeout_ms	Integer	LIN 电压反馈限时 ms，原文 1 s	1000
+IBS::WC_UbattTolerance_V	Float	LIN 电压反馈允许差 V	0.5
+IBS::WC_TimeTolerance_s	Float	积分时长允许短于窗口 s	2.0
+IBS::WC_AvgLimit_mA	Float	平均电流严格小于 mA，原文 25 mA	25.0
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::WC_IntegrationWindow_ms	Auto	连续积分窗口 ms，原文 10 min	600000	20000
