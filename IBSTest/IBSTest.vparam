@@ -1,0 +1,78 @@
+Vector Parameter	1.0
+Group	IBS_Reuse
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::TB_RelaySettle_ms	Integer	切继电器后等待，单位 ms	50
+IBS::TB_LinStopSettle_ms	Integer	停 LIN 调度后等待，单位 ms	100
+IBS::TB_LinOpenTimeout_ms	Integer	开 LIN 后等首帧超时，单位 ms	2000
+IBS::TB_LinFrameTarget	Integer	通讯建立帧数门槛	5
+IBS::TB_DvmZeroTolerance_V	Float	回零判据容差，单位 V	1.0
+IBS::TB_DvmZeroTimeout_ms	Integer	等 DVM 回零超时，单位 ms	1000
+IBS::TB_DvmPoll_ms	Integer	电压轮询间隔，单位 ms	200
+IBS::TB_DvmStableSamples	Integer	回零连续达标次数	3
+
+Group	IBS_Phase
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::TB_PrepTotalTimeout_ms	Integer	准备段总超时，单位 ms	5000
+IBS::TB_CompletionTotalTimeout_ms	Integer	收尾段总超时，单位 ms	5000
+IBS::TB_LogStopTimeout_ms	Integer	停日志超时，单位 ms	500
+IBS::TB_LogPrefix	String	日志前缀	IBS_
+
+
+StructSingleRecord
+
+StructName	IBS::RelayIdle
+ParameterName		Battery	CAB1500	IBS
+Type		Integer	Integer	Integer
+Info		准备态电池继电器	准备态CAB1500继电器	准备态IBS继电器
+Value		0	0	0
+
+
+StructSingleRecord
+
+StructName	IBS::RelaySafe
+ParameterName		Battery	CAB1500	IBS
+Type		Integer	Integer	Integer
+Info		安全态电池继电器	安全态CAB1500继电器	安全态IBS继电器
+Value		0	1	1
+
+Group	IBS_Case
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::TB_BatteryMin_V	Float	接电池允许最低电压，单位 V	10.0
+IBS::TB_BatteryMax_V	Float	接电池允许最高电压，单位 V	15.5
+IBS::TB_MaxSwitchVoltage_V	Float	切继电器允许的最高电压，单位 V	1.0
+IBS::TB_RequireOutputOffForBattery	Integer	接电池前必须先关输出，0/1	1
+
+Group	休眠平均电流测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::SC_StartVoltage_V	Integer	起始电压 V	10
+IBS::SC_EndVoltage_V	Integer	终止电压 V	14
+IBS::SC_VoltageStep_V	Integer	步长 V	1
+IBS::SC_ChargeLimit_A	Float	充电限流 A，台架确认值	0.5
+IBS::SC_DischargeLimit_A	Float	放电限流 A，台架确认值	0.5
+IBS::SC_VoltageTimeout_ms	Integer	到压限时 ms	5000
+IBS::SC_VoltageTolerance_V	Float	DVM 到压允许差 V	0.5
+IBS::SC_AvgLimit_mA	Float	平均电流严格小于 mA	0.250
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::SC_Repeats	Auto	每点轮数	3	1
+IBS::SC_LinRun_ms	Auto	LIN 保持通讯 ms	60000	2000
+IBS::SC_LinMonitor_ms	Auto	随后监控 ms	10000	2000
+IBS::SC_SleepWait_ms	Auto	停 LIN 后静置 ms，TBD	60000	2000
+IBS::SC_IntegrationWindow_ms	Auto	连续积分窗口 ms	1200000	20000
+

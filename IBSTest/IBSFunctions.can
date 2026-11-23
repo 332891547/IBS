@@ -1,0 +1,743 @@
+/*@!Encoding:936*/
+includes
+{
+}
+
+variables
+{
+  int gIBSCleanupFailed;
+}
+
+/* ============================================================================
+   准备段 / 收尾段封装节点
+   说明：以下 10 个 testfunction 由 IBSTest.vtt 的 PHASE_Prepare / PHASE_Complete
+         通过 ttfunction 调用；每个函数内部调用同文件业务函数并折算为用例判据。
+         所有函数只证明"命令已下发"，不证明设备物理状态。
+   ============================================================================ */
+
+/* 【准备】停 LIN 调度：调用 LIN_Stop；等待参数异常记失败。
+   限制：TB_LinStopSettle_ms 必须在 0..1000，越界返回 -2 并判准备失败。 */
+export testfunction PHASE_Prep_LinStop()
+{
+  int result;                                         /* LIN_Stop 返回值 */
+  result = LIN_Stop();                                /* 下发停调度并等待 */
+  if (result == -2)                                   /* -2 表示等待参数越界 */
+    testStepFail("PHASE_Prep_LinStop", "TB_LinStopSettle_ms out of 0..1000"); /* 判失败 */
+  else                                                /* 参数正常 */
+    testStepPass("PHASE_Prep_LinStop", "LIN scheduler stop requested, settle=%d ms; no status readback", (int)syspar::IBS::TB_LinStopSettle_ms); /* 写入报告 */
+}
+
+/* 【准备】禁用唤醒节点：调用 SNAP_WakeNode(0)。
+   限制：使能值只能是 0/1；此处固定 0，越界由业务函数拒绝。 */
+export testfunction PHASE_Prep_WakeNodeOff()
+{
+  if (SNAP_WakeNode(0) < 0)                           /* 写入 0 关闭唤醒节点 */
+    testStepFail("PHASE_Prep_WakeNodeOff", "WakeNodeEnable write rejected"); /* 写失败 */
+}
+
+/* 【准备】关闭电源输出：调用 PWR_Off。
+   限制：只下发关闭命令；不读取设备输出状态，关闭与否由后续 DVM 判定。 */
+export testfunction PHASE_Prep_PowerOff()
+{
+  if (PWR_Off() < 0)                                  /* 下发关输出命令 */
+    testStepFail("PHASE_Prep_PowerOff", "Output-off command failed"); /* 命令失败 */
+}
+
+/* 【准备】继电器切 IDLE：调用 RELAY_Set(1, -1)。
+   限制：只允许 SAFE=0 / IDLE=1，禁止 BATTERY；元组必须为 0/1 且 Battery=0；
+         TB_RelaySettle_ms 须在 0..500；
+         TB_MaxSwitchVoltage_V 须在 0.0..5.0；
+         且必须输出已关、DVM 电压在 ±该阈值内才允许切换。 */
+export testfunction PHASE_Prep_RelayIdle()
+{
+  if (RELAY_Set(1, -1) < 0)                           /* 1=IDLE，-1=不做回读 */
+    testStepFail("PHASE_Prep_RelayIdle", "IDLE relay command blocked by parameters or interlock"); /* 参数或互锁拒绝 */
+  else                                                /* 命令已写入 */
+    testStepPass("PHASE_Prep_RelayIdle", "IDLE relay command 0/%d/%d written, settle=%d ms; contacts not read back",  /* 写入报告 */
+                 (int)syspar::IBS::RelayIdle.CAB1500, (int)syspar::IBS::RelayIdle.IBS, (int)syspar::IBS::TB_RelaySettle_ms);
+}
+
+/* 【收尾】初始化清理标记：清零本轮清理失败标记，不接触设备。
+   限制：无参数；必须在其它收尾步骤之前调用，否则汇总结果无效。 */
+export testfunction PHASE_Done_Begin()
+{
+  gIBSCleanupFailed = 0;                              /* 清零清理失败标记 */
+}
+
+/* 【收尾】停 LIN 调度：调用 LIN_Stop；失败只记标记，不中断后续清理。
+   限制：TB_LinStopSettle_ms 须在 0..1000，越界（返回 -2）记清理失败。 */
+export testfunction PHASE_Done_LinStop()
+{
+  int result;                                         /* LIN_Stop 返回值 */
+  result = LIN_Stop();                                /* 下发停调度并等待 */
+  if (result == -2)                                   /* 等待参数越界 */
+  {
+    gIBSCleanupFailed = 1;                            /* 记清理失败 */
+    write("[PHASE][DONE][LIN][CLEANUP_FAILED] settle parameter out of range"); /* 记录原因 */
+  }
+}
+
+/* 【收尾】关闭电源输出：调用 PWR_Off；失败只记标记。
+   限制：只下发命令，无独立状态回读。 */
+export testfunction PHASE_Done_PowerOff()
+{
+  if (PWR_Off() < 0)                                  /* 下发关输出命令 */
+  {
+    gIBSCleanupFailed = 1;                            /* 记清理失败 */
+    write("[PHASE][DONE][PWR][CLEANUP_FAILED] output-off command failed"); /* 记录原因 */
+  }
+}
+
+/* 【收尾】等待 DVM 回零：调用 PWR_WaitZero 默认参数。
+   限制：容差取自 TB_DvmZeroTolerance_V，须在 (0,5]；
+         超时 TB_DvmZeroTimeout_ms 须在 1..5000；
+         轮询 TB_DvmPoll_ms 须在 1..100；
+         连续达标次数 TB_DvmStableSamples 须在 1..20；
+         任一越界或超时均记清理失败。 */
+export testfunction PHASE_Done_WaitZero()
+{
+  int result;                                         /* 回零等待结果 */
+  result = PWR_WaitZero(-1, -1, -1, -1);              /* -1 表示全部取默认参数 */
+  if (result < 0)                                     /* 超时或参数越界 */
+  {
+    gIBSCleanupFailed = 1;                            /* 记清理失败 */
+    write("[PHASE][DONE][PWR][CLEANUP_FAILED] DVM zero wait failed status=%d", result); /* 记录状态码 */
+  }
+}
+
+/* 【收尾】继电器切 SAFE：调用 RELAY_Set(0, -1)；失败只记标记。
+   限制：SAFE=0；元组须为 0/1 且 Battery=0；TB_RelaySettle_ms 须在 0..500；
+         TB_MaxSwitchVoltage_V 须在 0.0..5.0；须满足输出关闭和 DVM 阈值互锁。 */
+export testfunction PHASE_Done_RelaySafe()
+{
+  int result;                                         /* 继电器切换结果 */
+  result = RELAY_Set(0, -1);                          /* 0=SAFE，-1=不做回读 */
+  if (result < 0)                                     /* 参数或互锁拒绝 */
+  {
+    gIBSCleanupFailed = 1;                            /* 记清理失败 */
+    write("[PHASE][DONE][RELAY][CLEANUP_FAILED] SAFE command blocked status=%d", result); /* 记录状态码 */
+  }
+}
+
+/* 【收尾】禁用唤醒节点：再次调用 SNAP_WakeNode(0)。
+   限制：使能值只能 0/1；失败记清理失败但不中断。 */
+export testfunction PHASE_Done_WakeNodeOff()
+{
+  if (SNAP_WakeNode(0) < 0)                           /* 再次写 0 关闭唤醒节点 */
+  {
+    gIBSCleanupFailed = 1;                            /* 记清理失败 */
+    write("[PHASE][DONE][SNAP][CLEANUP_FAILED] wake-node disable failed"); /* 记录原因 */
+  }
+}
+
+/* 【收尾】汇总清理结果：有失败则判用例失败，否则只声明命令流程完成。
+   限制：必须在全部收尾步骤之后调用；无失败也只表示命令下发完成，
+         不代表继电器触点或 DVM 采样新鲜度已确认。 */
+export testfunction PHASE_Done_Result()
+{
+  if (gIBSCleanupFailed)                              /* 任一收尾步骤失败 */
+    testStepFail("PHASE_Done_Result", "One or more cleanup steps failed; see write log"); /* 判失败 */
+  else                                                /* 全部命令下发成功 */
+    write("[PHASE][DONE][UNVERIFIED] commands issued; contacts and DVM freshness not confirmed"); /* 声明未验证 */
+}
+
+/* 【监控】10 s 通讯监控：判三帧有效计数是否增长、无效计数是否不增。
+   有效判据来自旧工程 CURRENT_CAL.can：
+     Measured_Data 须 ERROR_Common/Resp_Error/ERROR_IDENT/FLAG_INCONSISTENCY 全 0 且 U_BATT!=16383；
+     Calc_Data_1 须 SOC<=100；Calc_Data_2 须 Q_Charge!=65535。
+   前置：本工程须已链接 Project_SysVar.vsysvar 等含 Reset* 计数的系统变量文件，
+         否则以下 @sysvar 引用会在编译期报未知符号。
+   判据：三个有效计数各至少 +1，且 ResetInvalidCounter 增量必须为 0。
+   限制：只判数量与有效性，不判帧率是否达标，也不判 DVM 电压（电压已在到压步骤确认）。 */
+export testfunction SleepCurrent_Monitor_Check()
+{
+  int measuredBefore;                                 /* 监控起点：0x34 有效帧计数 */
+  int calc1Before;                                    /* 监控起点：0x35 有效帧计数 */
+  int calc2Before;                                    /* 监控起点：0x36 有效帧计数 */
+  int invalidBefore;                                  /* 监控起点：无效业务信号计数 */
+  int measuredAfter;                                  /* 监控终点：0x34 有效帧计数 */
+  int calc1After;                                     /* 监控终点：0x35 有效帧计数 */
+  int calc2After;                                     /* 监控终点：0x36 有效帧计数 */
+  int invalidAfter;                                   /* 监控终点：无效业务信号计数 */
+
+  measuredBefore = @sysvar::LIN::ResetMeasuredCounter; /* 记录基线：0x34 */
+  calc1Before    = @sysvar::LIN::ResetCalc1Counter;    /* 记录基线：0x35 */
+  calc2Before    = @sysvar::LIN::ResetCalc2Counter;    /* 记录基线：0x36 */
+  invalidBefore  = @sysvar::LIN::ResetInvalidCounter;  /* 记录基线：无效计数 */
+
+  testWaitForTimeout((int)syspar::IBS::SC_LinMonitor_ms); /* 按参数等待监控时长，默认 10 s */
+
+  measuredAfter = @sysvar::LIN::ResetMeasuredCounter;  /* 采样终点：0x34 */
+  calc1After    = @sysvar::LIN::ResetCalc1Counter;     /* 采样终点：0x35 */
+  calc2After    = @sysvar::LIN::ResetCalc2Counter;     /* 采样终点：0x36 */
+  invalidAfter  = @sysvar::LIN::ResetInvalidCounter;   /* 采样终点：无效计数 */
+
+  write("[SLEEP][MONITOR] 34:%d->%d 35:%d->%d 36:%d->%d invalid:%d->%d",
+        measuredBefore, measuredAfter, calc1Before, calc1After,
+        calc2Before, calc2After, invalidBefore, invalidAfter); /* 记录四个计数的首尾值 */
+
+  /* 判据一：0x34 有效帧必须有增长，否则视为 Measured_Data 未正常刷新 */
+  if (measuredAfter <= measuredBefore)
+    testStepFail("SleepMonitor_34", "No valid Measured_Data frame in %d ms", (int)syspar::IBS::SC_LinMonitor_ms);
+
+  /* 判据二：0x35 有效帧必须有增长，否则视为 Calc_Data_1 未正常刷新 */
+  if (calc1After <= calc1Before)
+    testStepFail("SleepMonitor_35", "No valid Calc_Data_1 frame in %d ms", (int)syspar::IBS::SC_LinMonitor_ms);
+
+  /* 判据三：0x36 有效帧必须有增长，否则视为 Calc_Data_2 未正常刷新 */
+  if (calc2After <= calc2Before)
+    testStepFail("SleepMonitor_36", "No valid Calc_Data_2 frame in %d ms", (int)syspar::IBS::SC_LinMonitor_ms);
+
+  /* 判据四：无效业务信号计数不得增长，任何增长都说明帧内容非法 */
+  if (invalidAfter != invalidBefore)
+    testStepFail("SleepMonitor_Invalid", "Invalid business signal increased %d -> %d",
+                 invalidBefore, invalidAfter);
+
+  /* 四项全部满足才判定本轮通讯监控通过 */
+  if (measuredAfter > measuredBefore && calc1After > calc1Before &&
+      calc2After > calc2Before && invalidAfter == invalidBefore)
+    write("[SLEEP][MONITOR][PASS] all three valid frames increased; no invalid signal");
+}
+
+/* 【测试中切换继电器】保留带电切换互锁：切之前先关输出并等 DVM 降到切换阈值内，切完再恢复原设定与输出。
+   用途：测试执行期间需要改继电器状态时调用；绝不在带电状态下直接切。
+   限制：state 只能 0(SAFE) / 1(IDLE)，Battery 恒为 0；
+         切换门槛复用 TB_MaxSwitchVoltage_V；
+         DVM 降到阈值内的等待用 timeout=1000 ms、poll=50 ms、连续 2 次；
+         恢复输出后不校验电压是否已回到目标值，须由调用方后续等压步骤确认。 */
+export testfunction RELAY_SafeSwitch_Check(int state)
+{
+  int wasOn;                                          /* 切换前输出命令状态 */
+  float setV;                                         /* 切换前电压设定值 */
+  float setIchg;                                      /* 切换前充电限流设定值 */
+  float setIdchg;                                     /* 切换前放电限流设定值 */
+
+  wasOn    = @sysvar::N8361::Set_OutputSts;           /* 记录原输出命令状态 */
+  setV     = @sysvar::N8361::Set_OutPutVoltage;       /* 记录原电压设定 */
+  setIchg  = @sysvar::N8361::Set_ChargeCurrent;       /* 记录原充电限流 */
+  setIdchg = @sysvar::N8361::Set_DicChargeCurrent;    /* 记录原放电限流 */
+
+  /* 输出开着才需要先关；已关则直接进入切换，保持互锁语义 */
+  if (wasOn != 0)
+  {
+    /* 先关输出，避免带电切换 */
+    if (PWR_Off() < 0)
+    {
+      testStepFail("RELAY_SafeSwitch", "output-off before relay switch failed"); /* 关输出失败 */
+      return;                                         /* 不切继电器 */
+    }
+    /* 等 DVM 降到切换阈值以内，满足 RELAY_Set 的互锁条件 */
+    if (PWR_WaitZero((float)syspar::IBS::TB_MaxSwitchVoltage_V, 1000, 50, 2) < 0)
+    {
+      testStepFail("RELAY_SafeSwitch", "DVM did not fall below %.3f V; relay not switched", /* 电压未降下来 */
+                   (float)syspar::IBS::TB_MaxSwitchVoltage_V);
+      return;                                         /* 保持输出关闭，不切继电器 */
+    }
+  }
+
+  /* 此时互锁条件已满足，切换继电器 */
+  if (RELAY_Set(state, -1) < 0)
+  {
+    testStepFail("RELAY_SafeSwitch", "relay switch to state %d blocked", state); /* 切换被拒 */
+    return;                                           /* 不再恢复输出，保持安全态 */
+  }
+
+  /* 原来输出是开的，恢复设定值与输出 */
+  if (wasOn != 0)
+  {
+    /* 先恢复设定值：RELAY_Set 已把 Battery 置 0，PWR_Configure 只校验电池命令 */
+    if (PWR_Configure(setV, setIchg, setIdchg) < 0 || PWR_On() < 0)
+    {
+      testStepFail("RELAY_SafeSwitch", "restore output after relay switch failed"); /* 恢复失败 */
+      return;                                         /* 输出保持关闭 */
+    }
+  }
+
+  /* 写入报告：记录切换目标与实际执行的动作，便于追溯是否发生了断电重上电 */
+  testStepPass("RELAY_SafeSwitch", "relay switched to state %d; output was_on=%d restored", state, wasOn);
+}
+
+/* 编译探针：验证普通导出函数可被同文件测试函数调用；不参与 IBS 测试流程。 */
+export int IBS_AddOne(int value)
+{
+  return value + 1;
+}
+
+/* 编译探针节点：检查普通导出函数的返回值；不接设备。 */
+export testfunction IBS_ProbeReturn()
+{
+  int result;
+  result = IBS_AddOne(41);
+  /* 编译探针：返回值不是 42 说明导出函数调用链异常 */
+  if (result != 42)
+  {
+    testStepFail("CAPLProbe", "Unexpected result: %d", result);
+  }
+}
+
+/* 继电器参数入口：按状态和通道读取命令元组；0=SAFE，1=IDLE，不支持 BATTERY。 */
+export int RELAY_Tuple(int state, int idx)
+{
+  /* 通道下标越界：只允许 0=Battery / 1=CAB1500 / 2=IBS */
+  if (idx < 0 || idx > 2) return -1;
+  /* state=0 取 SAFE 元组 */
+  if (state == 0)
+  {
+    /* SAFE 通道 0 = Battery */
+    if (idx == 0) return (int)syspar::IBS::RelaySafe.Battery;
+    /* SAFE 通道 1 = CAB1500，其余落到 IBS */
+    if (idx == 1) return (int)syspar::IBS::RelaySafe.CAB1500;
+    return (int)syspar::IBS::RelaySafe.IBS;
+  }
+  /* state=1 取 IDLE 元组 */
+  if (state == 1)
+  {
+    /* IDLE 通道 0 = Battery */
+    if (idx == 0) return (int)syspar::IBS::RelayIdle.Battery;
+    /* IDLE 通道 1 = CAB1500，其余落到 IBS */
+    if (idx == 1) return (int)syspar::IBS::RelayIdle.CAB1500;
+    return (int)syspar::IBS::RelayIdle.IBS;
+  }
+  return -1;
+}
+
+/* 准备前参数校验：只读现有参数，发现越界即拒绝进入设备动作。 */
+export int PHASE_ValidateParams()
+{
+  int state;
+  int idx;
+  int value;
+  int different;
+  int safeValue;
+  int idleValue;
+  int invalid;
+  invalid = 0;
+  different = 0;
+  for (state = 0; state <= 1; state++)
+  {
+    for (idx = 0; idx < 3; idx++)
+    {
+      value = RELAY_Tuple(state, idx);
+      /* 命令值只能是 0/1，其它值会写坏布尔型系统变量 */
+      if (value != 0 && value != 1)
+      {
+        write("[MOD=PARAM][INVALID] name=RelayTuple state=%d idx=%d value=%d", state, idx, value);
+        invalid = 1;
+      }
+    }
+  }
+  for (idx = 0; idx < 3; idx++)
+  {
+    safeValue = RELAY_Tuple(0, idx);
+    idleValue = RELAY_Tuple(1, idx);
+    /* 两态元组只要有一路不同，即视为 SAFE/IDLE 已区分 */
+    if (safeValue != idleValue) different = 1;
+  }
+  /* 两态元组完全相同则无法区分 SAFE 与 IDLE，判非法 */
+  if (!different) { write("[MOD=PARAM][INVALID] name=RelaySafe/RelayIdle value=identical"); invalid = 1; }
+  /* Battery 通道两态都必须是 0，禁止自动接通真实电池 */
+  if (RELAY_Tuple(0, 0) != 0 || RELAY_Tuple(1, 0) != 0)
+  {
+    write("[MOD=PARAM][INVALID] name=RelayBattery value=%d/%d", RELAY_Tuple(0, 0), RELAY_Tuple(1, 0));
+    invalid = 1;
+  }
+  /* TB_RelaySettle_ms 限制 0..500 ms，越界判非法 */
+  if ((int)syspar::IBS::TB_RelaySettle_ms < 0 || (int)syspar::IBS::TB_RelaySettle_ms > 500)
+  { write("[MOD=PARAM][INVALID] name=TB_RelaySettle_ms value=%d", (int)syspar::IBS::TB_RelaySettle_ms); invalid = 1; }
+  /* TB_LinStopSettle_ms 限制 0..1000 ms，越界判非法 */
+  if ((int)syspar::IBS::TB_LinStopSettle_ms < 0 || (int)syspar::IBS::TB_LinStopSettle_ms > 1000)
+  { write("[MOD=PARAM][INVALID] name=TB_LinStopSettle_ms value=%d", (int)syspar::IBS::TB_LinStopSettle_ms); invalid = 1; }
+  /* TB_LinOpenTimeout_ms 限制 500..5000 ms，越界判非法 */
+  if ((int)syspar::IBS::TB_LinOpenTimeout_ms < 500 || (int)syspar::IBS::TB_LinOpenTimeout_ms > 5000)
+  { write("[MOD=PARAM][INVALID] name=TB_LinOpenTimeout_ms value=%d", (int)syspar::IBS::TB_LinOpenTimeout_ms); invalid = 1; }
+  /* TB_LinFrameTarget 限制 1..20 帧，越界判非法 */
+  if ((int)syspar::IBS::TB_LinFrameTarget < 1 || (int)syspar::IBS::TB_LinFrameTarget > 20)
+  { write("[MOD=PARAM][INVALID] name=TB_LinFrameTarget value=%d", (int)syspar::IBS::TB_LinFrameTarget); invalid = 1; }
+  /* TB_DvmZeroTolerance_V 限制 0.1..2.0 V，越界判非法 */
+  if ((float)syspar::IBS::TB_DvmZeroTolerance_V < 0.1 || (float)syspar::IBS::TB_DvmZeroTolerance_V > 2.0)
+  { write("[MOD=PARAM][INVALID] name=TB_DvmZeroTolerance_V value=%.3f", (float)syspar::IBS::TB_DvmZeroTolerance_V); invalid = 1; }
+  /* TB_DvmZeroTimeout_ms 限制 200..5000 ms，越界判非法 */
+  if ((int)syspar::IBS::TB_DvmZeroTimeout_ms < 200 || (int)syspar::IBS::TB_DvmZeroTimeout_ms > 5000)
+  { write("[MOD=PARAM][INVALID] name=TB_DvmZeroTimeout_ms value=%d", (int)syspar::IBS::TB_DvmZeroTimeout_ms); invalid = 1; }
+  /* TB_DvmPoll_ms 限制 5..50 ms，越界判非法 */
+  if ((int)syspar::IBS::TB_DvmPoll_ms < 5 || (int)syspar::IBS::TB_DvmPoll_ms > 50)
+  { write("[MOD=PARAM][INVALID] name=TB_DvmPoll_ms value=%d", (int)syspar::IBS::TB_DvmPoll_ms); invalid = 1; }
+  /* TB_DvmStableSamples 限制 1..10 次，越界判非法 */
+  if ((int)syspar::IBS::TB_DvmStableSamples < 1 || (int)syspar::IBS::TB_DvmStableSamples > 10)
+  { write("[MOD=PARAM][INVALID] name=TB_DvmStableSamples value=%d", (int)syspar::IBS::TB_DvmStableSamples); invalid = 1; }
+  /* TB_PrepTotalTimeout_ms 限制 1000..15000 ms，越界判非法 */
+  if ((int)syspar::IBS::TB_PrepTotalTimeout_ms < 1000 || (int)syspar::IBS::TB_PrepTotalTimeout_ms > 15000)
+  { write("[MOD=PARAM][INVALID] name=TB_PrepTotalTimeout_ms value=%d", (int)syspar::IBS::TB_PrepTotalTimeout_ms); invalid = 1; }
+  /* TB_CompletionTotalTimeout_ms 限制 1000..15000 ms，越界判非法 */
+  if ((int)syspar::IBS::TB_CompletionTotalTimeout_ms < 1000 || (int)syspar::IBS::TB_CompletionTotalTimeout_ms > 15000)
+  { write("[MOD=PARAM][INVALID] name=TB_CompletionTotalTimeout_ms value=%d", (int)syspar::IBS::TB_CompletionTotalTimeout_ms); invalid = 1; }
+  /* TB_LogStopTimeout_ms 限制 100..2000 ms，越界判非法 */
+  if ((int)syspar::IBS::TB_LogStopTimeout_ms < 100 || (int)syspar::IBS::TB_LogStopTimeout_ms > 2000)
+  { write("[MOD=PARAM][INVALID] name=TB_LogStopTimeout_ms value=%d", (int)syspar::IBS::TB_LogStopTimeout_ms); invalid = 1; }
+  /* 电池电压范围非法：下限低于 10 V、上限高于 15.5 V，或下限不小于上限 */
+  if ((float)syspar::IBS::TB_BatteryMin_V < 10.0 ||
+      (float)syspar::IBS::TB_BatteryMax_V > 15.5 ||
+      (float)syspar::IBS::TB_BatteryMin_V >= (float)syspar::IBS::TB_BatteryMax_V)
+  {
+    write("[MOD=PARAM][INVALID] name=TB_BatteryMin_V/TB_BatteryMax_V value=%.3f/%.3f",
+          (float)syspar::IBS::TB_BatteryMin_V, (float)syspar::IBS::TB_BatteryMax_V);
+    invalid = 1;
+  }
+  /* TB_MaxSwitchVoltage_V 限制 0.0..5.0 V，越界判非法 */
+  if ((float)syspar::IBS::TB_MaxSwitchVoltage_V < 0.0 ||
+      (float)syspar::IBS::TB_MaxSwitchVoltage_V > 5.0)
+  { write("[MOD=PARAM][INVALID] name=TB_MaxSwitchVoltage_V value=%.3f", (float)syspar::IBS::TB_MaxSwitchVoltage_V); invalid = 1; }
+  /* TB_RequireOutputOffForBattery 只能取 0/1，其它值判非法 */
+  if ((int)syspar::IBS::TB_RequireOutputOffForBattery != 0 &&
+      (int)syspar::IBS::TB_RequireOutputOffForBattery != 1)
+  { write("[MOD=PARAM][INVALID] name=TB_RequireOutputOffForBattery value=%d", (int)syspar::IBS::TB_RequireOutputOffForBattery); invalid = 1; }
+  /* 只要任一参数越界即整体拒绝，不进入设备动作 */
+  if (invalid) return -1;
+  write("[MOD=PARAM][VALID] available command-mode parameters in range; physical readback not available");
+  return 1;
+}
+
+/* 准备段适配节点：调用 PHASE_ValidateParams，参数无效时报告准备失败。 */
+export testfunction PHASE_ValidateParams_Check()
+{
+  int result;
+  result = PHASE_ValidateParams();
+  /* PHASE_ValidateParams 只有返回 1 才算校验通过，其它值判失败 */
+  if (result != 1)
+  {
+    testStepFail("PreparationBlocked", "Parameter verification incomplete or invalid (status=%d)", result);
+  }
+}
+
+/* 电源关输出：下发关闭命令；不代表设备输出已物理关闭。 */
+export int PWR_Off()
+{
+  @sysvar::N8361::Set_OutputSts = 0;
+  write("[MOD=PWR][UNVERIFIED] output-off command written; device status not returned to this function");
+  return 0;
+}
+
+/* 收尾回零等待：轮询 DVM 阈值，超时返回失败；无法证明样本新鲜。 */
+export int PWR_WaitZero(float tol, int timeout, int poll, int samples)
+{
+  int stableCount;
+  int64 startedNs;
+  float voltage;
+  /* 容差传 -1 表示改用参数 TB_DvmZeroTolerance_V */
+  if (tol == -1) tol = (float)syspar::IBS::TB_DvmZeroTolerance_V;
+  /* 超时传 -1 表示改用参数 TB_DvmZeroTimeout_ms */
+  if (timeout == -1) timeout = (int)syspar::IBS::TB_DvmZeroTimeout_ms;
+  /* 轮询传 -1 表示改用参数 TB_DvmPoll_ms */
+  if (poll == -1) poll = (int)syspar::IBS::TB_DvmPoll_ms;
+  /* 连续达标次数传 -1 表示改用参数 TB_DvmStableSamples */
+  if (samples == -1) samples = (int)syspar::IBS::TB_DvmStableSamples;
+  /* 四参数范围校验：容差 (0,5]、超时 1..5000、轮询 1..500、次数 1..20 */
+  if (!(tol > 0.0 && tol <= 5.0) || timeout < 1 || timeout > 5000 || poll < 1 || poll > 500 || samples < 1 || samples > 20)
+  {
+    write("[MOD=PWR][INVALID] wait-zero tol=%.3f timeout=%d poll=%d samples=%d", tol, timeout, poll, samples);
+    return -1;
+  }
+  /* ErrStatus 汇总三路状态，不能证明当前 DVM 读数是新样本。 */
+  stableCount = 0;
+  startedNs = timeNowInt64();
+  while ((timeNowInt64() - startedNs) / 1000000 < timeout)
+  {
+    voltage = @sysvar::N8361::DVM_Voltage;
+    /* 电压落在零窗口内则累加连续达标次数，出窗则重新计数 */
+    if (voltage >= -tol && voltage <= tol) stableCount++;
+    else stableCount = 0;
+    /* 连续达标次数达到要求即判定 DVM 已回零 */
+    if (stableCount >= samples)
+    {
+      testStepPass("PWR_WaitZero", "DVM zero observed %.3f V (tol +/-%.3f V, %d samples)", voltage, tol, samples); /* 写入报告 */
+      return 0;
+    }
+    testWaitForTimeout(poll);
+  }
+  testStepFail("PWR_WaitZero", "DVM did not reach zero in %d ms; last=%.3f V (tol +/-%.3f V)", timeout, @sysvar::N8361::DVM_Voltage, tol); /* 写入报告 */
+  return -1;
+}
+
+/* 唤醒节点控制：写入使能命令，不读取节点实际状态。 */
+export int SNAP_WakeNode(int enable)
+{
+  /* 使能值只能是 0/1，其它值会写坏布尔型系统变量 */
+  if (enable != 0 && enable != 1)
+  {
+    write("[MOD=SNAP][INVALID] WakeNodeEnable value=%d", enable);
+    return -1;
+  }
+  @sysvar::LIN::WakeNodeEnable = enable;
+  write("[MOD=SNAP][UNVERIFIED] WakeNodeEnable command=%d; node state not confirmed", enable);
+  return 0;
+}
+
+/* 继电器切换：仅允许 SAFE/IDLE，核对输出命令和 DVM 阈值后写命令；不验证触点。 */
+export int RELAY_Set(int state, int readbackSamples)
+{
+  int battery;
+  int cab1500;
+  int ibs;
+  int settle;
+  /* 只支持 SAFE=0 / IDLE=1，BATTERY 及其它值一律拒绝 */
+  if (state != 0 && state != 1)
+  {
+    write("[MOD=RELAY][INVALID] state=%d; only SAFE=0/IDLE=1 supported; BATTERY prohibited", state);
+    return -1;
+  }
+  /* 只支持 -1（不做回读）：本系统没有继电器触点回读能力 */
+  if (readbackSamples != -1)
+  {
+    write("[MOD=RELAY][UNVERIFIED] readbackSamples=%d unsupported; no relay-contact readback exists", readbackSamples);
+    return -1;
+  }
+  battery = RELAY_Tuple(state, 0);
+  cab1500 = RELAY_Tuple(state, 1);
+  ibs = RELAY_Tuple(state, 2);
+  settle = (int)syspar::IBS::TB_RelaySettle_ms;
+  /* 元组须为 0/1 且 Battery=0，等待 0..500 ms，阈值 0.0..5.0 V，任一越界即拒绝 */
+  if (battery != 0 || (cab1500 != 0 && cab1500 != 1) ||
+      (ibs != 0 && ibs != 1) || settle < 0 || settle > 500 ||
+      (float)syspar::IBS::TB_MaxSwitchVoltage_V < 0.0 ||
+      (float)syspar::IBS::TB_MaxSwitchVoltage_V > 5.0)
+  {
+    write("[MOD=RELAY][INVALID] state=%d tuple=%d/%d/%d settle=%d", state, battery, cab1500, ibs, settle);
+    return -1;
+  }
+  /* 运行时带电切换互锁：输出未关或 DVM 超过阈值时禁止切继电器 */
+  if (@sysvar::N8361::Set_OutputSts != 0 ||
+      @sysvar::N8361::DVM_Voltage > (float)syspar::IBS::TB_MaxSwitchVoltage_V ||
+      @sysvar::N8361::DVM_Voltage < -(float)syspar::IBS::TB_MaxSwitchVoltage_V)
+  {
+    write("[MOD=RELAY][BLOCKED] output_cmd=%d dvm=%.3f V; switch threshold=%.3f V; DVM freshness unverified",
+          @sysvar::N8361::Set_OutputSts, @sysvar::N8361::DVM_Voltage,
+          (float)syspar::IBS::TB_MaxSwitchVoltage_V);
+    return -1;
+  }
+  @sysvar::Power_RelayCrtl::BatteryConnectEquipment = 0;
+  @sysvar::Power_RelayCrtl::CAB1500_PowerCtrl = cab1500;
+  @sysvar::Power_RelayCrtl::IBS_PowerCtrl = ibs;
+  /* settle 为 0 表示不等待；大于 0 才延时 */
+  if (settle > 0) testWaitForTimeout(settle);
+  write("[MOD=RELAY][UNVERIFIED] state=%d command=0/%d/%d; DVM freshness and physical contacts not confirmed", state, cab1500, ibs);
+  return 0;
+}
+
+/* LIN 停表：下发停调度命令并按参数等待；无独立停表回读。 */
+export int LIN_Stop()
+{
+  int settle;
+  settle = (int)syspar::IBS::TB_LinStopSettle_ms;
+  linStopScheduler();
+  /* TB_LinStopSettle_ms 限制 0..1000 ms，越界返回 -2 表示参数非法 */
+  if (settle < 0 || settle > 1000)
+  {
+    write("[MOD=LIN][INVALID] TB_LinStopSettle_ms=%d; stop command still requested", settle);
+    return -2;
+  }
+  /* settle 为 0 表示不等待；大于 0 才延时 */
+  if (settle > 0) testWaitForTimeout(settle);
+  write("[MOD=LIN][UNVERIFIED] stop scheduler requested; no independent scheduler-status readback");
+  return 0;
+}
+
+/* LIN 开正常表：清计数、启动调度、等待本轮收到目标帧数。 */
+export int LIN_OpenNormal()
+{
+  int timeout;
+  int target;
+  int64 startedNs;
+  timeout = (int)syspar::IBS::TB_LinOpenTimeout_ms;
+  target = (int)syspar::IBS::TB_LinFrameTarget;
+  /* 开表超时限制 500..5000 ms、目标帧数限制 1..20，越界即拒绝 */
+  if (timeout < 500 || timeout > 5000 || target < 1 || target > 20)
+  {
+    write("[MOD=LIN][INVALID] open timeout=%d target=%d", timeout, target);
+    return -1;
+  }
+  /* 开正常表前必须先关闭唤醒节点，否则拒绝启动调度 */
+  if (@sysvar::LIN::WakeNodeEnable != 0)
+  {
+    write("[MOD=LIN][BLOCKED] WakeNodeEnable must be 0 before opening normal schedule");
+    return -1;
+  }
+  /* 先确认计数器清零，再启动调度；旧计数不能当作本轮接收帧。 */
+  linStopScheduler();
+  @sysvar::LIN::LINMsg_RxCounterClear = 1;
+  startedNs = timeNowInt64();
+  while (@sysvar::LIN::LINMsg_RxCounterClear != 0 &&
+         (timeNowInt64() - startedNs) / 1000000 < timeout)
+    testWaitForTimeout(200);                          /* 轮询 200 ms，减少报告条目 */
+  /* 计数清零未被确认，或计数不为 0：旧计数不能当作本轮帧数，判失败 */
+  if (@sysvar::LIN::LINMsg_RxCounterClear != 0 || @sysvar::LIN::LINMsg_RxCounter != 0)
+  {
+    write("[MOD=LIN][BLOCKED] counter clear not confirmed; clear=%d count=%d",
+          @sysvar::LIN::LINMsg_RxCounterClear, @sysvar::LIN::LINMsg_RxCounter);
+    return -1;
+  }
+  linChangeSchedTable(0, 0);
+  linStartScheduler();
+  startedNs = timeNowInt64();
+  while ((timeNowInt64() - startedNs) / 1000000 < timeout)
+  {
+    /* 接收计数达到目标帧数，判定 LIN 通讯已建立 */
+    if (@sysvar::LIN::LINMsg_RxCounter >= target)
+    {
+      testStepPass("LIN_OpenNormal", "LIN normal schedule started, received %d frames (target %d) after counter reset",  /* 写入报告 */
+                   @sysvar::LIN::LINMsg_RxCounter, target);
+      return 0;
+    }
+    testWaitForTimeout(200);                          /* 轮询 200 ms，减少报告条目 */
+  }
+  testStepFail("LIN_OpenNormal", "Timeout %d ms: received %d of %d frames after counter reset",  /* 写入报告 */
+               timeout, @sysvar::LIN::LINMsg_RxCounter, target);
+  return -1;
+}
+/* 电源配置：检查电压/限流和电池断开命令，再写三项设定；不验证实际输出。 */
+export int PWR_Configure(float V, float Ichg, float Idchg)
+{
+  /* 设定值非法：电压须在电池范围内且 10..15.5 V，充放电限流须在 0..11 A */
+  if (!(V >= (float)syspar::IBS::TB_BatteryMin_V &&
+        V <= (float)syspar::IBS::TB_BatteryMax_V && V >= 10.0 && V <= 15.5) ||
+      !(Ichg >= 0.0 && Ichg <= 11.0) || !(Idchg >= 0.0 && Idchg <= 11.0))
+  {
+    write("[MOD=PWR][INVALID] configure V=%.3f Ichg=%.3f Idchg=%.3f A", V, Ichg, Idchg);
+    return -1;
+  }
+  /* 安全约束：电池自动接通命令必须为 0，否则拒绝配置；输出开启时允许改设定值，不检查 Set_OutputSts */
+  if (@sysvar::Power_RelayCrtl::BatteryConnectEquipment != 0)
+  {
+    write("[MOD=PWR][BLOCKED] battery_cmd=%d; BATTERY auto-connect prohibited",
+          @sysvar::Power_RelayCrtl::BatteryConnectEquipment);
+    return -1;
+  }
+  @sysvar::N8361::Set_OutPutVoltage = V;
+  @sysvar::N8361::Set_ChargeCurrent = Ichg;
+  @sysvar::N8361::Set_DicChargeCurrent = Idchg;
+  write("[MOD=PWR][UNVERIFIED] configured command V=%.3f Ichg=%.3f Idchg=%.3f A; output remains commanded off", V, Ichg, Idchg);
+  return 0;
+}
+
+/* 电源开输出：确认设定值和电池命令满足约束后下发开命令。 */
+export int PWR_On()
+{
+  float voltage;
+  voltage = @sysvar::N8361::Set_OutPutVoltage;
+  /* 开输出前复核：电池命令为 0、电压与限流在范围内，任一不满足即拒绝 */
+  if (@sysvar::Power_RelayCrtl::BatteryConnectEquipment != 0 ||
+      !(voltage >= (float)syspar::IBS::TB_BatteryMin_V &&
+        voltage <= (float)syspar::IBS::TB_BatteryMax_V &&
+        voltage >= 10.0 && voltage <= 15.5) ||
+      @sysvar::N8361::Set_ChargeCurrent < 0.0 ||
+      @sysvar::N8361::Set_ChargeCurrent > 11.0 ||
+      @sysvar::N8361::Set_DicChargeCurrent < 0.0 ||
+      @sysvar::N8361::Set_DicChargeCurrent > 11.0)
+  {
+    write("[MOD=PWR][BLOCKED] output-on setpoints invalid or battery command active");
+    return -1;
+  }
+  @sysvar::N8361::Set_OutputSts = 1;
+  write("[MOD=PWR][UNVERIFIED] output-on command issued at %.3f V; actual device output not confirmed", voltage);
+  return 0;
+}
+
+/* 收尾开始节点：清零本轮清理失败标记，不接触设备。 */
+export testfunction PHASE_Complete_Begin_Check()
+{
+  gIBSCleanupFailed = 0;
+}
+
+/* 收尾结果节点：停日志后汇总清理失败；无失败仅表示命令流程完成。 */
+export testfunction PHASE_Complete_Result_Check()
+{
+  /* 本轮存在清理失败，判用例失败；否则只声明命令流程完成 */
+  if (gIBSCleanupFailed)
+    testStepFail("CleanupFailed", "One or more cleanup commands or voltage checks failed; see write log");
+  else
+    write("[PHASE][DONE][UNVERIFIED] command sequence complete; physical relay contacts and DVM freshness not confirmed");
+}
+
+/* 以下为 VTT 调用适配节点：调用同名业务函数，收尾失败记标记并继续后续清理。 */
+/* 停 LIN 节点：调用 LIN_Stop；等待参数异常时记录清理失败。 */
+export testfunction LIN_Stop_Check()
+{
+  int result;
+  result = LIN_Stop();
+  /* 返回 -2：TB_LinStopSettle_ms 越界，记清理失败但不再等待 */
+  if (result == -2) { gIBSCleanupFailed = 1; write("[MOD=LIN][CLEANUP_FAILED] invalid settle parameter; stop requested without settle"); }
+  /* 返回既非 -2 也非 1：停表命令已下发但无状态回读，只记未验证 */
+  else if (result != 1) write("[MOD=LIN][UNVERIFIED] scheduler stop requested without status readback");
+}
+
+/* 用例体开 LIN 节点：调用 LIN_OpenNormal；清零或等帧失败则报告失败。 */
+export testfunction LIN_OpenNormal_Check()
+{
+  /* LIN_OpenNormal 返回负值：清零或等帧失败 */
+  if (LIN_OpenNormal() < 0)
+    testStepFail("LINOpenBlocked", "Normal LIN schedule or frame-count wait failed");
+}
+
+/* 用例体设压限流节点：调用 PWR_Configure；参数或互锁拒绝时报告失败。 */
+export testfunction PWR_Configure_Check(float V, float Ichg, float Idchg)
+{
+  /* PWR_Configure 返回负值：参数或互锁拒绝 */
+  if (PWR_Configure(V, Ichg, Idchg) < 0)
+    testStepFail("PowerConfigureBlocked", "Power configuration command blocked or parameters invalid");
+}
+
+/* 用例体开输出节点：调用 PWR_On；设定值或电池互锁不满足时报告失败。 */
+export testfunction PWR_On_Check()
+{
+  /* PWR_On 返回负值：设定值或电池互锁不满足 */
+  if (PWR_On() < 0)
+    testStepFail("PowerOnBlocked", "Output-on command blocked by setpoints or battery interlock");
+}
+
+/* 关输出节点：调用 PWR_Off；收尾时失败记标记，后续清理继续执行。 */
+export testfunction PWR_Off_Check()
+{
+  int result;
+  result = PWR_Off();
+  /* PWR_Off 返回负值：关输出命令失败，记清理失败并继续后续清理 */
+  if (result < 0) { gIBSCleanupFailed = 1; write("[MOD=PWR][CLEANUP_FAILED] output-off command failed status=%d", result); }
+  else write("[MOD=PWR][UNVERIFIED] output-off command issued; no independent status readback");
+}
+
+/* 收尾回零节点：调用 PWR_WaitZero 默认参数；超时或参数无效记清理失败。 */
+export testfunction PWR_WaitZero_Check()
+{
+  int result;
+  result = PWR_WaitZero(-1, -1, -1, -1);
+  /* PWR_WaitZero 返回负值：回零超时或参数非法，记清理失败 */
+  if (result < 0) { gIBSCleanupFailed = 1; write("[MOD=PWR][CLEANUP_FAILED] DVM zero wait timed out or invalid status=%d", result); }
+  else write("[MOD=PWR][UNVERIFIED] DVM zero observed; sample freshness unavailable");
+}
+
+/* 收尾安全态节点：调用 RELAY_Set(SAFE)；命令受阻记清理失败。 */
+export testfunction RELAY_Set_SAFE_Check()
+{
+  int result;
+  result = RELAY_Set(0, -1);
+  /* RELAY_Set(SAFE) 返回负值：参数或互锁拒绝，记清理失败 */
+  if (result < 0) { gIBSCleanupFailed = 1; write("[MOD=RELAY][CLEANUP_FAILED] SAFE command blocked status=%d", result); }
+  else write("[MOD=RELAY][UNVERIFIED] SAFE command issued; relay contacts not independently read");
+}
+
+/* 准备态节点：调用 RELAY_Set(IDLE)；命令受阻则报告准备失败。 */
+export testfunction RELAY_Set_IDLE_Check()
+{
+  /* RELAY_Set(IDLE) 返回负值：参数或带电切换互锁拒绝 */
+  if (RELAY_Set(1, -1) < 0)
+    testStepFail("RelayIdleBlocked", "IDLE command blocked by parameters or switching voltage");
+}
+
+/* 关闭唤醒节点：调用 SNAP_WakeNode(0)；收尾调用失败记清理失败。 */
+export testfunction SNAP_WakeNode_Off_Check()
+{
+  int result;
+  result = SNAP_WakeNode(0);
+  /* SNAP_WakeNode(0) 返回负值：写使能命令被拒，记清理失败 */
+  if (result < 0) { gIBSCleanupFailed = 1; write("[MOD=SNAP][CLEANUP_FAILED] wake-node disable failed status=%d", result); }
+  else write("[MOD=SNAP][UNVERIFIED] wake-node disable command issued; node state not confirmed");
+}
+

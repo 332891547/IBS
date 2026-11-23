@@ -1,0 +1,571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TempFileMetainfo xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="1" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/Vector.ITE.TempFileRepository.MetainfoModel">
+  <FileFormatVersion xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework">1</FileFormatVersion>
+  <TempFileMetainfo xmlns:d2p1="http://schemas.datacontract.org/2004/07/Vector.ITE.TempFileRepository.MetainfoModel.Entities" z:Id="2">
+    <_p z:Ref="1" i:nil="true" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework" />
+    <d2p1:FileSources z:Id="3">
+      <Content z:Id="4" z:Size="27" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework">
+        <d2p1:FileSource z:Id="5" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Id="6">4.0.64.0</d2p1:AppVersion>
+          <d2p1:Extension z:Id="7">.</d2p1:Extension>
+          <d2p1:GeneratedFileModificationTime>2026-11-22T14:23:10.7616709+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>70</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="8">0ksehen3jd7c-TSV</d2p1:PersistencyKey>
+          <d2p1:Crc>2380691147</d2p1:Crc>
+          <d2p1:SourceFile z:Id="9">C:\Users\HF_company\Desktop\IBS\IBSProject.vtsoproj</d2p1:SourceFile>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="10" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-22T14:23:11.286612+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>74</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="11">0ksehen3jd7c-MTSV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="12">
+            <Content z:Id="13" z:Size="1">
+              <d2p1:FileSourceDescription z:Id="14">
+                <_p z:Ref="12" i:nil="true" />
+                <d2p1:FullFilePath z:Id="15">C:\Users\HF_company\Desktop\IBS\obj_IBSProject\0ksehen3jd7c-TSV.</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-22T14:23:10.7616709+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="10" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="16" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Id="17">.vvarprop</d2p1:Extension>
+          <d2p1:GeneratedFileModificationTime>2026-11-23T11:22:24.9568418+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>1699</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="18">TU_Indep=VP</d2p1:PersistencyKey>
+          <d2p1:Crc>2674417247</d2p1:Crc>
+          <d2p1:SourceFile z:Id="19"></d2p1:SourceFile>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="20" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-22T14:23:11.5686027+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>3584</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="21">0ksehen3jd7c#SV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="22">
+            <Content z:Id="23" z:Size="1">
+              <d2p1:FileSourceDescription z:Id="24">
+                <_p z:Ref="22" i:nil="true" />
+                <d2p1:FullFilePath z:Id="25">C:\Users\HF_company\Desktop\IBS\obj_IBSProject\0ksehen3jd7c-MTSV</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-22T14:23:11.286612+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="20" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="26" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-23T09:38:06.908156+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>78282</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="27">s981baq6anam-CSV</d2p1:PersistencyKey>
+          <d2p1:Crc>4294487131</d2p1:Crc>
+          <d2p1:SourceFile z:Ref="9" i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="28" i:type="d2p1:DatabaseTlbFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-22T14:23:11.4326721+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>17920</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="29">imfks9uu1532#DB</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription z:Id="30">
+            <_p z:Ref="28" i:nil="true" />
+            <d2p1:FullFilePath z:Id="31">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\DateBase\CAB500_CANDbc.dbc</d2p1:FullFilePath>
+            <d2p1:SourceModificationTime>2026-10-30T13:49:26.1873042+08:00</d2p1:SourceModificationTime>
+          </d2p1:FileSourceDescription>
+          <d2p1:IgnoredNodes z:Ref="19" i:nil="true" />
+          <d2p1:NamespaceMode>0</d2p1:NamespaceMode>
+          <d2p1:Networks xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" z:Id="32" z:Size="1">
+            <d6p1:string z:Id="33">Network</d6p1:string>
+          </d2p1:Networks>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="34" i:type="d2p1:DatabaseTlbFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-22T14:23:11.754415+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>71680</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="35">i1k4vuc1lunt#DB</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription z:Id="36">
+            <_p z:Ref="34" i:nil="true" />
+            <d2p1:FullFilePath z:Id="37">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\DateBase\MAXUS_LIN_V3.ldf</d2p1:FullFilePath>
+            <d2p1:SourceModificationTime>2026-10-30T13:49:26.1943057+08:00</d2p1:SourceModificationTime>
+          </d2p1:FileSourceDescription>
+          <d2p1:IgnoredNodes z:Ref="19" i:nil="true" />
+          <d2p1:NamespaceMode>0</d2p1:NamespaceMode>
+          <d2p1:Networks xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" z:Id="38" z:Size="1">
+            <d6p1:string z:Id="39">LIN</d6p1:string>
+          </d2p1:Networks>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="40" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-23T09:38:07.2131844+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>28672</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="41">s981baq6anam#SV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="42">
+            <Content z:Id="43" z:Size="6">
+              <d2p1:FileSourceDescription z:Id="44">
+                <_p z:Ref="42" i:nil="true" />
+                <d2p1:FullFilePath z:Id="45">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\01_Equipment\CAB1500\SysVar\CAB1500_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-20T16:31:52.2076536+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="46">
+                <_p z:Ref="42" i:nil="true" />
+                <d2p1:FullFilePath z:Id="47">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\SysVar\Project_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-21T15:16:15.9656777+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="48">
+                <_p z:Ref="42" i:nil="true" />
+                <d2p1:FullFilePath z:Id="49">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\SysVar\IBS_SignalConvent_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-20T13:29:57.0589683+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="50">
+                <_p z:Ref="42" i:nil="true" />
+                <d2p1:FullFilePath z:Id="51">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\01_Equipment\4CH_Relay\SysVar\4CHRelay_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-20T13:29:46.8182326+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="52">
+                <_p z:Ref="42" i:nil="true" />
+                <d2p1:FullFilePath z:Id="53">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\01_Equipment\N8361\SysVar\N8361_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-20T13:29:25.9508839+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="54">
+                <_p z:Ref="42" i:nil="true" />
+                <d2p1:FullFilePath z:Id="55">C:\Users\HF_company\Desktop\IBS\obj_IBSProject\s981baq6anam-CSV</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-23T09:38:06.908156+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="40" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="56" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-23T09:55:59.5420833+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>7168</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="57">t8allvghmkba#SV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="58">
+            <Content z:Id="59" z:Size="6">
+              <d2p1:FileSourceDescription z:Id="60">
+                <_p z:Ref="58" i:nil="true" />
+                <d2p1:FullFilePath z:Id="61">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\01_Equipment\CAB1500\SysVar\CAB1500_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-20T16:31:52.2076536+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="62">
+                <_p z:Ref="58" i:nil="true" />
+                <d2p1:FullFilePath z:Id="63">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\SysVar\Project_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-21T15:16:15.9656777+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="64">
+                <_p z:Ref="58" i:nil="true" />
+                <d2p1:FullFilePath z:Id="65">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\SysVar\IBS_SignalConvent_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-20T13:29:57.0589683+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="66">
+                <_p z:Ref="58" i:nil="true" />
+                <d2p1:FullFilePath z:Id="67">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\01_Equipment\4CH_Relay\SysVar\4CHRelay_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-20T13:29:46.8182326+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="68">
+                <_p z:Ref="58" i:nil="true" />
+                <d2p1:FullFilePath z:Id="69">D:\WorkContent\tsmaster\IBS_TMP\02_TestEngineeringCode\03_IBSTest_CANoe\01_LIN_TestConfig\01_Equipment\N8361\SysVar\N8361_SysVar.vsysvar</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-20T13:29:25.9508839+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="70">
+                <_p z:Ref="58" i:nil="true" />
+                <d2p1:FullFilePath z:Id="71">C:\Users\HF_company\Desktop\IBS\obj_IBSProject\s981baq6anam-CSV</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-23T09:38:06.908156+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="56" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="72" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-23T09:56:00.6963362+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>16896</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="73">e6i78hq1ngls#SV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="74">
+            <Content z:Id="75" z:Size="6">
+              <d2p1:FileSourceDescription z:Id="76">
+                <_p z:Ref="74" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="61" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T16:31:52.2076536+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="77">
+                <_p z:Ref="74" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="63" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-21T15:16:15.9656777+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="78">
+                <_p z:Ref="74" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="65" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:57.0589683+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="79">
+                <_p z:Ref="74" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="67" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:46.8182326+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="80">
+                <_p z:Ref="74" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="69" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:25.9508839+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="81">
+                <_p z:Ref="74" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="71" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-23T09:38:06.908156+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="72" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="82" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-23T09:56:01.7169126+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>4608</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="83">o3s57j96qitl#SV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="84">
+            <Content z:Id="85" z:Size="6">
+              <d2p1:FileSourceDescription z:Id="86">
+                <_p z:Ref="84" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="61" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T16:31:52.2076536+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="87">
+                <_p z:Ref="84" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="63" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-21T15:16:15.9656777+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="88">
+                <_p z:Ref="84" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="65" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:57.0589683+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="89">
+                <_p z:Ref="84" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="67" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:46.8182326+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="90">
+                <_p z:Ref="84" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="69" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:25.9508839+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="91">
+                <_p z:Ref="84" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="71" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-23T09:38:06.908156+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="82" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="92" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-23T09:56:01.8593325+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>5632</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="93">oa44munjlebo#SV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="94">
+            <Content z:Id="95" z:Size="6">
+              <d2p1:FileSourceDescription z:Id="96">
+                <_p z:Ref="94" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="61" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T16:31:52.2076536+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="97">
+                <_p z:Ref="94" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="63" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-21T15:16:15.9656777+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="98">
+                <_p z:Ref="94" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="65" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:57.0589683+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="99">
+                <_p z:Ref="94" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="67" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:46.8182326+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="100">
+                <_p z:Ref="94" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="69" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:25.9508839+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="101">
+                <_p z:Ref="94" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="71" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-23T09:38:06.908156+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="92" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="102" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-23T09:56:02.0039474+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>8192</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="103">mji9p37sanef#SV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="104">
+            <Content z:Id="105" z:Size="6">
+              <d2p1:FileSourceDescription z:Id="106">
+                <_p z:Ref="104" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="61" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T16:31:52.2076536+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="107">
+                <_p z:Ref="104" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="63" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-21T15:16:15.9656777+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="108">
+                <_p z:Ref="104" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="65" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:57.0589683+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="109">
+                <_p z:Ref="104" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="67" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:46.8182326+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="110">
+                <_p z:Ref="104" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="69" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-20T13:29:25.9508839+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+              <d2p1:FileSourceDescription z:Id="111">
+                <_p z:Ref="104" i:nil="true" />
+                <d2p1:FullFilePath z:Ref="71" i:nil="true" />
+                <d2p1:SourceModificationTime>2026-11-23T09:38:06.908156+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="102" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="112" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="17" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-23T11:22:25.0774474+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>2233</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="113">d2c5homfeg7q=VP</d2p1:PersistencyKey>
+          <d2p1:Crc>2067840593</d2p1:Crc>
+          <d2p1:SourceFile z:Ref="19" i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="114" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2026-11-23T13:51:26.9458804+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>5111</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="115">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="116">
+            <Content z:Id="117" z:Size="1">
+              <d2p1:FileSourceDescription z:Id="118">
+                <_p z:Ref="116" i:nil="true" />
+                <d2p1:FullFilePath z:Id="119">C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-23T13:34:17.8195435+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="114" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="120" i:type="d2p1:SimpleFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Id="121">.vparam</d2p1:Extension>
+          <d2p1:GeneratedFileModificationTime>2026-11-23T14:07:52.4606315+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>1680</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="122">2f5vqncfnqop=PA</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription z:Id="123">
+            <_p z:Ref="120" i:nil="true" />
+            <d2p1:FullFilePath z:Id="124">C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam</d2p1:FullFilePath>
+            <d2p1:SourceModificationTime>2026-11-23T14:07:52.4586758+08:00</d2p1:SourceModificationTime>
+          </d2p1:FileSourceDescription>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="125" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Id="126">.</d2p1:Extension>
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="127">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="128" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Id="129">.</d2p1:Extension>
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="130">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="131" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Ref="129" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="132">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="133" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Ref="129" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="134">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="135" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Ref="129" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="136">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="137" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Ref="129" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="138">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="139" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Ref="129" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="140">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="141" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Id="142">.</d2p1:Extension>
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="143">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="144" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Ref="142" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="145">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="146" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="19" i:nil="true" />
+          <d2p1:Extension z:Ref="142" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="147">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="148" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Id="149">4.0.64.0</d2p1:AppVersion>
+          <d2p1:Extension z:Id="150">.</d2p1:Extension>
+          <d2p1:GeneratedFileModificationTime>2026-11-23T13:51:26.9507563+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>24339</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="151">d2c5homfeg7q~0-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="152">
+            <Content z:Id="153" z:Size="1">
+              <d2p1:FileSourceDescription z:Id="154">
+                <_p z:Ref="152" i:nil="true" />
+                <d2p1:FullFilePath z:Id="155">C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2026-11-23T13:51:11.171988+08:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="148" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+      </Content>
+      <_p z:Ref="2" i:nil="true" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework" />
+    </d2p1:FileSources>
+    <d2p1:TempFileMappings z:Id="156">
+      <Content z:Id="157" z:Size="9" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework">
+        <d2p1:TempFileMapping z:Id="158">
+          <_p z:Ref="156" i:nil="true" />
+          <d2p1:FileSource z:Ref="20" i:nil="true" />
+          <d2p1:MappingValue z:Id="159">3u2nslnesk37_TestSysVars</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="160">
+          <_p z:Ref="156" i:nil="true" />
+          <d2p1:FileSource z:Ref="28" i:nil="true" />
+          <d2p1:MappingValue z:Id="161">CAB500_CANDbc</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="162">
+          <_p z:Ref="156" i:nil="true" />
+          <d2p1:FileSource z:Ref="34" i:nil="true" />
+          <d2p1:MappingValue z:Id="163">MAXUS_LIN_V3</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="164">
+          <_p z:Ref="156" i:nil="true" />
+          <d2p1:FileSource z:Ref="40" i:nil="true" />
+          <d2p1:MappingValue z:Id="165">3u2nslnesk37_cfg_sysvars</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="166">
+          <_p z:Ref="156" i:nil="true" />
+          <d2p1:FileSource z:Ref="56" i:nil="true" />
+          <d2p1:MappingValue z:Id="167">CAB1500_SysVar</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="168">
+          <_p z:Ref="156" i:nil="true" />
+          <d2p1:FileSource z:Ref="72" i:nil="true" />
+          <d2p1:MappingValue z:Id="169">Project_SysVar</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="170">
+          <_p z:Ref="156" i:nil="true" />
+          <d2p1:FileSource z:Ref="82" i:nil="true" />
+          <d2p1:MappingValue z:Id="171">IBS_SignalConvent_SysVar</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="172">
+          <_p z:Ref="156" i:nil="true" />
+          <d2p1:FileSource z:Ref="92" i:nil="true" />
+          <d2p1:MappingValue z:Id="173">4CHRelay_SysVar</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="174">
+          <_p z:Ref="156" i:nil="true" />
+          <d2p1:FileSource z:Ref="102" i:nil="true" />
+          <d2p1:MappingValue z:Id="175">N8361_SysVar</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+      </Content>
+      <_p z:Ref="2" i:nil="true" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework" />
+    </d2p1:TempFileMappings>
+  </TempFileMetainfo>
+</TempFileMetainfo>

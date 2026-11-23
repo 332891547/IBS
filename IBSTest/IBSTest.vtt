@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Vector Test Table Editor-->
+<ttroot version="19" xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+  <tt>
+    <tg navid="b4b0aee2-7efa-415f-bd8e-b50e56e9fc9c">
+      <title>工作电流测试</title>
+      <tttestsequence navid="a7e8c01a-55d1-4a19-98f0-f61d2ce386a4">
+        <title>休眠平均电流测试</title>
+        <name>SleepCurrentTest</name>
+      </tttestsequence>
+    </tg>
+    <tg navid="906cf73e-91f7-4f5a-9ece-6afc23215787">
+      <title>基本功能测试</title>
+    </tg>
+    <tg navid="aa756deb-bbd3-48a9-8161-0b355f246e3a">
+      <title>电气测试</title>
+    </tg>
+    <tg navid="7f3b9c41-2d5e-4a88-b1c6-3e9d0a7f12b4">
+      <title>框架验证</title>
+      <tttestsequence navid="db38bf2c-1298-4811-95b5-44f032f5476e">
+        <title>准备与收尾框架验证</title>
+        <name>FramePhaseCheck</name>
+      </tttestsequence>
+    </tg>
+    <tg navid="c2a6a817-8e8d-4a2b-a997-af9218ad549a">
+      <title>canoe 用法测试</title>
+      <tc>
+        <title>取参数文件变量和结构体</title>
+        <tcid>9d2796b1-a9d8-47cd-95f5-22cc89202638</tcid>
+        <caplinline>
+          <title>标量参数：两级路径</title>
+          <code>long waitMs;
+float zeroTol;
+
+waitMs  = (long)syspar::IBS::TB_DvmZeroTimeout_ms;
+zeroTol = (float)syspar::IBS::TB_DvmZeroTolerance_V;
+
+write("[PARAM][L2] wait_ms=%ld zero_tol=%.2f", waitMs, zeroTol);</code>
+        </caplinline>
+        <caplinline>
+          <title>结构体成员：两级路径</title>
+          <code>long rBattery;
+long rCAB1500;
+long rIBS;
+
+rBattery = (long)syspar::IBS::RelayIdle.Battery;
+rCAB1500 = (long)syspar::IBS::RelayIdle.CAB1500;
+rIBS     = (long)syspar::IBS::RelayIdle.IBS;
+
+write("[PARAM][STRUCT] RelayIdle = %d / %d / %d", rBattery, rCAB1500, rIBS);</code>
+        </caplinline>
+        <caplinline>
+          <title>只读检查 IDLE 参数，禁止示例直接切继电器</title>
+          <code>if ((int)syspar::IBS::RelayIdle.Battery != 0 ||
+    (int)syspar::IBS::RelayIdle.CAB1500 != 1 ||
+    (int)syspar::IBS::RelayIdle.IBS != 0)
+  testStepFail("RelayIdleParam", "IDLE parameter tuple is not the bench-confirmed 0/1/0");</code>
+        </caplinline>
+      </tc>
+    </tg>
+  </tt>
+  <ttlib>
+    <ts_definitions>
+      <ts_definition navid="a7e8c01a-55d1-4a19-98f0-f61d2ce386a4">
+        <name>SleepCurrentTest</name>
+        <description>10 至 14 V 每点三轮，LIN 监控后连续积分 20 分钟</description>
+        <parameters />
+        <variables />
+        <preparation>
+          <title>准备测试环境</title>
+          <ttfunction>
+            <title>PHASE_Prepare</title>
+            <name>PHASE_Prepare</name>
+            <param>
+              <type>string</type>
+              <value>
+                <const>SleepCurrentTest</const>
+              </value>
+            </param>
+          </ttfunction>
+        </preparation>
+        <breakonfail>false</breakonfail>
+        <tttestcase>
+          <title>10 V 休眠平均电流</title>
+          <name>SleepCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>10</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0001-4a01-9b01-000000000010</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>11 V 休眠平均电流</title>
+          <name>SleepCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>11</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0001-4a01-9b01-000000000011</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>12 V 休眠平均电流</title>
+          <name>SleepCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>12</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0001-4a01-9b01-000000000012</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>13 V 休眠平均电流</title>
+          <name>SleepCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>13</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0001-4a01-9b01-000000000013</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>14 V 休眠平均电流</title>
+          <name>SleepCurrent</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>14</const>
+            </value>
+          </param>
+          <tcid>b7c1a2d3-0001-4a01-9b01-000000000014</tcid>
+        </tttestcase>
+        <completion>
+          <title>完成测试并恢复安全态</title>
+          <ttfunction>
+            <title>PHASE_Complete</title>
+            <name>PHASE_Complete</name>
+          </ttfunction>
+        </completion>
+      </ts_definition>
+      <ts_definition navid="6d2f8a13-9c47-4e85-b0a2-7f5e3d1c8a96">
+        <name>FramePhaseCheck</name>
+        <description>准备与收尾框架验证：验证 PHASE_Prepare / PHASE_Complete 单入口</description>
+        <parameters />
+        <variables />
+        <preparation>
+          <title xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">准备：开日志、停 LIN、关唤醒节点、关输出、继电器 IDLE</title>
+          <ttfunction xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+            <title>PHASE_Prepare</title>
+            <name>PHASE_Prepare</name>
+            <param>
+              <type>string</type>
+              <value>
+                <const>FrameCheck</const>
+              </value>
+            </param>
+          </ttfunction>
+        </preparation>
+        <breakonfail>true</breakonfail>
+        <caplinline>
+          <title>用例体占位</title>
+          <code>write("[FRAME][BODY] placeholder");</code>
+        </caplinline>
+        <completion>
+          <title xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">收尾：停 LIN、关输出、等回零、继电器 SAFE、停日志</title>
+          <ttfunction xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+            <title>PHASE_Complete</title>
+            <name>PHASE_Complete</name>
+          </ttfunction>
+        </completion>
+      </ts_definition>
+    </ts_definitions>
+<tc_definitions>
+      <tc_definition>
+        <name>SleepCurrent</name>
+        <description>单个电压点的休眠平均电流：每点 3 轮，每轮关输出、设压限流、开输出、等到压、LIN 通讯 60 s、监控 10 s（三帧有效性）、停 LIN、静置 60 s、连续积分 20 min 并判定平均电流小于 0.250 mA。</description>
+        <tcid>b7c1a2d3-0000-4a01-9b01-000000000000</tcid>
+        <parameters>
+          <parameter_definition>
+            <name>OutPutVoltage</name>
+            <type>float</type>
+          </parameter_definition>
+        </parameters>
+        <variables>
+          <variable_definition>
+            <name>Repeat</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>WindowSeconds</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>IntegrationTimeoutMs</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+
+        </variables>
+        <breakonfail>false</breakonfail>
+        <caplinline>
+          <title>初始化轮次并记录本点开始</title>
+          <code>Repeat = 0;
+write("[SLEEP][POINT][BEGIN] V=%.1f repeats=%d t=%I64d", OutPutVoltage, (int)syspar::IBS::SC_Repeats, timeNowInt64());</code>
+        </caplinline>
+        <while>
+          <title>每点按 SC_Repeats 轮执行</title>
+          <compare>
+            <value>
+              <variable>Repeat</variable>
+            </value>
+            <lt>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_Repeats|END_OF_OBJECT_ChParScalar|</dbobject>
+            </lt>
+          </compare>
+          <caplinline>
+            <title>轮次加一</title>
+            <code>Repeat = Repeat + 1;</code>
+          </caplinline>
+          <caplfunction>
+            <title>设定电压与充放电限流 0.5 A</title>
+            <name>PWR_Configure_Check</name>
+            <param>
+              <type>float</type>
+              <value>
+                <variable>OutPutVoltage</variable>
+              </value>
+            </param>
+            <param>
+              <type>float</type>
+              <value>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_ChargeLimit_A|END_OF_OBJECT_ChParScalar|</dbobject>
+              </value>
+            </param>
+            <param>
+              <type>float</type>
+              <value>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_DischargeLimit_A|END_OF_OBJECT_ChParScalar|</dbobject>
+              </value>
+            </param>
+          </caplfunction>
+          <caplfunction>
+            <title>开启电源输出</title>
+            <name>PWR_On_Check</name>
+          </caplfunction>
+          <awaitvaluematch>
+            <title>等待 DVM 到达目标电压容差范围</title>
+            <timeout>
+              <value>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+              </value>
+              <unit>ms</unit>
+            </timeout>
+            <joincondition>
+              <enum>all</enum>
+            </joincondition>
+            <await_nextupdate>
+              <bool>true</bool>
+            </await_nextupdate>
+            <compare>
+              <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              <range>
+                <based>
+                  <base>
+                    <variable>OutPutVoltage</variable>
+                  </base>
+                  <down_tolerance>
+                    <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                  </down_tolerance>
+                  <up_tolerance>
+                    <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                  </up_tolerance>
+                </based>
+              </range>
+            </compare>
+          </awaitvaluematch>
+          <caplfunction>
+            <title>开启 LIN Normal 调度并等首帧</title>
+            <name>LIN_OpenNormal_Check</name>
+          </caplfunction>
+          <wait>
+            <title>保持 LIN 通讯（SC_LinRun_ms）</title>
+            <time>
+              <value>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_LinRun_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+              </value>
+              <unit>ms</unit>
+            </time>
+          </wait>
+          <caplfunction>
+            <title>监控 10 s：三帧有效性判定</title>
+            <name>SleepCurrent_Monitor_Check</name>
+          </caplfunction>
+          <caplfunction>
+            <title>停止 LIN 调度</title>
+            <name>LIN_Stop_Check</name>
+          </caplfunction>
+          <wait>
+            <title>停 LIN 后静置（SC_SleepWait_ms）</title>
+            <time>
+              <value>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_SleepWait_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+              </value>
+              <unit>ms</unit>
+            </time>
+          </wait>
+          <set>
+            <title>写入积分窗口并清零积分状态</title>
+            <in>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Window_ms|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_IntegrationWindow_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+                </source>
+              </assignment>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Clear|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>0</const>
+                </source>
+              </assignment>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Done|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>0</const>
+                </source>
+              </assignment>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_StartNs|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>0</const>
+                </source>
+              </assignment>
+            </in>
+          </set>
+          <wait>
+            <title>清零释放后等待 20 ms</title>
+            <time>
+              <value>
+                <const>20</const>
+              </value>
+              <unit>ms</unit>
+            </time>
+          </wait>
+          <set>
+            <title>触发积分窗口</title>
+            <in>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Clear|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>1</const>
+                </source>
+              </assignment>
+            </in>
+          </set>
+          <awaitvaluematch>
+            <title>确认积分窗口已启动</title>
+            <timeout>
+              <value>
+                <const>2000</const>
+              </value>
+              <unit>ms</unit>
+            </timeout>
+            <joincondition>
+              <enum>any</enum>
+            </joincondition>
+            <await_nextupdate>
+              <bool>true</bool>
+            </await_nextupdate>
+            <compare>
+              <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_StartNs|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              <gt>
+                <const>0</const>
+              </gt>
+            </compare>
+          </awaitvaluematch>
+          <caplinline>
+            <title>计算积分超时（窗口 + 5 s 余量）</title>
+            <code>IntegrationTimeoutMs = (int)syspar::IBS::SC_IntegrationWindow_ms + 5000;
+WindowSeconds = (float)syspar::IBS::SC_IntegrationWindow_ms / 1000.0;
+write("[SLEEP][TIMEOUT] window_ms=%d timeout_ms=%d", (int)syspar::IBS::SC_IntegrationWindow_ms, IntegrationTimeoutMs);</code>
+          </caplinline>
+          <awaitvaluematch>
+            <title>等待积分完成（窗口时长 + 5 s）</title>
+            <timeout>
+              <value>
+                <variable>IntegrationTimeoutMs</variable>
+              </value>
+              <unit>ms</unit>
+            </timeout>
+            <joincondition>
+              <enum>any</enum>
+            </joincondition>
+            <await_nextupdate>
+              <bool>true</bool>
+            </await_nextupdate>
+            <compare>
+              <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Done|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              <eq>
+                <const>1</const>
+              </eq>
+            </compare>
+          </awaitvaluematch>
+          <statecheck>
+            <title>判据：积分已完成</title>
+            <expected>
+              <compare>
+                <value>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Done|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </value>
+                <eq>
+                  <const>1</const>
+                </eq>
+              </compare>
+            </expected>
+          </statecheck>
+          <statecheck>
+            <title>判据：积分时长覆盖窗口</title>
+            <expected>
+              <compare>
+                <value>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Time|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </value>
+                <ge>
+                  <variable>WindowSeconds</variable>
+                </ge>
+              </compare>
+            </expected>
+          </statecheck>
+          <statecheck>
+            <title>判据：平均电流严格小于 0.250 mA</title>
+            <expected>
+              <compare>
+                <value>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|StaticCurrent_Avg|IBS_LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </value>
+                <lt>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SC_AvgLimit_mA|END_OF_OBJECT_ChParScalar|</dbobject>
+                </lt>
+              </compare>
+            </expected>
+          </statecheck>
+          <caplinline>
+            <title>记录本轮结果</title>
+            <code>write("[SLEEP][RESULT] V=%.1f repeat=%d done=%d time=%.3fs sum=%.6fmAs avg=%.6fmA limit=%.3fmA",
+      OutPutVoltage, Repeat, @sysvar::IBS_LIN::StaticCurrent_Done,
+      @sysvar::IBS_LIN::StaticCurrent_Time, @sysvar::IBS_LIN::StaticCurrent_Sum,
+      @sysvar::IBS_LIN::StaticCurrent_Avg, (float)syspar::IBS::SC_AvgLimit_mA);</code>
+          </caplinline>
+        </while>
+        <caplinline>
+          <title>记录本点结束</title>
+          <code>write("[SLEEP][POINT][END] V=%.1f repeats=%d", OutPutVoltage, Repeat);</code>
+        </caplinline>
+      </tc_definition>
+    </tc_definitions>
+    <function_definitions>
+      <function_definition navid="1a4d6e92-73c5-4f08-9b21-5d8e0c7a3f61">
+        <name>PHASE_Prepare</name>
+        <export>true</export>
+        <description>准备段：开日志、停 LIN、关唤醒节点、关输出、继电器切 IDLE</description>
+        <parameters>
+          <parameter_definition>
+            <name>SequenceName</name>
+            <type>string</type>
+          </parameter_definition>
+        </parameters>
+        <ttfunction>
+          <title>开启本轮 BLF 日志</title>
+          <name>StartLog</name>
+          <param>
+            <type>string</type>
+            <value>
+              <variable>SequenceName</variable>
+            </value>
+          </param>
+        </ttfunction>
+        <caplinline>
+          <title>读取准备参数并记录开始</title>
+          <code>long linSettleMs;
+long relaySettleMs;
+
+linSettleMs   = (long)syspar::IBS::TB_LinStopSettle_ms;
+relaySettleMs = (long)syspar::IBS::TB_RelaySettle_ms;
+write("[PHASE][PREP][BEGIN] seq=%s lin_settle_ms=%ld relay_settle_ms=%ld",
+      SequenceName, linSettleMs, relaySettleMs);</code>
+        </caplinline>
+        <caplfunction>
+          <title>停 LIN 调度</title>
+          <name>PHASE_Prep_LinStop</name>
+        </caplfunction>
+        <caplfunction>
+          <title>禁用唤醒节点</title>
+          <name>PHASE_Prep_WakeNodeOff</name>
+        </caplfunction>
+        <caplfunction>
+          <title>关闭电源输出</title>
+          <name>PHASE_Prep_PowerOff</name>
+        </caplfunction>
+        <caplfunction>
+          <title>请求 IDLE 继电器命令；触点未验证</title>
+          <name>PHASE_Prep_RelayIdle</name>
+        </caplfunction>
+        <caplinline>
+          <title>准备完成</title>
+          <code>write("[PHASE][PREP][END] seq=%s", SequenceName);</code>
+        </caplinline>
+      </function_definition>
+      <function_definition navid="8b7c2f35-4610-4d9a-a3e7-92c5b1f04e28">
+        <name>PHASE_Complete</name>
+        <export>true</export>
+        <description>收尾段：停 LIN、关输出、等 DVM 回零、继电器切 SAFE、关唤醒节点、停日志</description>
+        <parameters />
+        <caplfunction>
+          <title>初始化收尾结果</title>
+          <name>PHASE_Done_Begin</name>
+        </caplfunction>
+        <caplfunction>
+          <title>停 LIN 调度</title>
+          <name>PHASE_Done_LinStop</name>
+        </caplfunction>
+        <caplfunction>
+          <title>关闭电源输出</title>
+          <name>PHASE_Done_PowerOff</name>
+        </caplfunction>
+        <caplfunction>
+          <title>等待 DVM 回零</title>
+          <name>PHASE_Done_WaitZero</name>
+        </caplfunction>
+        <caplfunction>
+          <title>请求 SAFE 继电器命令；触点未验证</title>
+          <name>PHASE_Done_RelaySafe</name>
+        </caplfunction>
+        <caplfunction>
+          <title>禁用唤醒节点</title>
+          <name>PHASE_Done_WakeNodeOff</name>
+        </caplfunction>
+        <caplinline>
+          <title>收尾完成</title>
+          <code>write("[PHASE][DONE][END]");</code>
+        </caplinline>
+        <ttfunction>
+          <title>停止本轮 BLF 日志</title>
+          <name>StopLog</name>
+        </ttfunction>
+        <caplfunction>
+          <title>汇总收尾失败</title>
+          <name>PHASE_Done_Result</name>
+        </caplfunction>
+      </function_definition>
+      <function_definition navid="2047716e-1449-4ffb-aeb8-79e1ef8e58b6">
+        <name>StartLog</name>
+        <export>false</export>
+        <description>使用序列名开启本轮 BLF 日志</description>
+        <parameters>
+          <parameter_definition>
+            <name>TestCaseName</name>
+            <type>string</type>
+          </parameter_definition>
+        </parameters>
+        <caplinline>
+          <title>启动 Logging 记录块</title>
+          <code>char logPath[260];
+stopLogging("Logging");
+snprintf(logPath, elcount(logPath),
+         "Logging\\%s\\{LocalTime|YYYYMMDD}\\{LocalTime|YYYYMMDD_hhmmss}_{IncTrigger|001}.blf",
+         TestCaseName);
+setLogFileName("Logging", logPath);
+startLogging("Logging");
+writeLineEx(0, 1, "[LOG] BLF recording started: %s", logPath);</code>
+        </caplinline>
+      </function_definition>
+      <function_definition navid="6a3ef6d2-b06d-4109-8c24-99d1f5de9032">
+        <name>StopLog</name>
+        <export>false</export>
+        <description>停止本轮 BLF 日志</description>
+        <parameters />
+        <caplinline>
+          <title>停止 Logging 记录块</title>
+          <code>stopLogging("Logging");
+writeLineEx(0, 1, "[LOG] BLF recording stopped");</code>
+        </caplinline>
+      </function_definition>
+    </function_definitions>
+  </ttlib>
+</ttroot>
