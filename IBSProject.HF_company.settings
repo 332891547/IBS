@@ -20,7 +20,7 @@
           <string>ActiveDocumentIndex</string>
         </key>
         <value type="System.Int32">
-          <int>1</int>
+          <int>0</int>
         </value>
       </item>
       <item>
@@ -48,16 +48,8 @@
             <DocumentInfo>
               <PositionInContainer>2</PositionInContainer>
               <ContainerIndex>0</ContainerIndex>
-              <DocType>ProjectConfiguration</DocType>
-              <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="" /&gt;</SerializedBasedFileName>
-              <ContextGUID />
-              <ContextGUIDForGUI />
-            </DocumentInfo>
-            <DocumentInfo>
-              <PositionInContainer>3</PositionInContainer>
-              <ContainerIndex>0</ContainerIndex>
-              <DocType>TestUnitConfiguration</DocType>
-              <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="" /&gt;</SerializedBasedFileName>
+              <DocType>TTTestModule</DocType>
+              <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="IBSTest\IBSTest.vtt" /&gt;</SerializedBasedFileName>
               <ContextGUID>d2c5homfeg7q</ContextGUID>
               <ContextGUIDForGUI>d2c5homfeg7q</ContextGUIDForGUI>
             </DocumentInfo>
@@ -81,11 +73,10 @@
 		&lt;UIElement xsi:type="SplitContainer" Orientation="Vertical" DockedSize="1139,681.2"&gt;
 			&lt;UIElement xsi:type="Workspace"&gt;
 				&lt;Content xsi:type="TabbedMdiHost"&gt;
-					&lt;Content xsi:type="TabbedMdiContainer" DockedSize="1139,322" SelectedWindowUniqueId="547a4420-d9d6-495f-9221-114479e636a7"&gt;
+					&lt;Content xsi:type="TabbedMdiContainer" SelectedWindowUniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605"&gt;
 						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605" /&gt;
 						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="547a4420-d9d6-495f-9221-114479e636a7" /&gt;
-						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="be4fc28c-073d-4a05-bb66-d62babbd7856" /&gt;
-						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="dd4f6409-713b-4930-bd46-ab0c7c5fd7cd" /&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="5bf67f35-9d73-4946-a2b0-1b12f91dc403" /&gt;
 					&lt;/Content&gt;
 				&lt;/Content&gt;
 			&lt;/UIElement&gt;
@@ -99,19 +90,18 @@
 		&lt;/UIElement&gt;
 	&lt;/Content&gt;
 	&lt;DocumentWindows&gt;
-		&lt;DocumentWindow UniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605" SerializationId="ParameterEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam" IsOpen="true" LastActiveDateTime="2026-11-23T14:13:07.2763908+08:00" State="Document" /&gt;
-		&lt;DocumentWindow UniqueId="547a4420-d9d6-495f-9221-114479e636a7" SerializationId="CaplEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T14:30:39.4227776+08:00" State="Document" /&gt;
-		&lt;DocumentWindow UniqueId="be4fc28c-073d-4a05-bb66-d62babbd7856" SerializationId="ProjectSettingsEditor" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T14:17:40.7260856+08:00" State="Document" /&gt;
-		&lt;DocumentWindow UniqueId="dd4f6409-713b-4930-bd46-ab0c7c5fd7cd" SerializationId="TestUnitConfiguration:d2c5homfeg7q" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T14:18:54.0119841+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605" SerializationId="ParameterEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam" IsOpen="true" LastActiveDateTime="2026-11-23T17:40:55.339861+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="547a4420-d9d6-495f-9221-114479e636a7" SerializationId="CaplEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T17:39:58.6277509+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="5bf67f35-9d73-4946-a2b0-1b12f91dc403" SerializationId="TtEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T17:39:59.507227+08:00" State="Document" /&gt;
 	&lt;/DocumentWindows&gt;
 	&lt;ToolWindows&gt;
-		&lt;ToolWindow UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" SerializationId="ProjectView" ContainerDockedSize="332,679.6" IsOpen="true" LastActiveDateTime="2026-11-23T14:30:46.7331132+08:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" SerializationId="ProjectView" ContainerDockedSize="332,679.6" IsOpen="true" LastActiveDateTime="2026-11-23T17:31:36.9443542+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="284e2df0-0932-4854-9bf2-dbb96b34796a" SerializationId="LibraryView" ContainerDockedSize="211,266" IsOpen="false" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="0ce8c2bf-4325-402d-8ebc-52ba6d40ccf2" SerializationId="HomeDirectoryView" ContainerDockedSize="211,266" IsOpen="false" LastActiveDateTime="2026-11-06T09:13:40.7612585+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="b0825994-7121-418f-bf5b-233d0dedd923" SerializationId="OutputService" ContainerDockedSize="1139,354" IsOpen="true" LastActiveDateTime="2026-11-23T14:26:27.9642606+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" SerializationId="FindResults1" ContainerDockedSize="1139,354" IsOpen="true" LastActiveDateTime="2026-11-18T01:19:00.4190524+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="273e697c-d09c-47e6-9cf8-19391a67d987" SerializationId="CaplFunctionExplorer" ContainerDockedSize="211,676" IsOpen="false" State="Docked" /&gt;
-		&lt;ToolWindow UniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5" SerializationId="SymbolExplorer" ContainerDockedSize="332,679.6" IsOpen="false" LastActiveDateTime="2026-11-23T11:23:22.8009252+08:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5" SerializationId="SymbolExplorer" ContainerDockedSize="332,679.6" IsOpen="false" LastActiveDateTime="2026-11-23T16:46:59.335556+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="c6ddf369-eb82-4a69-9937-df3f2de48fcc" SerializationId="InterfaceFunctionExplorer" ContainerDockedSize="1282,198" IsOpen="false" LastActiveDateTime="2026-11-05T17:58:16.9064808+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="792c075c-8ac2-4c17-94e9-8809753bdf66" SerializationId="TteLanguageExplorer" ContainerDockedSize="399,198" IsOpen="false" LastActiveDateTime="2026-11-19T09:30:10.3920969+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="72257bb0-24fb-4c42-b42a-d7666b985d2e" SerializationId="TraceItemExplorer" ContainerDockedSize="250,676" IsOpen="false" State="Docked" /&gt;
@@ -139,7 +129,7 @@
                       <string>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;SymbolSelectionProperties xmlns:i="http://www.w3.org/2001/XMLSchema-instance"&gt;
 &lt;AreDiagQualifiersShown&gt;false&lt;/AreDiagQualifiersShown&gt;
-&lt;CurrentViewId&gt;Parameters&lt;/CurrentViewId&gt;
+&lt;CurrentViewId&gt;Variables&lt;/CurrentViewId&gt;
 &lt;SearchProperties&gt;
 &lt;SearchTermHistory /&gt;
 &lt;/SearchProperties&gt;
@@ -312,6 +302,9 @@
 &lt;NodeTreeProperties&gt;
 &lt;NodeProperties&gt;
 &lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/LIN&lt;/NodeKey&gt;
+&lt;/NodeProperties&gt;
+&lt;NodeProperties&gt;
+&lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/Power_RelayCrtl&lt;/NodeKey&gt;
 &lt;/NodeProperties&gt;
 &lt;/NodeTreeProperties&gt;
 &lt;/ViewProperties&gt;
@@ -504,7 +497,7 @@
                       <string>ProjectView_Focused</string>
                     </key>
                     <value type="System.String">
-                      <string>IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vtt</string>
+                      <string>IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vparam</string>
                     </value>
                   </item>
                   <item>
@@ -513,7 +506,7 @@
                     </key>
                     <value type="System.Collections.ArrayList">
                       <ArrayOfAnyType>
-                        <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d13p1:type="q1:string" xmlns:d13p1="http://www.w3.org/2001/XMLSchema-instance">IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vtt</anyType>
+                        <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d13p1:type="q1:string" xmlns:d13p1="http://www.w3.org/2001/XMLSchema-instance">IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vparam</anyType>
                       </ArrayOfAnyType>
                     </value>
                   </item>
@@ -590,7 +583,7 @@
         <value type="Vector.ITE.DocumentManagement.DocumentPool.DocSettingList">
           <ArrayOfDocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="ConfigurationSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T08:06:40.4550486Z</LastTouched>
+              <LastTouched>2026-11-23T09:31:26.3004546Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -604,7 +597,7 @@
               <SerializedKey>ProjectConfiguration_</SerializedKey>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="DocumentSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T06:23:14.6564785Z</LastTouched>
+              <LastTouched>2026-11-23T09:42:43.0834449Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -613,18 +606,18 @@
                   <value type="Vector.ITE.TestTable.Editor.TtEditorSettings">
                     <TtEditorSettings>
                       <SplitterSettingsTet>
-                        <SplitPosition>150</SplitPosition>
+                        <SplitPosition>407</SplitPosition>
                         <Expanded>true</Expanded>
                       </SplitterSettingsTet>
                       <SplitterSettingsPv>
-                        <SplitPosition>511</SplitPosition>
+                        <SplitPosition>587</SplitPosition>
                         <Expanded>true</Expanded>
                       </SplitterSettingsPv>
                       <SplitterSettingsLv>
                         <SplitPosition>150</SplitPosition>
                         <Expanded>true</Expanded>
                       </SplitterSettingsLv>
-                      <ActiveView>4</ActiveView>
+                      <ActiveView>2</ActiveView>
                     </TtEditorSettings>
                   </value>
                 </item>
@@ -677,7 +670,7 @@
                           <value type="System.Int32[]">
                             <ArrayOfInt>
                               <int>60</int>
-                              <int>10</int>
+                              <int>6</int>
                             </ArrayOfInt>
                           </value>
                         </item>
@@ -801,7 +794,7 @@
               <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="IBSTest\IBSTest.vtt" /&gt;</SerializedBasedFileName>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="DocumentSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T08:06:40.7045244Z</LastTouched>
+              <LastTouched>2026-11-23T09:42:42.68623Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -853,6 +846,14 @@
                 </item>
                 <item>
                   <key type="System.String">
+                    <string>2_column2</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>132</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
                     <string>3_column0</string>
                   </key>
                   <value type="System.Int32">
@@ -875,11 +876,147 @@
                     <int>132</int>
                   </value>
                 </item>
+                <item>
+                  <key type="System.String">
+                    <string>4_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>227</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>4_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>5_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>172</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>5_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>6_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>191</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>6_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>6_column2</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>7_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>178</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>7_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>8_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>197</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>8_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>8_column2</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>9_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>334</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>9_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>81</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>10_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>164</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>10_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>81</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>10_column2</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
               </Settings>
               <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="IBSTest\IBSTest.vparam" /&gt;</SerializedBasedFileName>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="ConfigurationSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T08:06:40.6898899Z</LastTouched>
+              <LastTouched>2026-11-23T09:31:24.9190311Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -908,7 +1045,7 @@
               <SerializedKey>TestUnitConfiguration_d2c5homfeg7q</SerializedKey>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="DocumentSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T08:06:40.716349Z</LastTouched>
+              <LastTouched>2026-11-23T09:42:43.0220597Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -1285,13 +1422,18 @@
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>CaplNavigator_Expanded</string>
+                    <string>CaplNavigator_TopIndex</string>
                   </key>
-                  <value type="System.Collections.ArrayList">
-                    <ArrayOfAnyType>
-                      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d7p1:type="q1:string">Functions</anyType>
-                      <anyType xmlns:q2="http://www.w3.org/2001/XMLSchema" d7p1:type="q2:string">Test Functions</anyType>
-                    </ArrayOfAnyType>
+                  <value type="System.Int32">
+                    <int>0</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CaplNavigator_Focused</string>
+                  </key>
+                  <value type="System.String">
+                    <string>PWR_Configure(float V, float Ichg, float Idchg): int</string>
                   </value>
                 </item>
                 <item>
@@ -1306,18 +1448,13 @@
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>CaplNavigator_Focused</string>
+                    <string>CaplNavigator_Expanded</string>
                   </key>
-                  <value type="System.String">
-                    <string>PWR_Configure(float V, float Ichg, float Idchg): int</string>
-                  </value>
-                </item>
-                <item>
-                  <key type="System.String">
-                    <string>CaplNavigator_TopIndex</string>
-                  </key>
-                  <value type="System.Int32">
-                    <int>0</int>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType>
+                      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d7p1:type="q1:string">Functions</anyType>
+                      <anyType xmlns:q2="http://www.w3.org/2001/XMLSchema" d7p1:type="q2:string">Test Functions</anyType>
+                    </ArrayOfAnyType>
                   </value>
                 </item>
                 <item>

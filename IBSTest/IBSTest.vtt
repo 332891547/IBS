@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--Vector Test Table Editor-->
-<ttroot version="19" xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+<ttroot version="19" xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0" minRequiredVersion="16">
   <tt>
     <tg navid="b4b0aee2-7efa-415f-bd8e-b50e56e9fc9c">
       <title>工作电流测试</title>
@@ -15,6 +15,10 @@
     </tg>
     <tg navid="906cf73e-91f7-4f5a-9ece-6afc23215787">
       <title>基本功能测试</title>
+      <tttestsequence navid="f2f8f8ff-dab6-4c19-9656-fede196eafa3">
+        <title>SOC 自校准功能测试（静置法，11 档）</title>
+        <name>SOC_RestCalibration</name>
+      </tttestsequence>
     </tg>
     <tg navid="aa756deb-bbd3-48a9-8161-0b355f246e3a">
       <title>电气测试</title>
@@ -260,8 +264,641 @@ write("[PARAM][STRUCT] RelayIdle = %d / %d / %d", rBattery, rCAB1500, rIBS);</co
           </ttfunction>
         </completion>
       </ts_definition>
+      <ts_definition navid="f2f8f8ff-dab6-4c19-9656-fede196eafa3">
+        <name>SOC_RestCalibration</name>
+        <description>静置法 SOC 自校准：Preparation 后接入真实电池，按参数充电至 IBS 报告 SOC=100%，随后按 90%、80%、70%、60%、50%、40%、30%、20%、10%、0% 十档逐次放电。每档依次复位 IBS、核对 SOC_STATE 为 0/1、按 SOC_PointRest_ms 静置、核对 SOC_STATE 为 2。充放电到位依据与校准判据均取自 IBS 自报信号。</description>
+        <parameters />
+        <variables />
+        <preparation>
+          <title>准备测试环境</title>
+          <ttfunction>
+            <title>PHASE_Prepare</title>
+            <name>PHASE_Prepare</name>
+            <param>
+              <type>string</type>
+              <value>
+                <const>SOC_RestCalibration</const>
+              </value>
+            </param>
+          </ttfunction>
+        </preparation>
+        <breakonfail>true</breakonfail>
+        <tc>
+          <title>Preparation 后接入真实电池（原生 set，绕过 CAPL 软件互锁）</title>
+          <tcid>fe6b8f89-e4b1-4664-bc18-93b764f9fe90</tcid>
+          <set>
+            <title>Preparation 后接入真实电池（原生 set，绕过 CAPL 软件互锁）</title>
+            <in>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|BatteryConnectEquipment|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>1</const>
+                </source>
+              </assignment>
+            </in>
+          </set>
+        </tc>
+        <tttestcase>
+          <title>充电至 IBS 报告 SOC 达到 100%</title>
+          <name>ChargeBatteryToFullSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_ChargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_ChargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_ChargeTargetSOC_pct|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>d9fd07f4-54ac-44ed-99dd-4a9e9de39b12</tcid>
+        </tttestcase>
+        <tc>
+          <title>100% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>1030c113-c851-4de1-968c-eca8ad5d1522</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>100% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>a921353e-81b0-41a2-a93d-dcfd8aa2dcbd</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>100% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>a186c494-f364-492b-99dc-7847eb001e9c</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>100% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>60213372-391c-4e1f-bd95-7b481345e9a4</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 90%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>90</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>6ad1d1f5-421b-4073-989e-40e820e4c259</tcid>
+        </tttestcase>
+        <tc>
+          <title>90% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>91d53b47-ddf0-4a4e-8da0-0bb5f6043a1f</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>90% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>70dd349c-857f-4c63-909a-7bd1fcaffa18</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>90% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>96fe02bc-9caa-4873-84a8-0d2c4611d559</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>90% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>0685483a-379e-46e1-bcc8-2f71e61105f8</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 80%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>80</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>00fd3c5d-6c6e-4932-950c-7bd45a0919bd</tcid>
+        </tttestcase>
+        <tc>
+          <title>80% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>c95f7423-3078-41f1-92f7-f6e610de06f6</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>80% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>1104073c-dee3-428c-92be-45227db6bd92</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>80% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>3fd58d1c-9d09-4a77-84e6-e7bc94152135</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>80% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>66e1643e-e03c-4aa1-bc52-182d44befaf7</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 70%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>70</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>df858b35-baca-459a-9228-4411f3eadbda</tcid>
+        </tttestcase>
+        <tc>
+          <title>70% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>4fe98dae-ff77-43ff-bf1a-00bb5932bd8e</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>70% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>46de0fe5-8183-496f-9a1a-32a84f13019e</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>70% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>2bfd87e1-3155-4477-8d01-7cfa49ba0d3b</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>70% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>b09440ca-9d1e-4aa0-9f2b-fd6d6d4a5313</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 60%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>60</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>93308376-d3c5-41db-a512-035128fe5e54</tcid>
+        </tttestcase>
+        <tc>
+          <title>60% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>2ac143cf-4078-4061-a4d9-51a82c0cb874</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>60% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>883a53dd-7f9f-46bd-8f62-fb39735cdf32</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>60% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>92924a6b-b68d-4b3f-84bc-2f56730ed8ac</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>60% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>676b01d4-7a21-4a2d-9eb9-5d5fb3c55519</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 50%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>50</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>4db84c8d-a0e8-4c4e-9024-f94aa2555b59</tcid>
+        </tttestcase>
+        <tc>
+          <title>50% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>95684e44-d4f3-4069-b7c5-633b7925e580</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>50% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>22878d47-2577-4f8b-bbef-4ba21fb3bae2</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>50% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>fff39b20-2416-45d4-b03b-4db378a041ca</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>50% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>29d4afa4-ef2c-41d0-b71d-08df0d79b527</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 40%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>40</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>01c961bb-913c-4f6a-8613-c8278abe042f</tcid>
+        </tttestcase>
+        <tc>
+          <title>40% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>16f85c23-d3fa-494e-ae5b-45b2087228f1</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>40% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>3c1d5adf-ec17-47b8-b423-dce08439aebc</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>40% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>ed289bb3-6ada-459b-af24-ebc94f38e835</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>40% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>919c4dbe-04e9-4ec1-b584-356b2bca4993</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 30%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>30</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>11c40b70-a282-42ca-b6db-1e3c5f00bfa7</tcid>
+        </tttestcase>
+        <tc>
+          <title>30% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>80af1cee-ad1e-4dae-978e-2c1bd6ad7f04</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>30% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>8673ad92-60b9-467e-a58e-cc7703ec2df2</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>30% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>6d9d8f6d-4fdd-4979-a4c2-9934e5fc4cd3</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>30% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>69a9eae8-4a89-46af-a49e-88fce0066970</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 20%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>20</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>09b22c83-e6bd-4468-b85d-830767dc6443</tcid>
+        </tttestcase>
+        <tc>
+          <title>20% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>82709e37-220e-400b-bf59-88a0a9137b98</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>20% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>557adc73-f7f9-485c-ada6-6277012acb97</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>20% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>37e0ef27-95b9-4908-b020-afb9317ca88e</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>20% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>cb4fa56d-d822-4626-be6e-669141b1f1b7</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 10%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>10</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>887c9488-9fa6-404f-811b-62ff59e0e59c</tcid>
+        </tttestcase>
+        <tc>
+          <title>10% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>84599fe6-d0f2-46b6-90d4-ade427cd19dc</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>10% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>29e646be-c5ef-4056-94dc-342d9e5a257a</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>10% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>359c7537-b825-4be6-aa8b-bccade8dbbdb</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>10% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>106cde4a-dcd1-4038-9b6b-96e97d2d0107</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>放电至 IBS 报告 SOC 达到 0%</title>
+          <name>DischargeBatteryToTargetSOC</name>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_DischargeCurrent_A|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <param>
+            <type>float</type>
+            <value>
+              <const>0</const>
+            </value>
+          </param>
+          <param>
+            <type>int</type>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_StepTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+          </param>
+          <tcid>56d71f38-984b-406d-9601-924fc01f8f46</tcid>
+        </tttestcase>
+        <tc>
+          <title>0% 档：复位 IBS（断电 6 s，上电等 1 s）</title>
+          <tcid>666b2844-ba93-4b18-8e3c-926501ec9ad5</tcid>
+          <ttfunction>
+            <title>断电 6 s 后重新上电</title>
+            <name>Restart_IBS</name>
+          </ttfunction>
+        </tc>
+        <tttestcase>
+          <title>0% 档：读取 SOC 并核对 SOC_STATE 未校准</title>
+          <name>CheckSOCStateUncalibrated</name>
+          <tcid>cc1ea430-c125-4816-8e48-5a333a55a5ab</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>0% 档：静置 4 h</title>
+          <name>WaitForSOCRestCalibration</name>
+          <tcid>d00b08fd-5896-4f0b-9f2a-b2da8259ef96</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>0% 档：读取 SOC 并核对 SOC_STATE 已校准</title>
+          <name>CheckSOCStateCalibrated</name>
+          <tcid>ae531a37-f319-480b-b417-74392eb6c48a</tcid>
+        </tttestcase>
+        <tc>
+          <title>正常结束后断开真实电池</title>
+          <tcid>ae576d60-2c1a-4fa9-a599-b0b88ae1cff0</tcid>
+          <set>
+            <title>正常结束后断开真实电池</title>
+            <in>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|BatteryConnectEquipment|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>0</const>
+                </source>
+              </assignment>
+            </in>
+          </set>
+        </tc>
+        <completion>
+          <title>完成测试并恢复安全态</title>
+          <ttfunction>
+            <title>PHASE_Complete</title>
+            <name>PHASE_Complete</name>
+          </ttfunction>
+        </completion>
+      </ts_definition>
     </ts_definitions>
-<tc_definitions>
+    <tc_definitions>
       <tc_definition>
         <name>SleepCurrent</name>
         <description>单个电压点的休眠平均电流：每点 3 轮，每轮关输出、设压限流、开输出、等到压、LIN 通讯 60 s、监控 10 s（三帧有效性）、停 LIN、静置 60 s、连续积分 20 min 并判定平均电流小于 0.250 mA。</description>
@@ -294,7 +931,6 @@ write("[PARAM][STRUCT] RelayIdle = %d / %d / %d", rBattery, rCAB1500, rIBS);</co
               <const>0</const>
             </source>
           </variable_definition>
-
         </variables>
         <breakonfail>false</breakonfail>
         <caplinline>
@@ -856,6 +1492,441 @@ write("[WORK][WINDOW] window_ms=%d timeout_ms=%d min_s=%.3f",
           <code>write("[WORK][POINT][END] V=%.1f", OutPutVoltage);</code>
         </caplinline>
       </tc_definition>
+      <tc_definition>
+        <name>ChargeBatteryToFullSOC</name>
+        <description>按调用参数用原生 set 节点设置 N8361 恒压与充电限流、切换到真实电池供电路径并开启输出；LIN 保持通讯直到 IBS 报告的 SOC 达到目标值，随后关闭输出并停止 LIN 调度。判据取自 IBS 自报 SOC，不等同 GB/T 5008.1 的独立满充验证。</description>
+        <tcid>f9881ef7-bc19-458c-b3f2-ad59a3cfd9fd</tcid>
+        <parameters>
+          <parameter_definition>
+            <name>ChargeVoltage_V</name>
+            <type>float</type>
+          </parameter_definition>
+          <parameter_definition>
+            <name>ChargeCurrent_A</name>
+            <type>float</type>
+          </parameter_definition>
+          <parameter_definition>
+            <name>ChargeTargetSOC_pct</name>
+            <type>float</type>
+          </parameter_definition>
+          <parameter_definition>
+            <name>ChargeDischargeTimeout_ms</name>
+            <type>int</type>
+          </parameter_definition>
+        </parameters>
+        <breakonfail>false</breakonfail>
+        <set>
+          <title>充电初始化：切换到真实电池供电路径并设置充电参数</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|CAB1500_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>1</const>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|IBS_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <variable>ChargeVoltage_V</variable>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_ChargeCurrent|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <variable>ChargeCurrent_A</variable>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_DicChargeCurrent|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <wait>
+          <title>等待电源参数生效</title>
+          <time>
+            <value>
+              <const>300</const>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>启动 N8361 充电输出</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutputSts|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>1</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <caplfunction>
+          <title>启动 LIN 正常调度并等待新帧</title>
+          <name>LIN_OpenNormal_Check</name>
+        </caplfunction>
+        <caplinline>
+          <title>充电 SOC 等待开始</title>
+          <code>write("[SOC][CHARGE][AWAIT_BEGIN] target=%.2f timeout_ms=%d t=%I64d", ChargeTargetSOC_pct, ChargeDischargeTimeout_ms, timeNowInt64());</code>
+        </caplinline>
+        <awaitvaluematch>
+          <title>等待 IBS 报告 SOC 达到充电目标</title>
+          <timeout>
+            <value>
+              <variable>ChargeDischargeTimeout_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>any</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>DBSignal_BEGIN_OF_OBJECT|1|NodeOrFrameData_BEGIN_OF_OBJECT|1|5|LIN|1|MAXUS_LIN_V3|IBS|END_OF_OBJECT_NodeOrFrameData|FrameData_BEGIN_OF_OBJECT|1|255|255|0|0|Calc_Data_1|53|False|END_OF_OBJECT_FrameData|SOC|1|END_OF_OBJECT_|</dbobject>
+            <ge>
+              <variable>ChargeTargetSOC_pct</variable>
+            </ge>
+          </compare>
+        </awaitvaluematch>
+        <caplinline>
+          <title>充电 SOC 等待结束</title>
+          <code>write("[SOC][CHARGE][AWAIT_END] t=%I64d", timeNowInt64());</code>
+        </caplinline>
+        <set>
+          <title>充电目标达成后关闭 N8361 输出</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutputSts|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <caplfunction>
+          <title>停止 LIN 调度</title>
+          <name>LIN_Stop_Check</name>
+        </caplfunction>
+        <statecheck>
+          <title>充电结束时 SOC 已达到目标</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>DBSignal_BEGIN_OF_OBJECT|1|NodeOrFrameData_BEGIN_OF_OBJECT|1|5|LIN|1|MAXUS_LIN_V3|IBS|END_OF_OBJECT_NodeOrFrameData|FrameData_BEGIN_OF_OBJECT|1|255|255|0|0|Calc_Data_1|53|False|END_OF_OBJECT_FrameData|SOC|1|END_OF_OBJECT_|</dbobject>
+              </value>
+              <ge>
+                <variable>ChargeTargetSOC_pct</variable>
+              </ge>
+            </compare>
+          </expected>
+        </statecheck>
+      </tc_definition>
+      <tc_definition>
+        <name>DischargeBatteryToTargetSOC</name>
+        <description>按调用参数用原生 set 节点设置 N8361 恒压与放电限流、切换到真实电池供电路径并开启输出；LIN 保持通讯直到 IBS 报告的 SOC 降到目标值，随后关闭输出并停止 LIN 调度。判据取自 IBS 自报 SOC。</description>
+        <tcid>f460704e-919b-4a48-aaaa-6d42cca907d8</tcid>
+        <parameters>
+          <parameter_definition>
+            <name>DischargeVoltage_V</name>
+            <type>float</type>
+          </parameter_definition>
+          <parameter_definition>
+            <name>DischargeCurrent_A</name>
+            <type>float</type>
+          </parameter_definition>
+          <parameter_definition>
+            <name>DischargeTargetSOC_pct</name>
+            <type>float</type>
+          </parameter_definition>
+          <parameter_definition>
+            <name>ChargeDischargeTimeout_ms</name>
+            <type>int</type>
+          </parameter_definition>
+        </parameters>
+        <breakonfail>false</breakonfail>
+        <set>
+          <title>放电初始化：切换到真实电池供电路径并设置放电参数</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|CAB1500_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>1</const>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|IBS_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <variable>DischargeVoltage_V</variable>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_ChargeCurrent|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_DicChargeCurrent|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <variable>DischargeCurrent_A</variable>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <wait>
+          <title>等待电源参数生效</title>
+          <time>
+            <value>
+              <const>300</const>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>启动 N8361 放电输出</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutputSts|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>1</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <caplfunction>
+          <title>启动 LIN 正常调度并等待新帧</title>
+          <name>LIN_OpenNormal_Check</name>
+        </caplfunction>
+        <caplinline>
+          <title>放电 SOC 等待开始</title>
+          <code>write("[SOC][DISCHARGE][AWAIT_BEGIN] target=%.2f timeout_ms=%d t=%I64d", DischargeTargetSOC_pct, ChargeDischargeTimeout_ms, timeNowInt64());</code>
+        </caplinline>
+        <awaitvaluematch>
+          <title>等待 IBS 报告 SOC 降至放电目标</title>
+          <timeout>
+            <value>
+              <variable>ChargeDischargeTimeout_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>any</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>DBSignal_BEGIN_OF_OBJECT|1|NodeOrFrameData_BEGIN_OF_OBJECT|1|5|LIN|1|MAXUS_LIN_V3|IBS|END_OF_OBJECT_NodeOrFrameData|FrameData_BEGIN_OF_OBJECT|1|255|255|0|0|Calc_Data_1|53|False|END_OF_OBJECT_FrameData|SOC|1|END_OF_OBJECT_|</dbobject>
+            <le>
+              <variable>DischargeTargetSOC_pct</variable>
+            </le>
+          </compare>
+        </awaitvaluematch>
+        <caplinline>
+          <title>放电 SOC 等待结束</title>
+          <code>write("[SOC][DISCHARGE][AWAIT_END] t=%I64d", timeNowInt64());</code>
+        </caplinline>
+        <set>
+          <title>放电目标达成后关闭 N8361 输出</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutputSts|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <caplfunction>
+          <title>停止 LIN 调度</title>
+          <name>LIN_Stop_Check</name>
+        </caplfunction>
+        <statecheck>
+          <title>放电结束时 SOC 已降至目标</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>DBSignal_BEGIN_OF_OBJECT|1|NodeOrFrameData_BEGIN_OF_OBJECT|1|5|LIN|1|MAXUS_LIN_V3|IBS|END_OF_OBJECT_NodeOrFrameData|FrameData_BEGIN_OF_OBJECT|1|255|255|0|0|Calc_Data_1|53|False|END_OF_OBJECT_FrameData|SOC|1|END_OF_OBJECT_|</dbobject>
+              </value>
+              <le>
+                <variable>DischargeTargetSOC_pct</variable>
+              </le>
+            </compare>
+          </expected>
+        </statecheck>
+      </tc_definition>
+      <tc_definition>
+        <name>CheckSOCStateUncalibrated</name>
+        <description>启动 LIN 正常调度采集新鲜报文后，校验 SOC 处于 0~100 有效区间且 SOC_STATE 为未校准值 0 或 1（本工程 LDF 分别对应偏差高于 15% 与低于 15%），随后停止 LIN 调度。</description>
+        <tcid>e129c91f-8661-4df5-a2b6-11ec77363473</tcid>
+        <parameters />
+        <breakonfail>true</breakonfail>
+        <caplfunction>
+          <title>启动 LIN 正常调度并等待新帧</title>
+          <name>LIN_OpenNormal_Check</name>
+        </caplfunction>
+        <statecheck>
+          <title>SOC 信号有效（0~100%）</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>DBSignal_BEGIN_OF_OBJECT|1|NodeOrFrameData_BEGIN_OF_OBJECT|1|5|LIN|1|MAXUS_LIN_V3|IBS|END_OF_OBJECT_NodeOrFrameData|FrameData_BEGIN_OF_OBJECT|1|255|255|0|0|Calc_Data_1|53|False|END_OF_OBJECT_FrameData|SOC|1|END_OF_OBJECT_|</dbobject>
+              </value>
+              <range>
+                <fromto>
+                  <from>
+                    <const>0</const>
+                  </from>
+                  <to>
+                    <const>100</const>
+                  </to>
+                </fromto>
+              </range>
+            </compare>
+          </expected>
+        </statecheck>
+        <statecheck>
+          <title>SOC_STATE 为未校准（0 或 1）</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>DBSignal_BEGIN_OF_OBJECT|1|NodeOrFrameData_BEGIN_OF_OBJECT|1|5|LIN|1|MAXUS_LIN_V3|IBS|END_OF_OBJECT_NodeOrFrameData|FrameData_BEGIN_OF_OBJECT|1|255|255|0|0|Calc_Data_1|53|False|END_OF_OBJECT_FrameData|SOC_STATE|1|END_OF_OBJECT_|</dbobject>
+              </value>
+              <range>
+                <fromto>
+                  <from>
+                    <const>0</const>
+                  </from>
+                  <to>
+                    <const>1</const>
+                  </to>
+                </fromto>
+              </range>
+            </compare>
+          </expected>
+        </statecheck>
+        <caplfunction>
+          <title>停止 LIN 调度</title>
+          <name>LIN_Stop_Check</name>
+        </caplfunction>
+      </tc_definition>
+      <tc_definition>
+        <name>CheckSOCStateCalibrated</name>
+        <description>启动 LIN 正常调度采集新鲜报文后，校验 SOC 处于 0~100 有效区间且 SOC_STATE 为已校准值 2（本工程 LDF 对应偏差低于 10%），随后停止 LIN 调度。</description>
+        <tcid>aa37f1c9-56e0-4535-80f1-eea69af3569a</tcid>
+        <parameters />
+        <breakonfail>true</breakonfail>
+        <caplfunction>
+          <title>启动 LIN 正常调度并等待新帧</title>
+          <name>LIN_OpenNormal_Check</name>
+        </caplfunction>
+        <statecheck>
+          <title>SOC 信号有效（0~100%）</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>DBSignal_BEGIN_OF_OBJECT|1|NodeOrFrameData_BEGIN_OF_OBJECT|1|5|LIN|1|MAXUS_LIN_V3|IBS|END_OF_OBJECT_NodeOrFrameData|FrameData_BEGIN_OF_OBJECT|1|255|255|0|0|Calc_Data_1|53|False|END_OF_OBJECT_FrameData|SOC|1|END_OF_OBJECT_|</dbobject>
+              </value>
+              <range>
+                <fromto>
+                  <from>
+                    <const>0</const>
+                  </from>
+                  <to>
+                    <const>100</const>
+                  </to>
+                </fromto>
+              </range>
+            </compare>
+          </expected>
+        </statecheck>
+        <statecheck>
+          <title>SOC_STATE 为已校准（2）</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>DBSignal_BEGIN_OF_OBJECT|1|NodeOrFrameData_BEGIN_OF_OBJECT|1|5|LIN|1|MAXUS_LIN_V3|IBS|END_OF_OBJECT_NodeOrFrameData|FrameData_BEGIN_OF_OBJECT|1|255|255|0|0|Calc_Data_1|53|False|END_OF_OBJECT_FrameData|SOC_STATE|1|END_OF_OBJECT_|</dbobject>
+              </value>
+              <eq>
+                <const>2</const>
+              </eq>
+            </compare>
+          </expected>
+        </statecheck>
+        <caplfunction>
+          <title>停止 LIN 调度</title>
+          <name>LIN_Stop_Check</name>
+        </caplfunction>
+      </tc_definition>
+      <tc_definition>
+        <name>WaitForSOCRestCalibration</name>
+        <description>保持 IBS 供电，按 SOC_PointRest_ms 参数静置，供各档 SOC 静置校准调用。</description>
+        <tcid>0639515e-4606-42b6-a8be-be0fd1188862</tcid>
+        <parameters />
+        <breakonfail>true</breakonfail>
+        <caplinline>
+          <title>SOC 静置等待开始</title>
+          <code>write("[SOC][REST][BEGIN] t=%I64d", timeNowInt64());</code>
+        </caplinline>
+        <wait>
+          <title>按 SOC_PointRest_ms 静置</title>
+          <time>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::SOC_PointRest_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <caplinline>
+          <title>SOC 静置等待结束</title>
+          <code>write("[SOC][REST][END] t=%I64d", timeNowInt64());</code>
+        </caplinline>
+      </tc_definition>
     </tc_definitions>
     <function_definitions>
       <function_definition navid="1a4d6e92-73c5-4f08-9b21-5d8e0c7a3f61">
@@ -983,6 +2054,56 @@ writeLineEx(0, 1, "[LOG] BLF recording started: %s", logPath);</code>
           <code>stopLogging("Logging");
 writeLineEx(0, 1, "[LOG] BLF recording stopped");</code>
         </caplinline>
+      </function_definition>
+      <function_definition navid="03d96ebf-efe2-40c7-b68e-f8d2c4c49387">
+        <name>Restart_IBS</name>
+        <export>false</export>
+        <description>IBS 断开电源 6 s 后重新上电并等待 1 s；复位后按用户确认预期 SOC_STATE 回到未校准，实际状态由后续 Test Case 判定。</description>
+        <parameters />
+        <set>
+          <title>IBS 断电</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|IBS_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>1</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <wait>
+          <title>保持断电 6 s</title>
+          <time>
+            <value>
+              <const>6000</const>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>IBS 重新上电</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|IBS_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <wait>
+          <title>等待 1 s</title>
+          <time>
+            <value>
+              <const>1000</const>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
       </function_definition>
     </function_definitions>
   </ttlib>

@@ -100,3 +100,21 @@ ScalarMultiRecord
 Name	Type	Info	Value
 SelectorType	[Mode]		Normal	Test
 IBS::WC_IntegrationWindow_ms	Auto	连续积分窗口 ms，原文 10 min	600000	20000
+Group	SOC自校准测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::SOC_ChargeVoltage_V	Float	充电恒压设定 V，旧工程 14.8	14.8
+IBS::SOC_ChargeCurrent_A	Float	充电限流 A，旧工程 5.25	5.25
+IBS::SOC_ChargeTargetSOC_pct	Float	满充目标 SOC %，判据取 IBS 自报值	100
+IBS::SOC_DischargeVoltage_V	Float	放电恒压设定 V，旧工程 10.5	10.5
+IBS::SOC_DischargeCurrent_A	Float	放电限流 A，旧工程 5.25	5.25
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::SOC_StepTimeout_ms	Auto	充放电到目标 SOC 限时 ms，旧工程 20 h/1 min	72000000	60000
+IBS::SOC_PointRest_ms	Auto	每档静置 ms，旧工程 4 h/1 min	14400000	60000

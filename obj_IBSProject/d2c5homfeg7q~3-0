@@ -22,6 +22,67 @@
     <nestedTcIds>b7c1a2d3-0002-4a01-9b01-000000000013</nestedTcIds>
     <nestedTcIds>b7c1a2d3-0002-4a01-9b01-000000000014</nestedTcIds>
   </testsequence>
+  <testsequence name="SOC_RestCalibration" comment="静置法 SOC 自校准：Preparation 后接入真实电池，按参数充电至 IBS 报告 SOC=100%，随后按 90%、80%、70%、60%、50%、40%、30%、20%、10%、0% 十档逐次放电。每档依次复位 IBS、核对 SOC_STATE 为 0/1、按 SOC_PointRest_ms 静置、核对 SOC_STATE 为 2。充放电到位依据与校准判据均取自 IBS 自报信号。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="f2f8f8ff-dab6-4c19-9656-fede196eafa3">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[4]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+    <nestedTcIds>fe6b8f89-e4b1-4664-bc18-93b764f9fe90</nestedTcIds>
+    <nestedTcIds>1030c113-c851-4de1-968c-eca8ad5d1522</nestedTcIds>
+    <nestedTcIds>91d53b47-ddf0-4a4e-8da0-0bb5f6043a1f</nestedTcIds>
+    <nestedTcIds>c95f7423-3078-41f1-92f7-f6e610de06f6</nestedTcIds>
+    <nestedTcIds>4fe98dae-ff77-43ff-bf1a-00bb5932bd8e</nestedTcIds>
+    <nestedTcIds>2ac143cf-4078-4061-a4d9-51a82c0cb874</nestedTcIds>
+    <nestedTcIds>95684e44-d4f3-4069-b7c5-633b7925e580</nestedTcIds>
+    <nestedTcIds>16f85c23-d3fa-494e-ae5b-45b2087228f1</nestedTcIds>
+    <nestedTcIds>80af1cee-ad1e-4dae-978e-2c1bd6ad7f04</nestedTcIds>
+    <nestedTcIds>82709e37-220e-400b-bf59-88a0a9137b98</nestedTcIds>
+    <nestedTcIds>84599fe6-d0f2-46b6-90d4-ade427cd19dc</nestedTcIds>
+    <nestedTcIds>666b2844-ba93-4b18-8e3c-926501ec9ad5</nestedTcIds>
+    <nestedTcIds>ae576d60-2c1a-4fa9-a599-b0b88ae1cff0</nestedTcIds>
+    <nestedTcIds>d9fd07f4-54ac-44ed-99dd-4a9e9de39b12</nestedTcIds>
+    <nestedTcIds>a921353e-81b0-41a2-a93d-dcfd8aa2dcbd</nestedTcIds>
+    <nestedTcIds>a186c494-f364-492b-99dc-7847eb001e9c</nestedTcIds>
+    <nestedTcIds>60213372-391c-4e1f-bd95-7b481345e9a4</nestedTcIds>
+    <nestedTcIds>6ad1d1f5-421b-4073-989e-40e820e4c259</nestedTcIds>
+    <nestedTcIds>70dd349c-857f-4c63-909a-7bd1fcaffa18</nestedTcIds>
+    <nestedTcIds>96fe02bc-9caa-4873-84a8-0d2c4611d559</nestedTcIds>
+    <nestedTcIds>0685483a-379e-46e1-bcc8-2f71e61105f8</nestedTcIds>
+    <nestedTcIds>00fd3c5d-6c6e-4932-950c-7bd45a0919bd</nestedTcIds>
+    <nestedTcIds>1104073c-dee3-428c-92be-45227db6bd92</nestedTcIds>
+    <nestedTcIds>3fd58d1c-9d09-4a77-84e6-e7bc94152135</nestedTcIds>
+    <nestedTcIds>66e1643e-e03c-4aa1-bc52-182d44befaf7</nestedTcIds>
+    <nestedTcIds>df858b35-baca-459a-9228-4411f3eadbda</nestedTcIds>
+    <nestedTcIds>46de0fe5-8183-496f-9a1a-32a84f13019e</nestedTcIds>
+    <nestedTcIds>2bfd87e1-3155-4477-8d01-7cfa49ba0d3b</nestedTcIds>
+    <nestedTcIds>b09440ca-9d1e-4aa0-9f2b-fd6d6d4a5313</nestedTcIds>
+    <nestedTcIds>93308376-d3c5-41db-a512-035128fe5e54</nestedTcIds>
+    <nestedTcIds>883a53dd-7f9f-46bd-8f62-fb39735cdf32</nestedTcIds>
+    <nestedTcIds>92924a6b-b68d-4b3f-84bc-2f56730ed8ac</nestedTcIds>
+    <nestedTcIds>676b01d4-7a21-4a2d-9eb9-5d5fb3c55519</nestedTcIds>
+    <nestedTcIds>4db84c8d-a0e8-4c4e-9024-f94aa2555b59</nestedTcIds>
+    <nestedTcIds>22878d47-2577-4f8b-bbef-4ba21fb3bae2</nestedTcIds>
+    <nestedTcIds>fff39b20-2416-45d4-b03b-4db378a041ca</nestedTcIds>
+    <nestedTcIds>29d4afa4-ef2c-41d0-b71d-08df0d79b527</nestedTcIds>
+    <nestedTcIds>01c961bb-913c-4f6a-8613-c8278abe042f</nestedTcIds>
+    <nestedTcIds>3c1d5adf-ec17-47b8-b423-dce08439aebc</nestedTcIds>
+    <nestedTcIds>ed289bb3-6ada-459b-af24-ebc94f38e835</nestedTcIds>
+    <nestedTcIds>919c4dbe-04e9-4ec1-b584-356b2bca4993</nestedTcIds>
+    <nestedTcIds>11c40b70-a282-42ca-b6db-1e3c5f00bfa7</nestedTcIds>
+    <nestedTcIds>8673ad92-60b9-467e-a58e-cc7703ec2df2</nestedTcIds>
+    <nestedTcIds>6d9d8f6d-4fdd-4979-a4c2-9934e5fc4cd3</nestedTcIds>
+    <nestedTcIds>69a9eae8-4a89-46af-a49e-88fce0066970</nestedTcIds>
+    <nestedTcIds>09b22c83-e6bd-4468-b85d-830767dc6443</nestedTcIds>
+    <nestedTcIds>557adc73-f7f9-485c-ada6-6277012acb97</nestedTcIds>
+    <nestedTcIds>37e0ef27-95b9-4908-b020-afb9317ca88e</nestedTcIds>
+    <nestedTcIds>cb4fa56d-d822-4626-be6e-669141b1f1b7</nestedTcIds>
+    <nestedTcIds>887c9488-9fa6-404f-811b-62ff59e0e59c</nestedTcIds>
+    <nestedTcIds>29e646be-c5ef-4056-94dc-342d9e5a257a</nestedTcIds>
+    <nestedTcIds>359c7537-b825-4be6-aa8b-bccade8dbbdb</nestedTcIds>
+    <nestedTcIds>106cde4a-dcd1-4038-9b6b-96e97d2d0107</nestedTcIds>
+    <nestedTcIds>56d71f38-984b-406d-9601-924fc01f8f46</nestedTcIds>
+    <nestedTcIds>cc1ea430-c125-4816-8e48-5a333a55a5ab</nestedTcIds>
+    <nestedTcIds>d00b08fd-5896-4f0b-9f2a-b2da8259ef96</nestedTcIds>
+    <nestedTcIds>ae531a37-f319-480b-b417-74392eb6c48a</nestedTcIds>
+  </testsequence>
   <testcase name="SleepCurrent" comment="单个电压点的休眠平均电流：每点 3 轮，每轮关输出、设压限流、开输出、等到压、LIN 通讯 60 s、监控 10 s（三帧有效性）、停 LIN、静置 60 s、连续积分 20 min 并判定平均电流小于 0.250 mA。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="b7c1a2d3-0000-4a01-9b01-000000000000">
     <parameter name="OutPutVoltage" type="float" raw_type="float" />
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[1]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
@@ -30,6 +91,34 @@
   <testcase name="WorkCurrent" comment="单个电压点的工作平均电流：设压与 1 A 限流、开输出、2 s 内到压、启动 LIN 并 1 s 内核对 IBS 电压反馈、连续积分 10 分钟并判定平均电流小于 25 mA，随后关输出。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="b7c1a2d3-0002-4a01-9b01-000000000000">
     <parameter name="OutPutVoltage" type="float" raw_type="float" />
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[2]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="ChargeBatteryToFullSOC" comment="按调用参数用原生 set 节点设置 N8361 恒压与充电限流、切换到真实电池供电路径并开启输出；LIN 保持通讯直到 IBS 报告的 SOC 达到目标值，随后关闭输出并停止 LIN 调度。判据取自 IBS 自报 SOC，不等同 GB/T 5008.1 的独立满充验证。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="f9881ef7-bc19-458c-b3f2-ad59a3cfd9fd">
+    <parameter name="ChargeVoltage_V" type="float" raw_type="float" />
+    <parameter name="ChargeCurrent_A" type="float" raw_type="float" />
+    <parameter name="ChargeTargetSOC_pct" type="float" raw_type="float" />
+    <parameter name="ChargeDischargeTimeout_ms" type="int64" raw_type="int" />
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[3]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="DischargeBatteryToTargetSOC" comment="按调用参数用原生 set 节点设置 N8361 恒压与放电限流、切换到真实电池供电路径并开启输出；LIN 保持通讯直到 IBS 报告的 SOC 降到目标值，随后关闭输出并停止 LIN 调度。判据取自 IBS 自报 SOC。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="f460704e-919b-4a48-aaaa-6d42cca907d8">
+    <parameter name="DischargeVoltage_V" type="float" raw_type="float" />
+    <parameter name="DischargeCurrent_A" type="float" raw_type="float" />
+    <parameter name="DischargeTargetSOC_pct" type="float" raw_type="float" />
+    <parameter name="ChargeDischargeTimeout_ms" type="int64" raw_type="int" />
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[4]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="CheckSOCStateUncalibrated" comment="启动 LIN 正常调度采集新鲜报文后，校验 SOC 处于 0~100 有效区间且 SOC_STATE 为未校准值 0 或 1（本工程 LDF 分别对应偏差高于 15% 与低于 15%），随后停止 LIN 调度。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="e129c91f-8661-4df5-a2b6-11ec77363473">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[5]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="CheckSOCStateCalibrated" comment="启动 LIN 正常调度采集新鲜报文后，校验 SOC 处于 0~100 有效区间且 SOC_STATE 为已校准值 2（本工程 LDF 对应偏差低于 10%），随后停止 LIN 调度。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="aa37f1c9-56e0-4535-80f1-eea69af3569a">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[6]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="WaitForSOCRestCalibration" comment="保持 IBS 供电，按 SOC_PointRest_ms 参数静置，供各档 SOC 静置校准调用。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="0639515e-4606-42b6-a8be-be0fd1188862">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[7]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
     <implementation_language lang="TTE" />
   </testcase>
   <function name="PHASE_Prepare" comment="准备段：开日志、停 LIN、关唤醒节点、关输出、继电器切 IDLE" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true" guid="1a4d6e92-73c5-4f08-9b21-5d8e0c7a3f61">
@@ -48,6 +137,10 @@
   </function>
   <function name="StopLog" comment="停止本轮 BLF 日志" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="6a3ef6d2-b06d-4109-8c24-99d1f5de9032">
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/function_definitions[1]/function_definition[4]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </function>
+  <function name="Restart_IBS" comment="IBS 断开电源 6 s 后重新上电并等待 1 s；复位后按用户确认预期 SOC_STATE 回到未校准，实际状态由后续 Test Case 判定。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="03d96ebf-efe2-40c7-b68e-f8d2c4c49387">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/function_definitions[1]/function_definition[5]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
     <implementation_language lang="TTE" />
   </function>
 </tclibrary>
