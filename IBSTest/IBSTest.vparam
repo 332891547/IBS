@@ -118,3 +118,11 @@ Name	Type	Info	Value
 SelectorType	[Mode]		Normal	Test
 IBS::SOC_StepTimeout_ms	Auto	充放电到目标 SOC 限时 ms，旧工程 20 h/1 min	72000000	60000
 IBS::SOC_PointRest_ms	Auto	每档静置 ms，旧工程 4 h/1 min	14400000	60000
+
+Group	电压精度测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::VA_SampleInterval_ms	Integer	每组内相邻采样间隔，单位 ms	2000
+IBS::VA_TolerancePct	Float	单次配对相对偏差限值，单位 %	0.25

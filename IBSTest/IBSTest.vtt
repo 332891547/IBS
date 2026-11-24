@@ -19,6 +19,10 @@
         <title>SOC 自校准功能测试（静置法，11 档）</title>
         <name>SOC_RestCalibration</name>
       </tttestsequence>
+      <tttestsequence navid="c41d7a02-8f36-4b19-a3d5-6e0b7c2f8a41">
+        <title>电压精度测试</title>
+        <name>VoltageAccuracyTest</name>
+      </tttestsequence>
     </tg>
     <tg navid="aa756deb-bbd3-48a9-8161-0b355f246e3a">
       <title>电气测试</title>
@@ -877,6 +881,209 @@ write("[PARAM][STRUCT] RelayIdle = %d / %d / %d", rBattery, rCAB1500, rIBS);</co
           <tcid>ae576d60-2c1a-4fa9-a599-b0b88ae1cff0</tcid>
           <set>
             <title>正常结束后断开真实电池</title>
+            <in>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|BatteryConnectEquipment|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>0</const>
+                </source>
+              </assignment>
+            </in>
+          </set>
+        </tc>
+        <completion>
+          <title>完成测试并恢复安全态</title>
+          <ttfunction>
+            <title>PHASE_Complete</title>
+            <name>PHASE_Complete</name>
+          </ttfunction>
+        </completion>
+      </ts_definition>
+      <ts_definition navid="c41d7a02-8f36-4b19-a3d5-6e0b7c2f8a41">
+        <name>VoltageAccuracyTest</name>
+        <description>电压精度测试：真实电池接入、IBS 接通、CAB1500 断开、电源不输出；同一电池连续 5 组，每组 3 对 IBS 与 DVM 电压，逐组按三次配对相对偏差的最小与最大值判定是否在 ±0.25% 内</description>
+        <parameters />
+        <variables />
+        <preparation>
+          <title>准备测试环境</title>
+          <ttfunction>
+            <title>PHASE_Prepare</title>
+            <name>PHASE_Prepare</name>
+            <param>
+              <type>string</type>
+              <value>
+                <const>VoltageAccuracyTest</const>
+              </value>
+            </param>
+          </ttfunction>
+        </preparation>
+        <breakonfail>false</breakonfail>
+        <tc>
+          <title>切换到电压精度接线：断 CAB1500、接真实电池、电源不输出</title>
+          <tcid>c41d7a02-0001-4b19-a3d5-6e0b7c2f8a42</tcid>
+          <variables>
+            <variable_definition>
+              <name>ZeroV</name>
+              <type>float</type>
+              <source>
+                <const>0</const>
+              </source>
+            </variable_definition>
+          </variables>
+          <statecheck>
+            <title>确认电源输出命令为关闭</title>
+            <expected>
+              <compare>
+                <value>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutputSts|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </value>
+                <eq>
+                  <const>0</const>
+                </eq>
+              </compare>
+            </expected>
+          </statecheck>
+          <statecheck>
+            <title>确认电池继电器未接入</title>
+            <expected>
+              <compare>
+                <value>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|BatteryConnectEquipment|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </value>
+                <eq>
+                  <const>0</const>
+                </eq>
+              </compare>
+            </expected>
+          </statecheck>
+          <awaitvaluematch>
+            <title>等待 DVM 低于继电器切换阈值</title>
+            <timeout>
+              <value>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::TB_DvmZeroTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+              </value>
+              <unit>ms</unit>
+            </timeout>
+            <joincondition>
+              <enum>all</enum>
+            </joincondition>
+            <await_nextupdate>
+              <bool>true</bool>
+            </await_nextupdate>
+            <compare>
+              <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              <range>
+                <based>
+                  <base>
+                    <variable>ZeroV</variable>
+                  </base>
+                  <down_tolerance>
+                    <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::TB_MaxSwitchVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                  </down_tolerance>
+                  <up_tolerance>
+                    <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::TB_MaxSwitchVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                  </up_tolerance>
+                </based>
+              </range>
+            </compare>
+          </awaitvaluematch>
+          <set>
+            <title>电池未接入时断开 CAB1500，保持 IBS 支路接通</title>
+            <in>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|CAB1500_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>1</const>
+                </source>
+              </assignment>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|IBS_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>0</const>
+                </source>
+              </assignment>
+            </in>
+          </set>
+          <set>
+            <title>接入真实电池给 IBS 供电</title>
+            <in>
+              <assignment>
+                <sink>
+                  <dbobject>SysVar_BEGIN_OF_OBJECT|1|BatteryConnectEquipment|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+                </sink>
+                <source>
+                  <const>1</const>
+                </source>
+              </assignment>
+            </in>
+          </set>
+        </tc>
+        <tttestcase>
+          <title>第 1 组：连续 3 次电压精度</title>
+          <name>VoltageAccuracyGroup</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>1</const>
+            </value>
+          </param>
+          <tcid>c41d7a02-0002-4b19-a3d5-000000000001</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>第 2 组：连续 3 次电压精度</title>
+          <name>VoltageAccuracyGroup</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>2</const>
+            </value>
+          </param>
+          <tcid>c41d7a02-0002-4b19-a3d5-000000000002</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>第 3 组：连续 3 次电压精度</title>
+          <name>VoltageAccuracyGroup</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>3</const>
+            </value>
+          </param>
+          <tcid>c41d7a02-0002-4b19-a3d5-000000000003</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>第 4 组：连续 3 次电压精度</title>
+          <name>VoltageAccuracyGroup</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>4</const>
+            </value>
+          </param>
+          <tcid>c41d7a02-0002-4b19-a3d5-000000000004</tcid>
+        </tttestcase>
+        <tttestcase>
+          <title>第 5 组：连续 3 次电压精度</title>
+          <name>VoltageAccuracyGroup</name>
+          <param>
+            <type>float</type>
+            <value>
+              <const>5</const>
+            </value>
+          </param>
+          <tcid>c41d7a02-0002-4b19-a3d5-000000000005</tcid>
+        </tttestcase>
+        <tc>
+          <title>测量结束后断开真实电池</title>
+          <tcid>c41d7a02-0003-4b19-a3d5-6e0b7c2f8a43</tcid>
+          <set>
+            <title>断开真实电池，收尾前先脱离电池</title>
             <in>
               <assignment>
                 <sink>
@@ -1925,6 +2132,264 @@ write("[WORK][WINDOW] window_ms=%d timeout_ms=%d min_s=%.3f",
         <caplinline>
           <title>SOC 静置等待结束</title>
           <code>write("[SOC][REST][END] t=%I64d", timeNowInt64());</code>
+        </caplinline>
+      </tc_definition>
+      <tc_definition>
+        <name>VoltageAccuracyGroup</name>
+        <description>单组电压精度：连续 3 次，每次间隔 VA_SampleInterval_ms，同时锁存 IBS 电压 V1（LIN ResetUBattV，取自有效 Measured_Data）与 DVM 电压 V2；逐次计算 E=(V1-V2)/V2*100%，本组最小与最大偏差均须在 ±VA_TolerancePct 内。V2 为 0、采样间无新有效 Measured_Data 帧或无效业务信号增加时判该组无效。</description>
+        <tcid>c41d7a02-0004-4b19-a3d5-6e0b7c2f8a44</tcid>
+        <parameters>
+          <parameter_definition>
+            <name>GroupIndex</name>
+            <type>float</type>
+          </parameter_definition>
+        </parameters>
+        <variables>
+          <variable_definition>
+            <name>V1_1</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>V1_2</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>V1_3</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>V2_1</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>V2_2</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>V2_3</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Cnt0</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Cnt1</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Cnt2</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Cnt3</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Inv0</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>InvNow</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Bad</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>E1</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>E2</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>E3</name>
+            <type>float</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+        </variables>
+        <breakonfail>false</breakonfail>
+        <caplinline>
+          <title>记录本组起点：有效帧计数与无效计数</title>
+          <code>Cnt0 = @sysvar::LIN::ResetMeasuredCounter;
+Inv0 = @sysvar::LIN::ResetInvalidCounter;
+Bad  = 0;
+write("[VA][GROUP][BEGIN] group=%d cnt0=%d inv0=%d t=%I64d",
+      (int)GroupIndex, Cnt0, Inv0, timeNowInt64());</code>
+        </caplinline>
+        <wait>
+          <title>第 1 次采样前等待 VA_SampleInterval_ms</title>
+          <time>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::VA_SampleInterval_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <caplinline>
+          <title>第 1 次：锁存 IBS 电压与 DVM 电压</title>
+          <code>V1_1 = @sysvar::LIN::ResetUBattV;
+V2_1 = @sysvar::N8361::DVM_Voltage;
+Cnt1 = @sysvar::LIN::ResetMeasuredCounter;
+write("[VA][SAMPLE] group=%d n=%d V1=%.4f V2=%.4f cnt=%d",
+      (int)GroupIndex, 1, V1_1, V2_1, Cnt1);</code>
+        </caplinline>
+        <wait>
+          <title>第 2 次采样前等待 VA_SampleInterval_ms</title>
+          <time>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::VA_SampleInterval_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <caplinline>
+          <title>第 2 次：锁存 IBS 电压与 DVM 电压</title>
+          <code>V1_2 = @sysvar::LIN::ResetUBattV;
+V2_2 = @sysvar::N8361::DVM_Voltage;
+Cnt2 = @sysvar::LIN::ResetMeasuredCounter;
+write("[VA][SAMPLE] group=%d n=%d V1=%.4f V2=%.4f cnt=%d",
+      (int)GroupIndex, 2, V1_2, V2_2, Cnt2);</code>
+        </caplinline>
+        <wait>
+          <title>第 3 次采样前等待 VA_SampleInterval_ms</title>
+          <time>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::VA_SampleInterval_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <caplinline>
+          <title>第 3 次：锁存 IBS 电压与 DVM 电压</title>
+          <code>V1_3 = @sysvar::LIN::ResetUBattV;
+V2_3 = @sysvar::N8361::DVM_Voltage;
+Cnt3 = @sysvar::LIN::ResetMeasuredCounter;
+InvNow = @sysvar::LIN::ResetInvalidCounter;
+write("[VA][SAMPLE] group=%d n=%d V1=%.4f V2=%.4f cnt=%d",
+      (int)GroupIndex, 3, V1_3, V2_3, Cnt3);</code>
+        </caplinline>
+        <caplinline>
+          <title>计算 3 次配对偏差并判定本组 ±VA_TolerancePct</title>
+          <code>float tol;
+float absE1;
+float absE2;
+float absE3;
+float eMin;
+float eMax;
+float avgV1;
+float avgV2;
+
+tol = (float)syspar::IBS::VA_TolerancePct;
+Bad = 0;
+eMin = 0.0;
+eMax = 0.0;
+avgV1 = 0.0;
+avgV2 = 0.0;
+absE1 = 0.0;
+absE2 = 0.0;
+absE3 = 0.0;
+
+/* 数据有效性：V2 不得为 0，三次之间必须各有新有效 Measured_Data 帧，无效信号不得增加 */
+if (V2_1 == 0.0 || V2_2 == 0.0 || V2_3 == 0.0)
+  Bad = 2;
+else if (Cnt1 &lt;= Cnt0 || Cnt2 &lt;= Cnt1 || Cnt3 &lt;= Cnt2)
+  Bad = 3;
+else if (InvNow != Inv0)
+  Bad = 4;
+
+if (Bad == 0)
+{
+  /* 逐次配对相对偏差，% */
+  E1 = (V1_1 - V2_1) / V2_1 * 100.0;
+  E2 = (V1_2 - V2_2) / V2_2 * 100.0;
+  E3 = (V1_3 - V2_3) / V2_3 * 100.0;
+
+  eMin = E1;
+  if (E2 &lt; eMin) eMin = E2;
+  if (E3 &lt; eMin) eMin = E3;
+  eMax = E1;
+  if (E2 &gt; eMax) eMax = E2;
+  if (E3 &gt; eMax) eMax = E3;
+
+  avgV1 = (V1_1 + V1_2 + V1_3) / 3.0;
+  avgV2 = (V2_1 + V2_2 + V2_3) / 3.0;
+
+  write("[VA][GROUP][RESULT] group=%d E1=%.4f E2=%.4f E3=%.4f Emin=%.4f Emax=%.4f avgV1=%.4f avgV2=%.4f tol=%.4f",
+        (int)GroupIndex, E1, E2, E3, eMin, eMax, avgV1, avgV2, tol);
+}
+
+/* 逐组判定：三项均有效且三次偏差全部落在 +/-tol 内 */
+if (Bad == 2)
+  testStepFail("VA_GroupInvalid", "group %d: DVM voltage is 0 V, no valid V2", (int)GroupIndex);
+else if (Bad == 3)
+  testStepFail("VA_GroupInvalid", "group %d: no new valid Measured_Data frame between samples (cnt %d/%d/%d/%d)",
+               (int)GroupIndex, Cnt0, Cnt1, Cnt2, Cnt3);
+else if (Bad == 4)
+  testStepFail("VA_GroupInvalid", "group %d: invalid business signal increased %d -&gt; %d",
+               (int)GroupIndex, Inv0, InvNow);
+else
+{
+  absE1 = (E1 &lt; 0.0) ? -E1 : E1;
+  absE2 = (E2 &lt; 0.0) ? -E2 : E2;
+  absE3 = (E3 &lt; 0.0) ? -E3 : E3;
+  if (absE1 &lt;= tol &amp;&amp; absE2 &lt;= tol &amp;&amp; absE3 &lt;= tol)
+    testStepPass("VA_GroupPass", "group %d: E1=%.4f%% E2=%.4f%% E3=%.4f%% within +/-%.4f%%",
+                 (int)GroupIndex, E1, E2, E3, tol);
+  else
+    testStepFail("VA_GroupFail", "group %d: E1=%.4f%% E2=%.4f%% E3=%.4f%% exceeds +/-%.4f%%",
+                 (int)GroupIndex, E1, E2, E3, tol);
+}</code>
         </caplinline>
       </tc_definition>
     </tc_definitions>

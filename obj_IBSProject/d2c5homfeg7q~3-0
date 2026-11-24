@@ -83,6 +83,17 @@
     <nestedTcIds>d00b08fd-5896-4f0b-9f2a-b2da8259ef96</nestedTcIds>
     <nestedTcIds>ae531a37-f319-480b-b417-74392eb6c48a</nestedTcIds>
   </testsequence>
+  <testsequence name="VoltageAccuracyTest" comment="电压精度测试：真实电池接入、IBS 接通、CAB1500 断开、电源不输出；同一电池连续 5 组，每组 3 对 IBS 与 DVM 电压，逐组按三次配对相对偏差的最小与最大值判定是否在 ±0.25% 内" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="c41d7a02-8f36-4b19-a3d5-6e0b7c2f8a41">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[5]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+    <nestedTcIds>c41d7a02-0001-4b19-a3d5-6e0b7c2f8a42</nestedTcIds>
+    <nestedTcIds>c41d7a02-0003-4b19-a3d5-6e0b7c2f8a43</nestedTcIds>
+    <nestedTcIds>c41d7a02-0002-4b19-a3d5-000000000001</nestedTcIds>
+    <nestedTcIds>c41d7a02-0002-4b19-a3d5-000000000002</nestedTcIds>
+    <nestedTcIds>c41d7a02-0002-4b19-a3d5-000000000003</nestedTcIds>
+    <nestedTcIds>c41d7a02-0002-4b19-a3d5-000000000004</nestedTcIds>
+    <nestedTcIds>c41d7a02-0002-4b19-a3d5-000000000005</nestedTcIds>
+  </testsequence>
   <testcase name="SleepCurrent" comment="单个电压点的休眠平均电流：每点 3 轮，每轮关输出、设压限流、开输出、等到压、LIN 通讯 60 s、监控 10 s（三帧有效性）、停 LIN、静置 60 s、连续积分 20 min 并判定平均电流小于 0.250 mA。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="b7c1a2d3-0000-4a01-9b01-000000000000">
     <parameter name="OutPutVoltage" type="float" raw_type="float" />
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[1]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
@@ -119,6 +130,11 @@
   </testcase>
   <testcase name="WaitForSOCRestCalibration" comment="保持 IBS 供电，按 SOC_PointRest_ms 参数静置，供各档 SOC 静置校准调用。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="0639515e-4606-42b6-a8be-be0fd1188862">
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[7]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="VoltageAccuracyGroup" comment="单组电压精度：连续 3 次，每次间隔 VA_SampleInterval_ms，同时锁存 IBS 电压 V1（LIN ResetUBattV，取自有效 Measured_Data）与 DVM 电压 V2；逐次计算 E=(V1-V2)/V2*100%，本组最小与最大偏差均须在 ±VA_TolerancePct 内。V2 为 0、采样间无新有效 Measured_Data 帧或无效业务信号增加时判该组无效。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="c41d7a02-0004-4b19-a3d5-6e0b7c2f8a44">
+    <parameter name="GroupIndex" type="float" raw_type="float" />
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[8]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
     <implementation_language lang="TTE" />
   </testcase>
   <function name="PHASE_Prepare" comment="准备段：开日志、停 LIN、关唤醒节点、关输出、继电器切 IDLE" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true" guid="1a4d6e92-73c5-4f08-9b21-5d8e0c7a3f61">
