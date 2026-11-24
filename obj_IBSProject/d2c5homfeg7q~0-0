@@ -12,76 +12,76 @@
     <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>1430</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
-  <testfunction name="PHASE_Prep_RelayIdle" comment="【准备】继电器切 IDLE：调用 RELAY_Set(1, -1)。&#xA;限制：只允许 SAFE=0 / IDLE=1，禁止 BATTERY；元组必须为 0/1 且 Battery=0；&#xA;TB_RelaySettle_ms 须在 0..500；&#xA;TB_MaxSwitchVoltage_V 须在 0.0..5.0；&#xA;且必须输出已关、DVM 电压在 ±该阈值内才允许切换。&#xA;" signature="testfunction PHASE_Prep_RelayIdle()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>1846</Offset></OffsetDocumentPosition>]]></document_position>
+  <testfunction name="PHASE_Prep_RelayIdle" comment="【准备】继电器切 IDLE：调用 RELAY_Set(1, -1)。&#xA;限制：只允许 SAFE=0 / IDLE=1，禁止 BATTERY；元组必须为 0/1 且 Battery=0；&#xA;TB_RelaySettle_ms 须在 0..500；&#xA;且必须输出已关才允许切换；DVM 切换阈值已按需求取消。&#xA;" signature="testfunction PHASE_Prep_RelayIdle()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>1803</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PHASE_Done_Begin" comment="【收尾】初始化清理标记：清零本轮清理失败标记，不接触设备。&#xA;限制：无参数；必须在其它收尾步骤之前调用，否则汇总结果无效。&#xA;" signature="testfunction PHASE_Done_Begin()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>2472</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>2429</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PHASE_Done_LinStop" comment="【收尾】停 LIN 调度：调用 LIN_Stop；失败只记标记，不中断后续清理。&#xA;限制：TB_LinStopSettle_ms 须在 0..1000，越界（返回 -2）记清理失败。&#xA;" signature="testfunction PHASE_Done_LinStop()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>2685</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>2642</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PHASE_Done_PowerOff" comment="【收尾】关闭电源输出：调用 PWR_Off；失败只记标记。&#xA;限制：只下发命令，无独立状态回读。&#xA;" signature="testfunction PHASE_Done_PowerOff()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>3161</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>3118</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PHASE_Done_WaitZero" comment="【收尾】等待 DVM 回零：调用 PWR_WaitZero 默认参数。&#xA;限制：容差取自 TB_DvmZeroTolerance_V，须在 (0,5]；&#xA;超时 TB_DvmZeroTimeout_ms 须在 1..5000；&#xA;轮询 TB_DvmPoll_ms 须在 1..100；&#xA;连续达标次数 TB_DvmStableSamples 须在 1..20；&#xA;任一越界或超时均记清理失败。&#xA;" signature="testfunction PHASE_Done_WaitZero()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>3673</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>3630</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
-  <testfunction name="PHASE_Done_RelaySafe" comment="【收尾】继电器切 SAFE：调用 RELAY_Set(0, -1)；失败只记标记。&#xA;限制：SAFE=0；元组须为 0/1 且 Battery=0；TB_RelaySettle_ms 须在 0..500；&#xA;TB_MaxSwitchVoltage_V 须在 0.0..5.0；须满足输出关闭和 DVM 阈值互锁。&#xA;" signature="testfunction PHASE_Done_RelaySafe()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>4275</Offset></OffsetDocumentPosition>]]></document_position>
+  <testfunction name="PHASE_Done_RelaySafe" comment="【收尾】继电器切 SAFE：调用 RELAY_Set(0, -1)；失败只记标记。&#xA;限制：SAFE=0；元组须为 0/1 且 Battery=0；TB_RelaySettle_ms 须在 0..500；&#xA;且须满足输出关闭；DVM 切换阈值已按需求取消。&#xA;" signature="testfunction PHASE_Done_RelaySafe()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>4204</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PHASE_Done_WakeNodeOff" comment="【收尾】禁用唤醒节点：再次调用 SNAP_WakeNode(0)。&#xA;限制：使能值只能 0/1；失败记清理失败但不中断。&#xA;" signature="testfunction PHASE_Done_WakeNodeOff()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>4779</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>4708</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PHASE_Done_Result" comment="【收尾】汇总清理结果：有失败则判用例失败，否则只声明命令流程完成。&#xA;限制：必须在全部收尾步骤之后调用；无失败也只表示命令下发完成，&#xA;不代表继电器触点或 DVM 采样新鲜度已确认。&#xA;" signature="testfunction PHASE_Done_Result()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>5170</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>5099</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="SleepCurrent_Monitor_Check" comment="【监控】10 s 通讯监控：判三帧有效计数是否增长、无效计数是否不增。&#xA;有效判据来自旧工程 CURRENT_CAL.can：&#xA;Measured_Data 须 ERROR_Common/Resp_Error/ERROR_IDENT/FLAG_INCONSISTENCY 全 0 且 U_BATT!=16383；&#xA;Calc_Data_1 须 SOC&lt;=100；Calc_Data_2 须 Q_Charge!=65535。&#xA;前置：本工程须已链接 Project_SysVar.vsysvar 等含 Reset* 计数的系统变量文件，&#xA;否则以下 @sysvar 引用会在编译期报未知符号。&#xA;判据：三个有效计数各至少 +1，且 ResetInvalidCounter 增量必须为 0。&#xA;限制：只判数量与有效性，不判帧率是否达标，也不判 DVM 电压（电压已在到压步骤确认）。&#xA;" signature="testfunction SleepCurrent_Monitor_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>5983</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>5912</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="RELAY_SafeSwitch_Check" comment="【测试中切换继电器】保留带电切换互锁：切之前先关输出并等 DVM 降到切换阈值内，切完再恢复原设定与输出。&#xA;用途：测试执行期间需要改继电器状态时调用；绝不在带电状态下直接切。&#xA;限制：state 只能 0(SAFE) / 1(IDLE)，Battery 恒为 0；&#xA;切换门槛复用 TB_MaxSwitchVoltage_V；&#xA;DVM 降到阈值内的等待用 timeout=1000 ms、poll=50 ms、连续 2 次；&#xA;恢复输出后不校验电压是否已回到目标值，须由调用方后续等压步骤确认。&#xA;" signature="testfunction RELAY_SafeSwitch_Check(int state)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <parameter name="state" type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>8850</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>8779</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <function name="IBS_AddOne" comment="编译探针：验证普通导出函数可被同文件测试函数调用；不参与 IBS 测试流程。&#xA;" signature="int IBS_AddOne(int value)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
     <parameter name="value" type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>10906</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>10835</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
   <testfunction name="IBS_ProbeReturn" comment="编译探针节点：检查普通导出函数的返回值；不接设备。&#xA;" signature="testfunction IBS_ProbeReturn()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>10996</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>10925</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <function name="RELAY_Tuple" comment="继电器参数入口：按状态和通道读取命令元组；0=SAFE，1=IDLE，不支持 BATTERY。&#xA;" signature="int RELAY_Tuple(int state, int idx)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
     <parameter name="state" type="int" raw_type="int" />
     <parameter name="idx" type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>11260</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>11189</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
   <function name="PHASE_ValidateParams" comment="准备前参数校验：只读现有参数，发现越界即拒绝进入设备动作。&#xA;" signature="int PHASE_ValidateParams()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>12021</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>11950</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
   <testfunction name="PHASE_ValidateParams_Check" comment="准备段适配节点：调用 PHASE_ValidateParams，参数无效时报告准备失败。&#xA;" signature="testfunction PHASE_ValidateParams_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>17376</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>17305</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <function name="PWR_Off" comment="电源关输出：下发关闭命令；不代表设备输出已物理关闭。&#xA;" signature="int PWR_Off()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>17697</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>17626</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
   <function name="PWR_WaitZero" comment="收尾回零等待：轮询 DVM 阈值，超时返回失败；无法证明样本新鲜。&#xA;" signature="int PWR_WaitZero(float tol, int timeout, int poll, int samples)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
@@ -90,90 +90,90 @@
     <parameter name="timeout" type="int" raw_type="int" />
     <parameter name="poll" type="int" raw_type="int" />
     <parameter name="samples" type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>17918</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>17847</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
   <function name="SNAP_WakeNode" comment="唤醒节点控制：写入使能命令，不读取节点实际状态。&#xA;" signature="int SNAP_WakeNode(int enable)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
     <parameter name="enable" type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>19561</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>19490</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
-  <function name="RELAY_Set" comment="继电器切换：仅允许 SAFE/IDLE，核对输出命令和 DVM 阈值后写命令；不验证触点。&#xA;" signature="int RELAY_Set(int state, int readbackSamples)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+  <function name="RELAY_Set" comment="继电器切换：仅允许 SAFE/IDLE，核对输出命令已关后写命令；DVM 切换阈值已按需求取消；不验证触点。&#xA;" signature="int RELAY_Set(int state, int readbackSamples)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
     <parameter name="state" type="int" raw_type="int" />
     <parameter name="readbackSamples" type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>19959</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>19897</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
   <function name="LIN_Stop" comment="LIN 停表：下发停调度命令并按参数等待；无独立停表回读。&#xA;" signature="int LIN_Stop()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>21980</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>21544</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
   <function name="LIN_OpenNormal" comment="LIN 开正常表：清计数、启动调度、等待本轮收到目标帧数。&#xA;" signature="int LIN_OpenNormal()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>22531</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>22095</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
-  <function name="PWR_Configure" comment="电源配置：检查电压/限流和电池断开命令，再写三项设定；不验证实际输出。&#xA;" signature="int PWR_Configure(float V, float Ichg, float Idchg)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+  <function name="PWR_Configure" comment="电源配置：检查电压与限流后写三项设定，不验证实际输出。电池已接入时同样允许配置；调用方须在开输出前用 DVM 确认实测电池电压在 10~15 V 内。&#xA;" signature="int PWR_Configure(float V, float Ichg, float Idchg)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
     <parameter name="V" type="float" raw_type="float" />
     <parameter name="Ichg" type="float" raw_type="float" />
     <parameter name="Idchg" type="float" raw_type="float" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>24499</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>24103</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
-  <function name="PWR_On" comment="电源开输出：确认设定值和电池命令满足约束后下发开命令。&#xA;" signature="int PWR_On()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+  <function name="PWR_On" comment="电源开输出：确认设定值在范围内后下发开命令；电池已接入时同样允许，电压由调用方前置确认。&#xA;" signature="int PWR_On()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <return type="int" raw_type="int" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>25531</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>24990</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </function>
   <testfunction name="PHASE_Complete_Begin_Check" comment="收尾开始节点：清零本轮清理失败标记，不接触设备。&#xA;" signature="testfunction PHASE_Complete_Begin_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>26395</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>25769</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PHASE_Complete_Result_Check" comment="收尾结果节点：停日志后汇总清理失败；无失败仅表示命令流程完成。&#xA;" signature="testfunction PHASE_Complete_Result_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>26512</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>25886</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="LIN_Stop_Check" comment="以下为 VTT 调用适配节点：调用同名业务函数，收尾失败记标记并继续后续清理。&#xA;停 LIN 节点：调用 LIN_Stop；等待参数异常时记录清理失败。&#xA;" signature="testfunction LIN_Stop_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>26952</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>26326</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="LIN_OpenNormal_Check" comment="用例体开 LIN 节点：调用 LIN_OpenNormal；清零或等帧失败则报告失败。&#xA;" signature="testfunction LIN_OpenNormal_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>27414</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>26788</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PWR_Configure_Check" comment="用例体设压限流节点：调用 PWR_Configure；参数或互锁拒绝时报告失败。&#xA;" signature="testfunction PWR_Configure_Check(float V, float Ichg, float Idchg)" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
     <parameter name="V" type="float" raw_type="float" />
     <parameter name="Ichg" type="float" raw_type="float" />
     <parameter name="Idchg" type="float" raw_type="float" />
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>27659</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>27033</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PWR_On_Check" comment="用例体开输出节点：调用 PWR_On；设定值或电池互锁不满足时报告失败。&#xA;" signature="testfunction PWR_On_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>27961</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>27335</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PWR_Off_Check" comment="关输出节点：调用 PWR_Off；收尾时失败记标记，后续清理继续执行。&#xA;" signature="testfunction PWR_Off_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>28194</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>27568</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="PWR_WaitZero_Check" comment="收尾回零节点：调用 PWR_WaitZero 默认参数；超时或参数无效记清理失败。&#xA;" signature="testfunction PWR_WaitZero_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>28583</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>27957</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="RELAY_Set_SAFE_Check" comment="收尾安全态节点：调用 RELAY_Set(SAFE)；命令受阻记清理失败。&#xA;" signature="testfunction RELAY_Set_SAFE_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>28991</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>28365</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="RELAY_Set_IDLE_Check" comment="准备态节点：调用 RELAY_Set(IDLE)；命令受阻则报告准备失败。&#xA;" signature="testfunction RELAY_Set_IDLE_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>29391</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>28765</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
   <testfunction name="SNAP_WakeNode_Off_Check" comment="关闭唤醒节点：调用 SNAP_WakeNode(0)；收尾调用失败记清理失败。&#xA;" signature="testfunction SNAP_WakeNode_Off_Check()" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" SourceFilePersistencyGuid="p6m2k9v4q1cd" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
-    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>29651</Offset></OffsetDocumentPosition>]]></document_position>
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>29025</Offset></OffsetDocumentPosition>]]></document_position>
     <implementation_language lang="CAPL" />
   </testfunction>
 </tclibrary>

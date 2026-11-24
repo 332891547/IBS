@@ -119,6 +119,33 @@ SelectorType	[Mode]		Normal	Test
 IBS::SOC_StepTimeout_ms	Auto	充放电到目标 SOC 限时 ms，旧工程 20 h/1 min	72000000	60000
 IBS::SOC_PointRest_ms	Auto	每档静置 ms，旧工程 4 h/1 min	14400000	60000
 
+Group	SOC满充矫正法测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::SOC_BatteryReadyMin_V	Float	电池接入供电前实测电压下限 V	10.0
+IBS::SOC_BatteryReadyMax_V	Float	电池接入供电前实测电压上限 V	15.0
+IBS::SOC_ChargeStartSOC_pct	Float	满充保持前须先严格超过的 SOC %	70
+IBS::SOC_DvmStartVoltage_V	Float	满充保持计时起点 DVM 门槛 V	13.5
+IBS::SOC_ChartTempMin_C	Float	温压区域允许最低温度 ℃	10.0
+IBS::SOC_ChartTempMid1_C	Float	温压区域低温段与中温段分界 ℃	25.0
+IBS::SOC_ChartTempMid2_C	Float	温压区域中温段与高温段分界 ℃	40.0
+IBS::SOC_ChartTempMax_C	Float	温压区域允许最高温度 ℃	60.0
+IBS::SOC_ChartLowAt10C_V	Float	低温段下限起点电压 V	15.0
+IBS::SOC_ChartLowFloor_V	Float	中高温段下限电压 V	13.5
+IBS::SOC_ChartHigh_V	Float	温压区域上限电压 V	15.5
+IBS::SOC_ChartLowSlope_V_perC	Float	低温段下限每升高 1 ℃ 的下降量 V	0.1
+IBS::SOC_ChartHighSlope_V_perC	Float	高温段上限每升高 1 ℃ 的下降量 V	0.05
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::SOC_HoldSampleInterval_ms	Auto	满充保持段采样间隔 ms	10000	1000
+IBS::SOC_FullChargeHold_ms	Auto	满充达门槛后持续充电 ms，Normal 25 min	1500000	60000
+IBS::SOC_FullChargeRestartOff_ms	Auto	每档断 IBS 电 ms，Normal 60 s	60000	6000
+
 Group	电压精度测试
 
 ScalarSingleRecord

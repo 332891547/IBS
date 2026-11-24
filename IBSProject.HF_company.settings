@@ -20,7 +20,7 @@
           <string>ActiveDocumentIndex</string>
         </key>
         <value type="System.Int32">
-          <int>0</int>
+          <int>2</int>
         </value>
       </item>
       <item>
@@ -73,14 +73,14 @@
 		&lt;UIElement xsi:type="SplitContainer" Orientation="Vertical" DockedSize="1139,681.2"&gt;
 			&lt;UIElement xsi:type="Workspace"&gt;
 				&lt;Content xsi:type="TabbedMdiHost"&gt;
-					&lt;Content xsi:type="TabbedMdiContainer" SelectedWindowUniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605"&gt;
+					&lt;Content xsi:type="TabbedMdiContainer" DockedSize="1139,322" SelectedWindowUniqueId="5bf67f35-9d73-4946-a2b0-1b12f91dc403"&gt;
 						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605" /&gt;
 						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="547a4420-d9d6-495f-9221-114479e636a7" /&gt;
 						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="5bf67f35-9d73-4946-a2b0-1b12f91dc403" /&gt;
 					&lt;/Content&gt;
 				&lt;/Content&gt;
 			&lt;/UIElement&gt;
-			&lt;UIElement xsi:type="ToolWindowContainer" DockedSize="1139,354" SelectedWindowUniqueId="b0825994-7121-418f-bf5b-233d0dedd923"&gt;
+			&lt;UIElement xsi:type="ToolWindowContainer" DockedSize="1139,354" SelectedWindowUniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1"&gt;
 				&lt;UIElement xsi:type="ToolWindowRef" UniqueId="b0825994-7121-418f-bf5b-233d0dedd923" /&gt;
 				&lt;UIElement xsi:type="ToolWindowRef" UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" /&gt;
 			&lt;/UIElement&gt;
@@ -90,16 +90,16 @@
 		&lt;/UIElement&gt;
 	&lt;/Content&gt;
 	&lt;DocumentWindows&gt;
-		&lt;DocumentWindow UniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605" SerializationId="ParameterEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam" IsOpen="true" LastActiveDateTime="2026-11-23T17:40:55.339861+08:00" State="Document" /&gt;
-		&lt;DocumentWindow UniqueId="547a4420-d9d6-495f-9221-114479e636a7" SerializationId="CaplEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T17:39:58.6277509+08:00" State="Document" /&gt;
-		&lt;DocumentWindow UniqueId="5bf67f35-9d73-4946-a2b0-1b12f91dc403" SerializationId="TtEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-23T17:39:59.507227+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="84f651e2-a98b-4b8e-84ff-549ee6f04605" SerializationId="ParameterEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam" IsOpen="true" LastActiveDateTime="2026-11-24T14:46:43.9205269+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="547a4420-d9d6-495f-9221-114479e636a7" SerializationId="CaplEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-24T14:46:42.8280845+08:00" State="Document" /&gt;
+		&lt;DocumentWindow UniqueId="5bf67f35-9d73-4946-a2b0-1b12f91dc403" SerializationId="TtEditor:C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" ContainerDockedSize="1139,322" IsOpen="true" LastActiveDateTime="2026-11-24T14:48:35.4370574+08:00" State="Document" /&gt;
 	&lt;/DocumentWindows&gt;
 	&lt;ToolWindows&gt;
 		&lt;ToolWindow UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" SerializationId="ProjectView" ContainerDockedSize="332,679.6" IsOpen="true" LastActiveDateTime="2026-11-23T17:31:36.9443542+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="284e2df0-0932-4854-9bf2-dbb96b34796a" SerializationId="LibraryView" ContainerDockedSize="211,266" IsOpen="false" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="0ce8c2bf-4325-402d-8ebc-52ba6d40ccf2" SerializationId="HomeDirectoryView" ContainerDockedSize="211,266" IsOpen="false" LastActiveDateTime="2026-11-06T09:13:40.7612585+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="b0825994-7121-418f-bf5b-233d0dedd923" SerializationId="OutputService" ContainerDockedSize="1139,354" IsOpen="true" LastActiveDateTime="2026-11-23T14:26:27.9642606+08:00" State="Docked" /&gt;
-		&lt;ToolWindow UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" SerializationId="FindResults1" ContainerDockedSize="1139,354" IsOpen="true" LastActiveDateTime="2026-11-18T01:19:00.4190524+08:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" SerializationId="FindResults1" ContainerDockedSize="1139,354" IsOpen="true" LastActiveDateTime="2026-11-24T14:48:35.212238+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="273e697c-d09c-47e6-9cf8-19391a67d987" SerializationId="CaplFunctionExplorer" ContainerDockedSize="211,676" IsOpen="false" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5" SerializationId="SymbolExplorer" ContainerDockedSize="332,679.6" IsOpen="false" LastActiveDateTime="2026-11-23T16:46:59.335556+08:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="c6ddf369-eb82-4a69-9937-df3f2de48fcc" SerializationId="InterfaceFunctionExplorer" ContainerDockedSize="1282,198" IsOpen="false" LastActiveDateTime="2026-11-05T17:58:16.9064808+08:00" State="Docked" /&gt;
@@ -497,7 +497,7 @@
                       <string>ProjectView_Focused</string>
                     </key>
                     <value type="System.String">
-                      <string>IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vparam</string>
+                      <string>IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vtt</string>
                     </value>
                   </item>
                   <item>
@@ -506,7 +506,7 @@
                     </key>
                     <value type="System.Collections.ArrayList">
                       <ArrayOfAnyType>
-                        <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d13p1:type="q1:string" xmlns:d13p1="http://www.w3.org/2001/XMLSchema-instance">IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vparam</anyType>
+                        <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d13p1:type="q1:string" xmlns:d13p1="http://www.w3.org/2001/XMLSchema-instance">IBS/ProjectRoot/Test Units/IBSTest/IBSTest.vtt</anyType>
                       </ArrayOfAnyType>
                     </value>
                   </item>
@@ -597,7 +597,7 @@
               <SerializedKey>ProjectConfiguration_</SerializedKey>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="DocumentSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T09:42:43.0834449Z</LastTouched>
+              <LastTouched>2026-11-24T07:04:29.3220509Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -610,14 +610,14 @@
                         <Expanded>true</Expanded>
                       </SplitterSettingsTet>
                       <SplitterSettingsPv>
-                        <SplitPosition>587</SplitPosition>
-                        <Expanded>true</Expanded>
+                        <SplitPosition>335</SplitPosition>
+                        <Expanded>false</Expanded>
                       </SplitterSettingsPv>
                       <SplitterSettingsLv>
                         <SplitPosition>150</SplitPosition>
                         <Expanded>true</Expanded>
                       </SplitterSettingsLv>
-                      <ActiveView>2</ActiveView>
+                      <ActiveView>1</ActiveView>
                     </TtEditorSettings>
                   </value>
                 </item>
@@ -635,7 +635,7 @@
                           <value type="System.Int32[]">
                             <ArrayOfInt>
                               <int>300</int>
-                              <int>50</int>
+                              <int>71</int>
                               <int>150</int>
                             </ArrayOfInt>
                           </value>
@@ -658,7 +658,7 @@
                           <value type="System.Int32[]">
                             <ArrayOfInt>
                               <int>300</int>
-                              <int>67</int>
+                              <int>140</int>
                               <int>150</int>
                             </ArrayOfInt>
                           </value>
@@ -730,7 +730,7 @@
                           </TtTreeListColumnSettings>
                         </TreeListColumnSettings>
                       </TreeListSettings>
-                      <RootNodeId>:1</RootNodeId>
+                      <RootNodeId>:0</RootNodeId>
                       <MruList>
                         <TtCustomPopupListItemData>
                           <ItemText>Test Group</ItemText>
@@ -794,7 +794,7 @@
               <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="IBSTest\IBSTest.vtt" /&gt;</SerializedBasedFileName>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="DocumentSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T09:42:42.68623Z</LastTouched>
+              <LastTouched>2026-11-24T07:04:29.5369278Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -1012,6 +1012,62 @@
                     <int>75</int>
                   </value>
                 </item>
+                <item>
+                  <key type="System.String">
+                    <string>11_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>206</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>11_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>12_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>215</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>12_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>12_column2</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>13_column0</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>168</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>13_column1</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>75</int>
+                  </value>
+                </item>
               </Settings>
               <SerializedBasedFileName>&lt;VFileName v="V5" f="BQL" init="1" base="cfg" name="IBSTest\IBSTest.vparam" /&gt;</SerializedBasedFileName>
             </DocumentSettingsBase>
@@ -1045,7 +1101,7 @@
               <SerializedKey>TestUnitConfiguration_d2c5homfeg7q</SerializedKey>
             </DocumentSettingsBase>
             <DocumentSettingsBase d7p1:type="DocumentSettings" xmlns:d7p1="http://www.w3.org/2001/XMLSchema-instance">
-              <LastTouched>2026-11-23T09:42:43.0220597Z</LastTouched>
+              <LastTouched>2026-11-24T07:04:29.7543101Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -1136,7 +1192,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>1846</int>
+                          <int>1803</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1144,7 +1200,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>2472</int>
+                          <int>2429</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1152,7 +1208,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>2685</int>
+                          <int>2642</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1160,7 +1216,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>3161</int>
+                          <int>3118</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1168,7 +1224,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>3673</int>
+                          <int>3630</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1176,7 +1232,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>4275</int>
+                          <int>4204</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1184,7 +1240,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>4779</int>
+                          <int>4708</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1192,7 +1248,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>5170</int>
+                          <int>5099</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1200,7 +1256,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>5983</int>
+                          <int>5912</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1208,7 +1264,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>8850</int>
+                          <int>8779</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1216,7 +1272,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>10906</int>
+                          <int>10835</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1224,7 +1280,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>10996</int>
+                          <int>10925</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1232,7 +1288,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>11260</int>
+                          <int>11189</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1240,7 +1296,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>12021</int>
+                          <int>11950</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1248,7 +1304,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>17376</int>
+                          <int>17305</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1256,7 +1312,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>17697</int>
+                          <int>17626</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1264,7 +1320,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>17918</int>
+                          <int>17847</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1272,7 +1328,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>19561</int>
+                          <int>19490</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1280,7 +1336,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>19959</int>
+                          <int>19897</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1288,7 +1344,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>21980</int>
+                          <int>21544</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1296,7 +1352,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>22531</int>
+                          <int>22095</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1304,7 +1360,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>24499</int>
+                          <int>24103</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1312,7 +1368,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>25531</int>
+                          <int>24990</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1320,7 +1376,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>26395</int>
+                          <int>25769</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1328,7 +1384,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>26512</int>
+                          <int>25886</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1336,7 +1392,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>26952</int>
+                          <int>26326</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1344,7 +1400,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>27414</int>
+                          <int>26788</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1352,7 +1408,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>27659</int>
+                          <int>27033</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1360,7 +1416,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>27961</int>
+                          <int>27335</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1368,7 +1424,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>28194</int>
+                          <int>27568</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1376,7 +1432,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>28583</int>
+                          <int>27957</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1384,7 +1440,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>28991</int>
+                          <int>28365</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1392,7 +1448,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>29391</int>
+                          <int>28765</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1400,7 +1456,7 @@
                       </item>
                       <item>
                         <key type="System.Int32">
-                          <int>29651</int>
+                          <int>29025</int>
                         </key>
                         <value type="System.Boolean">
                           <boolean>true</boolean>
@@ -1422,18 +1478,13 @@
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>CaplNavigator_TopIndex</string>
+                    <string>CaplNavigator_Expanded</string>
                   </key>
-                  <value type="System.Int32">
-                    <int>0</int>
-                  </value>
-                </item>
-                <item>
-                  <key type="System.String">
-                    <string>CaplNavigator_Focused</string>
-                  </key>
-                  <value type="System.String">
-                    <string>PWR_Configure(float V, float Ichg, float Idchg): int</string>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType>
+                      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d7p1:type="q1:string">Functions</anyType>
+                      <anyType xmlns:q2="http://www.w3.org/2001/XMLSchema" d7p1:type="q2:string">Test Functions</anyType>
+                    </ArrayOfAnyType>
                   </value>
                 </item>
                 <item>
@@ -1448,13 +1499,18 @@
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>CaplNavigator_Expanded</string>
+                    <string>CaplNavigator_Focused</string>
                   </key>
-                  <value type="System.Collections.ArrayList">
-                    <ArrayOfAnyType>
-                      <anyType xmlns:q1="http://www.w3.org/2001/XMLSchema" d7p1:type="q1:string">Functions</anyType>
-                      <anyType xmlns:q2="http://www.w3.org/2001/XMLSchema" d7p1:type="q2:string">Test Functions</anyType>
-                    </ArrayOfAnyType>
+                  <value type="System.String">
+                    <string>PWR_Configure(float V, float Ichg, float Idchg): int</string>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CaplNavigator_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
                   </value>
                 </item>
                 <item>

@@ -46,8 +46,7 @@ export testfunction PHASE_Prep_PowerOff()
 /* 【准备】继电器切 IDLE：调用 RELAY_Set(1, -1)。
    限制：只允许 SAFE=0 / IDLE=1，禁止 BATTERY；元组必须为 0/1 且 Battery=0；
          TB_RelaySettle_ms 须在 0..500；
-         TB_MaxSwitchVoltage_V 须在 0.0..5.0；
-         且必须输出已关、DVM 电压在 ±该阈值内才允许切换。 */
+         且必须输出已关才允许切换；DVM 切换阈值已按需求取消。 */
 export testfunction PHASE_Prep_RelayIdle()
 {
   if (RELAY_Set(1, -1) < 0)                           /* 1=IDLE，-1=不做回读 */
@@ -107,7 +106,7 @@ export testfunction PHASE_Done_WaitZero()
 
 /* 【收尾】继电器切 SAFE：调用 RELAY_Set(0, -1)；失败只记标记。
    限制：SAFE=0；元组须为 0/1 且 Battery=0；TB_RelaySettle_ms 须在 0..500；
-         TB_MaxSwitchVoltage_V 须在 0.0..5.0；须满足输出关闭和 DVM 阈值互锁。 */
+         且须满足输出关闭；DVM 切换阈值已按需求取消。 */
 export testfunction PHASE_Done_RelaySafe()
 {
   int result;                                         /* 继电器切换结果 */
@@ -472,7 +471,7 @@ export int SNAP_WakeNode(int enable)
   return 0;
 }
 
-/* 继电器切换：仅允许 SAFE/IDLE，核对输出命令和 DVM 阈值后写命令；不验证触点。 */
+/* 继电器切换：仅允许 SAFE/IDLE，核对输出命令已关后写命令；DVM 切换阈值已按需求取消；不验证触点。 */
 export int RELAY_Set(int state, int readbackSamples)
 {
   int battery;
@@ -495,23 +494,18 @@ export int RELAY_Set(int state, int readbackSamples)
   cab1500 = RELAY_Tuple(state, 1);
   ibs = RELAY_Tuple(state, 2);
   settle = (int)syspar::IBS::TB_RelaySettle_ms;
-  /* 元组须为 0/1 且 Battery=0，等待 0..500 ms，阈值 0.0..5.0 V，任一越界即拒绝 */
+  /* 元组须为 0/1 且 Battery=0，等待 0..500 ms，任一越界即拒绝 */
   if (battery != 0 || (cab1500 != 0 && cab1500 != 1) ||
-      (ibs != 0 && ibs != 1) || settle < 0 || settle > 500 ||
-      (float)syspar::IBS::TB_MaxSwitchVoltage_V < 0.0 ||
-      (float)syspar::IBS::TB_MaxSwitchVoltage_V > 5.0)
+      (ibs != 0 && ibs != 1) || settle < 0 || settle > 500)
   {
     write("[MOD=RELAY][INVALID] state=%d tuple=%d/%d/%d settle=%d", state, battery, cab1500, ibs, settle);
     return -1;
   }
-  /* 运行时带电切换互锁：输出未关或 DVM 超过阈值时禁止切继电器 */
-  if (@sysvar::N8361::Set_OutputSts != 0 ||
-      @sysvar::N8361::DVM_Voltage > (float)syspar::IBS::TB_MaxSwitchVoltage_V ||
-      @sysvar::N8361::DVM_Voltage < -(float)syspar::IBS::TB_MaxSwitchVoltage_V)
+  /* 切换前互锁：只要求输出命令为 0。DVM 切换阈值已按需求取消，电池接入使 DVM 高于阈值时也不再拦截 */
+  if (@sysvar::N8361::Set_OutputSts != 0)
   {
-    write("[MOD=RELAY][BLOCKED] output_cmd=%d dvm=%.3f V; switch threshold=%.3f V; DVM freshness unverified",
-          @sysvar::N8361::Set_OutputSts, @sysvar::N8361::DVM_Voltage,
-          (float)syspar::IBS::TB_MaxSwitchVoltage_V);
+    write("[MOD=RELAY][BLOCKED] output_cmd=%d; output must be off before relay switch",
+          @sysvar::N8361::Set_OutputSts);
     return -1;
   }
   @sysvar::Power_RelayCrtl::BatteryConnectEquipment = 0;
@@ -593,7 +587,7 @@ export int LIN_OpenNormal()
                timeout, @sysvar::LIN::LINMsg_RxCounter, target);
   return -1;
 }
-/* 电源配置：检查电压/限流和电池断开命令，再写三项设定；不验证实际输出。 */
+/* 电源配置：检查电压与限流后写三项设定，不验证实际输出。电池已接入时同样允许配置；调用方须在开输出前用 DVM 确认实测电池电压在 10~15 V 内。 */
 export int PWR_Configure(float V, float Ichg, float Idchg)
 {
   /* 设定值非法：电压须在电池范围内且 10..15.5 V，充放电限流须在 0..11 A */
@@ -604,13 +598,9 @@ export int PWR_Configure(float V, float Ichg, float Idchg)
     write("[MOD=PWR][INVALID] configure V=%.3f Ichg=%.3f Idchg=%.3f A", V, Ichg, Idchg);
     return -1;
   }
-  /* 安全约束：电池自动接通命令必须为 0，否则拒绝配置；输出开启时允许改设定值，不检查 Set_OutputSts */
-  if (@sysvar::Power_RelayCrtl::BatteryConnectEquipment != 0)
-  {
-    write("[MOD=PWR][BLOCKED] battery_cmd=%d; BATTERY auto-connect prohibited",
-          @sysvar::Power_RelayCrtl::BatteryConnectEquipment);
-    return -1;
-  }
+  /* 原“电池自动接通命令非 0 即拒绝配置”已按需求删除：电池接入时允许写设定值。
+     电池电压范围改由调用方在供电前用 DVM 实测确认，本函数不再检查电池命令。
+     输出开启时仍允许改设定值，不检查 Set_OutputSts。 */
   @sysvar::N8361::Set_OutPutVoltage = V;
   @sysvar::N8361::Set_ChargeCurrent = Ichg;
   @sysvar::N8361::Set_DicChargeCurrent = Idchg;
@@ -618,14 +608,13 @@ export int PWR_Configure(float V, float Ichg, float Idchg)
   return 0;
 }
 
-/* 电源开输出：确认设定值和电池命令满足约束后下发开命令。 */
+/* 电源开输出：确认设定值在范围内后下发开命令；电池已接入时同样允许，电压由调用方前置确认。 */
 export int PWR_On()
 {
   float voltage;
   voltage = @sysvar::N8361::Set_OutPutVoltage;
-  /* 开输出前复核：电池命令为 0、电压与限流在范围内，任一不满足即拒绝 */
-  if (@sysvar::Power_RelayCrtl::BatteryConnectEquipment != 0 ||
-      !(voltage >= (float)syspar::IBS::TB_BatteryMin_V &&
+  /* 开输出前复核：电压与限流必须在范围内，任一不满足即拒绝；不再检查电池连接命令 */
+  if (!(voltage >= (float)syspar::IBS::TB_BatteryMin_V &&
         voltage <= (float)syspar::IBS::TB_BatteryMax_V &&
         voltage >= 10.0 && voltage <= 15.5) ||
       @sysvar::N8361::Set_ChargeCurrent < 0.0 ||
@@ -633,7 +622,7 @@ export int PWR_On()
       @sysvar::N8361::Set_DicChargeCurrent < 0.0 ||
       @sysvar::N8361::Set_DicChargeCurrent > 11.0)
   {
-    write("[MOD=PWR][BLOCKED] output-on setpoints invalid or battery command active");
+    write("[MOD=PWR][BLOCKED] output-on setpoints invalid");
     return -1;
   }
   @sysvar::N8361::Set_OutputSts = 1;
