@@ -379,15 +379,15 @@
           <_p z:Ref="3" i:nil="true" />
           <d2p1:AppVersion z:Ref="6" i:nil="true" />
           <d2p1:Extension z:Ref="7" i:nil="true" />
-          <d2p1:GeneratedFileModificationTime>2026-11-24T15:04:27.5400343+08:00</d2p1:GeneratedFileModificationTime>
-          <d2p1:GeneratedFileSize>29686</d2p1:GeneratedFileSize>
+          <d2p1:GeneratedFileModificationTime>2026-11-27T11:12:45.3356405+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>45326</d2p1:GeneratedFileSize>
           <d2p1:PersistencyKey z:Id="115">d2c5homfeg7q~3-0</d2p1:PersistencyKey>
           <d2p1:FileSourceDescriptions z:Id="116">
             <Content z:Id="117" z:Size="1">
               <d2p1:FileSourceDescription z:Id="118">
                 <_p z:Ref="116" i:nil="true" />
                 <d2p1:FullFilePath z:Id="119">C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt</d2p1:FullFilePath>
-                <d2p1:SourceModificationTime>2026-11-24T15:04:27.5237192+08:00</d2p1:SourceModificationTime>
+                <d2p1:SourceModificationTime>2026-11-27T11:02:58.1538831+08:00</d2p1:SourceModificationTime>
               </d2p1:FileSourceDescription>
             </Content>
             <_p z:Ref="114" i:nil="true" />
@@ -397,13 +397,13 @@
           <_p z:Ref="3" i:nil="true" />
           <d2p1:AppVersion z:Ref="6" i:nil="true" />
           <d2p1:Extension z:Id="121">.vparam</d2p1:Extension>
-          <d2p1:GeneratedFileModificationTime>2026-11-24T14:42:14.8138839+08:00</d2p1:GeneratedFileModificationTime>
-          <d2p1:GeneratedFileSize>5264</d2p1:GeneratedFileSize>
+          <d2p1:GeneratedFileModificationTime>2026-11-27T11:12:44.330511+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>7983</d2p1:GeneratedFileSize>
           <d2p1:PersistencyKey z:Id="122">2f5vqncfnqop=PA</d2p1:PersistencyKey>
           <d2p1:FileSourceDescription z:Id="123">
             <_p z:Ref="120" i:nil="true" />
             <d2p1:FullFilePath z:Id="124">C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam</d2p1:FullFilePath>
-            <d2p1:SourceModificationTime>2026-11-24T14:25:20.9492358+08:00</d2p1:SourceModificationTime>
+            <d2p1:SourceModificationTime>2026-11-27T11:12:44.3253624+08:00</d2p1:SourceModificationTime>
           </d2p1:FileSourceDescription>
         </d2p1:FileSource>
         <d2p1:FileSource z:Id="125" i:type="d2p1:MultiFileSource">
@@ -500,15 +500,15 @@
           <_p z:Ref="3" i:nil="true" />
           <d2p1:AppVersion z:Id="149">4.0.64.0</d2p1:AppVersion>
           <d2p1:Extension z:Id="150">.</d2p1:Extension>
-          <d2p1:GeneratedFileModificationTime>2026-11-24T14:42:39.3989731+08:00</d2p1:GeneratedFileModificationTime>
-          <d2p1:GeneratedFileSize>25415</d2p1:GeneratedFileSize>
+          <d2p1:GeneratedFileModificationTime>2026-11-27T11:12:45.3386199+08:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>29408</d2p1:GeneratedFileSize>
           <d2p1:PersistencyKey z:Id="151">d2c5homfeg7q~0-0</d2p1:PersistencyKey>
           <d2p1:FileSourceDescriptions z:Id="152">
             <Content z:Id="153" z:Size="1">
               <d2p1:FileSourceDescription z:Id="154">
                 <_p z:Ref="152" i:nil="true" />
                 <d2p1:FullFilePath z:Id="155">C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can</d2p1:FullFilePath>
-                <d2p1:SourceModificationTime>2026-11-24T14:03:10.5579231+08:00</d2p1:SourceModificationTime>
+                <d2p1:SourceModificationTime>2026-11-27T11:01:21.0484622+08:00</d2p1:SourceModificationTime>
               </d2p1:FileSourceDescription>
             </Content>
             <_p z:Ref="148" i:nil="true" />

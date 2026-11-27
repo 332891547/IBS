@@ -373,8 +373,8 @@ export int PHASE_ValidateParams()
   /* TB_LogStopTimeout_ms 限制 100..2000 ms，越界判非法 */
   if ((int)syspar::IBS::TB_LogStopTimeout_ms < 100 || (int)syspar::IBS::TB_LogStopTimeout_ms > 2000)
   { write("[MOD=PARAM][INVALID] name=TB_LogStopTimeout_ms value=%d", (int)syspar::IBS::TB_LogStopTimeout_ms); invalid = 1; }
-  /* 电池电压范围非法：下限低于 10 V、上限高于 15.5 V，或下限不小于上限 */
-  if ((float)syspar::IBS::TB_BatteryMin_V < 10.0 ||
+  /* 电池电压范围非法：下限低于 8 V、上限高于 15.5 V，或下限不小于上限 */
+  if ((float)syspar::IBS::TB_BatteryMin_V < 8.0 ||
       (float)syspar::IBS::TB_BatteryMax_V > 15.5 ||
       (float)syspar::IBS::TB_BatteryMin_V >= (float)syspar::IBS::TB_BatteryMax_V)
   {
@@ -590,9 +590,9 @@ export int LIN_OpenNormal()
 /* 电源配置：检查电压与限流后写三项设定，不验证实际输出。电池已接入时同样允许配置；调用方须在开输出前用 DVM 确认实测电池电压在 10~15 V 内。 */
 export int PWR_Configure(float V, float Ichg, float Idchg)
 {
-  /* 设定值非法：电压须在电池范围内且 10..15.5 V，充放电限流须在 0..11 A */
+  /* 设定值非法：电压须在电池允许范围内且 8..15.5 V，充放电限流须在 0..11 A */
   if (!(V >= (float)syspar::IBS::TB_BatteryMin_V &&
-        V <= (float)syspar::IBS::TB_BatteryMax_V && V >= 10.0 && V <= 15.5) ||
+        V <= (float)syspar::IBS::TB_BatteryMax_V && V >= 8.0 && V <= 15.5) ||
       !(Ichg >= 0.0 && Ichg <= 11.0) || !(Idchg >= 0.0 && Idchg <= 11.0))
   {
     write("[MOD=PWR][INVALID] configure V=%.3f Ichg=%.3f Idchg=%.3f A", V, Ichg, Idchg);
@@ -616,7 +616,7 @@ export int PWR_On()
   /* 开输出前复核：电压与限流必须在范围内，任一不满足即拒绝；不再检查电池连接命令 */
   if (!(voltage >= (float)syspar::IBS::TB_BatteryMin_V &&
         voltage <= (float)syspar::IBS::TB_BatteryMax_V &&
-        voltage >= 10.0 && voltage <= 15.5) ||
+        voltage >= 8.0 && voltage <= 15.5) ||
       @sysvar::N8361::Set_ChargeCurrent < 0.0 ||
       @sysvar::N8361::Set_ChargeCurrent > 11.0 ||
       @sysvar::N8361::Set_DicChargeCurrent < 0.0 ||
@@ -730,3 +730,175 @@ export testfunction SNAP_WakeNode_Off_Check()
   else write("[MOD=SNAP][UNVERIFIED] wake-node disable command issued; node state not confirmed");
 }
 
+/* ============================================================================
+   7.1 工作电压范围测试专用节点
+   说明：由 IBSTest.vtt 的 ts_definition WorkVoltageRangeTest 通过 caplfunction 调用。
+         只证明命令已下发与计数/采样判据，不证明继电器物理触点或设备瞬时行为。
+   ============================================================================ */
+
+/* 【7.1】继电器切换前置条件：同一元组内只改 CAB1500，IBS 保持接通。
+   依据：用户确认 7.1 由 N8361 供电，须断开 CAB1500 而保持 IBS 供电；
+         既有 SAFE 元组为 (0,1,1) 会断开 IBS，不能用于本用例。
+   限制：只允许 outputCmd=0 时切换（与 RELAY_Set 一致的带电切换互锁）；
+         只写命令并等 TB_RelaySettle_ms，无触点回读。 */
+export testfunction WorkVoltage_CABDisconnect_Check()
+{
+  int settle;                                         /* 继电器稳定等待 ms */
+  settle = (int)syspar::IBS::TB_RelaySettle_ms;       /* 复用既有等待参数 */
+  /* 互锁：输出命令未关时禁止切换 */
+  if (@sysvar::N8361::Set_OutputSts != 0)
+  {
+    testStepFail("WorkVoltage_CABDisconnect", "output command is not off; relay switch blocked"); /* 判失败 */
+    return;
+  }
+  /* 参数范围沿用 RELAY_Set 的 0..500 ms 限制 */
+  if (settle < 0 || settle > 500)
+  {
+    testStepFail("WorkVoltage_CABDisconnect", "TB_RelaySettle_ms=%d out of 0..500", settle); /* 判失败 */
+    return;
+  }
+  @sysvar::Power_RelayCrtl::BatteryConnectEquipment = 0; /* 真实电池不接 */
+  @sysvar::Power_RelayCrtl::CAB1500_PowerCtrl = 1;       /* 断开 CAB1500 */
+  @sysvar::Power_RelayCrtl::IBS_PowerCtrl = 0;           /* 保持 IBS 接通 */
+  /* settle 为 0 表示不等待 */
+  if (settle > 0) testWaitForTimeout(settle);
+  testStepPass("WorkVoltage_CABDisconnect", "relay command 0/1/0 written, settle=%d ms; contacts not read back", settle);
+}
+
+/* 【7.1】按参数设置双向限流：从 WV_CurrentLimit_A 读取，Normal/Test 共用同一判据。
+   限制：仅写 N8361 充放电限流设定，不改变电压、不开关输出。 */
+export testfunction WorkVoltage_SetLimits_Check()
+{
+  float limit_A;                                      /* 双向限流设定 A */
+  limit_A = (float)syspar::IBS::WV_CurrentLimit_A;
+  /* 限流须为非负，避免写入非法值 */
+  if (!(limit_A >= 0.0))
+  {
+    testStepFail("WorkVoltage_SetLimits", "WV_CurrentLimit_A=%.3f invalid", limit_A);
+    return;
+  }
+  @sysvar::N8361::Set_ChargeCurrent = limit_A;        /* 充电限流 */
+  @sysvar::N8361::Set_DicChargeCurrent = limit_A;     /* 放电限流 */
+  testStepPass("WorkVoltage_SetLimits", "charge/discharge limit set to %.3f A", limit_A);
+}
+
+/* 【7.1】上电前设定初始电压：取 WV_StartVoltage_V，输出保持关闭。
+   限制：只写电压设定，不开启输出。 */
+export testfunction WorkVoltage_SetStartVoltage_Check()
+{
+  int startV;                                         /* 升压起点 V */
+  startV = (int)syspar::IBS::WV_StartVoltage_V;
+  @sysvar::N8361::Set_OutPutVoltage = (float)startV;
+  testStepPass("WorkVoltage_SetStartVoltage", "initial voltage set to %d V", startV);
+}
+
+/* 【7.1】单档 5 min 保持监控：按 10 s 窗口逐段核验三帧有效与 DVM 电压。
+   有效判据与 SleepCurrent_Monitor_Check 一致（旧工程 CURRENT_CAL.can）：
+     Measured_Data 的 ERROR_Common/Resp_Error/ERROR_IDENT/FLAG_INCONSISTENCY 须全 0 且 U_BATT!=16383；
+     Calc_Data_1 须 SOC<=100；Calc_Data_2 须 Q_Charge!=65535。
+   限制：保持时长为 WV_HoldPerStep_ms、分段窗口为 WV_MonitorWindow_ms（Normal 300000/10000 即 30 个 10 s 窗口）；
+         每段要求三个有效计数各增长且无效计数不增长；
+         DVM 只在每段结束时采样一次，回读失败可能保留旧值，不能证明两次采样之间无瞬时偏离；
+         不判帧率是否达标，不判噪声或其他物理功能。 */
+export testfunction WorkVoltage_Monitor5min_Check(int CycleIndex, int Direction, float TargetVoltage)
+{
+  int totalWindows;                                   /* 期望窗口数（300000/10000） */
+  int window;                                         /* 当前窗口序号 */
+  int measuredBefore;                                 /* 本段起点：0x34 有效帧计数 */
+  int calc1Before;                                    /* 本段起点：0x35 有效帧计数 */
+  int calc2Before;                                    /* 本段起点：0x36 有效帧计数 */
+  int invalidBefore;                                  /* 本段起点：无效业务信号计数 */
+  int measuredAfter;                                  /* 本段终点：0x34 有效帧计数 */
+  int calc1After;                                     /* 本段终点：0x35 有效帧计数 */
+  int calc2After;                                     /* 本段终点：0x36 有效帧计数 */
+  int invalidAfter;                                   /* 本段终点：无效业务信号计数 */
+  float dvmVoltage;                                   /* 本段终点 DVM 采样 */
+  int windowFailed;                                   /* 本段是否已有失败项 */
+  int failedWindows;                                  /* 累计失败窗口数 */
+
+  /* 保持时长与分段窗口均取自参数，Normal 300000/10000 = 30 段，Test 按 Mode 列缩短 */
+  if ((int)syspar::IBS::WV_MonitorWindow_ms < 1)
+  {
+    testStepFail("WorkVoltage_Monitor5min", "WV_MonitorWindow_ms must be >= 1"); /* 参数非法 */
+    return;
+  }
+  totalWindows = (int)syspar::IBS::WV_HoldPerStep_ms / (int)syspar::IBS::WV_MonitorWindow_ms;
+  if (totalWindows < 1) totalWindows = 1;             /* 至少执行一段，避免零窗口 */
+  failedWindows = 0;                                  /* 累计失败窗口清零 */
+
+  measuredBefore = @sysvar::LIN::ResetMeasuredCounter; /* 记录基线：0x34 */
+  calc1Before    = @sysvar::LIN::ResetCalc1Counter;    /* 记录基线：0x35 */
+  calc2Before    = @sysvar::LIN::ResetCalc2Counter;    /* 记录基线：0x36 */
+  invalidBefore  = @sysvar::LIN::ResetInvalidCounter;  /* 记录基线：无效计数 */
+
+  for (window = 1; window <= totalWindows; window++)
+  {
+    testWaitForTimeout((int)syspar::IBS::WV_MonitorWindow_ms); /* 本段窗口时长取自参数 */
+    measuredAfter = @sysvar::LIN::ResetMeasuredCounter; /* 采样终点：0x34 */
+    calc1After    = @sysvar::LIN::ResetCalc1Counter;    /* 采样终点：0x35 */
+    calc2After    = @sysvar::LIN::ResetCalc2Counter;    /* 采样终点：0x36 */
+    invalidAfter  = @sysvar::LIN::ResetInvalidCounter;  /* 采样终点：无效计数 */
+    dvmVoltage    = @sysvar::N8361::DVM_Voltage;        /* 本段终点 DVM 采样 */
+    windowFailed  = 0;
+
+    write("[WV][WINDOW] cycle=%d dir=%d target=%.1f window=%d/30 34:%d->%d 35:%d->%d 36:%d->%d invalid:%d->%d dvm=%.3f",
+          CycleIndex, Direction, TargetVoltage, window,
+          measuredBefore, measuredAfter, calc1Before, calc1After,
+          calc2Before, calc2After, invalidBefore, invalidAfter, dvmVoltage);
+
+    /* 判据一：0x34 有效帧须增长 */
+    if (measuredAfter <= measuredBefore)
+    {
+      windowFailed = 1;
+      testStepFail("WorkVoltage_34", "cycle=%d dir=%d target=%.1f window=%d no valid Measured_Data",
+                   CycleIndex, Direction, TargetVoltage, window);
+    }
+    /* 判据二：0x35 有效帧须增长 */
+    if (calc1After <= calc1Before)
+    {
+      windowFailed = 1;
+      testStepFail("WorkVoltage_35", "cycle=%d dir=%d target=%.1f window=%d no valid Calc_Data_1",
+                   CycleIndex, Direction, TargetVoltage, window);
+    }
+    /* 判据三：0x36 有效帧须增长 */
+    if (calc2After <= calc2Before)
+    {
+      windowFailed = 1;
+      testStepFail("WorkVoltage_36", "cycle=%d dir=%d target=%.1f window=%d no valid Calc_Data_2",
+                   CycleIndex, Direction, TargetVoltage, window);
+    }
+    /* 判据四：无效业务信号计数不得增长 */
+    if (invalidAfter != invalidBefore)
+    {
+      windowFailed = 1;
+      testStepFail("WorkVoltage_Invalid", "cycle=%d dir=%d target=%.1f window=%d invalid signal %d -> %d",
+                   CycleIndex, Direction, TargetVoltage, window, invalidBefore, invalidAfter);
+    }
+    /* 判据五：DVM 须保持在目标 ±0.1 V；仅代表本段结束采样 */
+    if (!(dvmVoltage >= TargetVoltage - 0.1 && dvmVoltage <= TargetVoltage + 0.1))
+    {
+      windowFailed = 1;
+      testStepFail("WorkVoltage_DVM", "cycle=%d dir=%d target=%.1f window=%d DVM=%.3f V out of +/-0.1 V",
+                   CycleIndex, Direction, TargetVoltage, window, dvmVoltage);
+    }
+
+    if (windowFailed == 0)
+      testStepPass("WorkVoltage_Window", "cycle=%d dir=%d target=%.1f window=%d/30 passed",
+                   CycleIndex, Direction, TargetVoltage, window);
+    else
+      failedWindows++;                                /* 累计失败窗口，本档继续保满 5 min */
+
+    measuredBefore = measuredAfter;                   /* 下一段基线随之推进 */
+    calc1Before    = calc1After;
+    calc2Before    = calc2After;
+    invalidBefore  = invalidAfter;
+  }
+
+  /* 汇总：30 段全部通过才判本档通过 */
+  if (failedWindows == 0)
+    testStepPass("WorkVoltage_Hold", "cycle=%d dir=%d target=%.1f 5 min hold passed (30 windows)",
+                 CycleIndex, Direction, TargetVoltage);
+  else
+    testStepFail("WorkVoltage_Hold", "cycle=%d dir=%d target=%.1f failed in %d of 30 windows",
+                 CycleIndex, Direction, TargetVoltage, failedWindows);
+}

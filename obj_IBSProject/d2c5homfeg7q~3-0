@@ -155,6 +155,47 @@
     <nestedTcIds>1fe8eb6f-4221-4b71-a43b-730268773daa</nestedTcIds>
     <nestedTcIds>4caec747-a9f8-40e2-9fc5-86af5db1ecfe</nestedTcIds>
   </testsequence>
+  <testsequence name="SOCWU_LowSOCWakeStatic" comment="休眠唤醒测试-低SOC唤醒（静置法）：Preparation 后写继电器 (0,0,0)，配置启动电压与两个 10 A 限流并先开输出，确认 DVM 到压后才启动 Normal LIN 取第一次温度；按图示温区上下限中值设压，检查初始标定状态并读取三个 DID 标定字段；断电 60 s 重启后按温度中值以两个 10 A 限流保持 25 min，校验 SOC=100、SOC_STATE=2；配置 SOCWU 使能与阈值后停表，先观察 30 min 无唤醒，再按阈值对 OCV25 表插值减 0.2 V 设压，在 LIN 调度全程停止前提每秒采样 Wakeups 最长 3.7 h，计数增加后恢复 LIN 并判六个唤醒原因信号。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="5b7c2d41-9e63-4f28-b7a1-3c8d5e04a9f2">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[7]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+    <nestedTcIds>a105c766-9ed8-419c-8855-cc9a52953881</nestedTcIds>
+    <nestedTcIds>da113295-05f4-4c53-9b82-c0e2be413aa0</nestedTcIds>
+    <nestedTcIds>d3ee45d1-8a94-4d36-960a-ef741d8aa31f</nestedTcIds>
+    <nestedTcIds>b5b1270b-2b11-4056-91c0-3e7dddd9e5ea</nestedTcIds>
+    <nestedTcIds>fd369a57-8f92-4f50-8054-6a0902d56b61</nestedTcIds>
+    <nestedTcIds>a1ba2c31-2c4d-4e20-b9e6-52ceb23cadf5</nestedTcIds>
+    <nestedTcIds>d987246e-b2fa-43c6-a96e-cb3f2a5549b1</nestedTcIds>
+  </testsequence>
+  <testsequence name="SOCWU_RequestTest" comment="Five independent full-battery low-SOC wakeup request rounds with four 60 s pauses." signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="b8d47020-19a0-489d-88e8-56fd13a6da31">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[8]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+    <nestedTcIds>a93611fe-5729-4eac-9a28-00b770ea49ae</nestedTcIds>
+    <nestedTcIds>35b474e5-616f-4934-b44c-2eb7346f56d1</nestedTcIds>
+    <nestedTcIds>0b6acba7-c09b-48a8-aca1-63f68359adf0</nestedTcIds>
+    <nestedTcIds>2cf3e3ce-9a2b-4329-bda5-55b7b4e1c153</nestedTcIds>
+    <nestedTcIds>83124c91-ac06-4c2a-8d03-9e1feae7b9ed</nestedTcIds>
+  </testsequence>
+  <testsequence name="ResetRepeatedPowerCycle" comment="复位测试-反复上下电：Preparation 后先按 8.5 V 与充放电各 0.5 A 上电并确认 DVM 到压，再启动 Normal LIN 调度并保持到 Completion 收尾；循环 1000 轮，每轮上电 3 s、断电 1 s。上电后先等 100 ms 容错，再判有效 Measured_Data 帧增长且无效计数不增；断电 1 s 判 Frames 不增、ErrorsResp 增长并确认 DVM 在 0 V±1 V。任一轮失败报告轮次与上电/下电阶段。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="0f4b6a20-7c31-4d58-9e42-5a1c7d3b8e64">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[9]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+    <nestedTcIds>5d1a7c92-3b64-4e18-9a72-6c0d4f81b2e5</nestedTcIds>
+  </testsequence>
+  <testsequence name="SOF_ChargeDischargeWake" comment="SOF-充、放电唤醒请求测试（需求 6.11）：Preparation 后关闭模拟器输出，用原生 set 接入真实电池（沿用 SOC_RestCalibration / VoltageAccuracyTest 先例），读取 U0 并确认 9～14 V、未达 14.5 V 停测上限；原生写 IBS_Frame4 配置（SOCWU_Ena=0，充/放电唤醒使能=1，两侧阈值均 160 mA，LDF 分别编码 raw16/raw75）。聚合 Case 内循环 5 轮，每轮先充电方向后放电方向：读取 U0 计算 Uout（充电 min(U0+2,14)，放电 max(U0-2,10.5)），仅在该方向成立时执行；每方向发送配置 2 s、停 LIN 调度、在 Case 原生页面步骤中于 90 s 内确认休眠跳变、配置双向 1 A 限流、等 5 s、200 s 内不得出现 LIN 唤醒、开输出后 60 s 内等唤醒、收到唤醒立即恢复 LIN、自新有效 Calc_Data_1 帧起满 2 s 校验本方向唤醒状态与原因位、补足 10 s 通讯后停 LIN 关输出。方向不成立时记录未覆盖且不凑轮。Case 尾部无论正常结束、判据失败、方向无效或触发停测上限都执行：停 LIN、关输出、原生 set 断开真实电池、确认 DVM 回零，然后由固定 Completion 收尾。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="70abf2c1-bf18-433f-acbb-7fde1cab0bd3">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[10]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+    <nestedTcIds>cc7c3d4b-8952-4dc4-b599-61cd66df3501</nestedTcIds>
+    <nestedTcIds>cc7c3d4b-8952-4dc4-b599-61cd66df3502</nestedTcIds>
+    <nestedTcIds>cc7c3d4b-8952-4dc4-b599-61cd66df3503</nestedTcIds>
+    <nestedTcIds>cc7c3d4b-8952-4dc4-b599-61cd66df3504</nestedTcIds>
+    <nestedTcIds>cc7c3d4b-8952-4dc4-b599-61cd66df3505</nestedTcIds>
+  </testsequence>
+  <testsequence name="WorkVoltageRangeTest" comment="7.1 工作电压范围测试：N8361 供电、不接真实电池；CAB1500 断开且 IBS 保持供电；双向限流 0.5 A；三次独立上电，每次 6→16 V 升压与 15→6 V 降压逐档执行，每档到压后保持并监控 5 min；单档失败写入报告后继续其余档位与后续循环" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="e7b0a710-182b-4567-a710-000000000001">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[11]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+    <nestedTcIds>e7b0a710-0001-4b19-a710-000000000101</nestedTcIds>
+    <nestedTcIds>e7b0a710-0001-4b19-a710-000000000102</nestedTcIds>
+    <nestedTcIds>e7b0a710-0001-4b19-a710-000000000103</nestedTcIds>
+  </testsequence>
   <testcase name="SleepCurrent" comment="单个电压点的休眠平均电流：每点 3 轮，每轮关输出、设压限流、开输出、等到压、LIN 通讯 60 s、监控 10 s（三帧有效性）、停 LIN、静置 60 s、连续积分 20 min 并判定平均电流小于 0.250 mA。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="b7c1a2d3-0000-4a01-9b01-000000000000">
     <parameter name="OutPutVoltage" type="float" raw_type="float" />
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[1]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
@@ -226,6 +267,47 @@
     <parameter name="StartSOC_pct" type="float" raw_type="float" />
     <parameter name="DvmStartVoltage_V" type="float" raw_type="float" />
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[14]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="SOCWU_PowerUp" comment="低SOC唤醒静置法第一段：Preparation 后写继电器 (0,0,0)，配置启动电压与两个 10 A 限流并开输出，确认 DVM 到压后才启动 Normal LIN 取第一次温度；按图示温区计算上下限中值并改设电压；切诊断响应调度表后依次读取 DID 0x1000/0x1001/0x1005 并逐字段比对；停 LIN 后断电 60 s 重启 IBS。全程供电先于 LIN 调度。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="3c9a71e0-11a4-4b6e-9a1f-2f4b0e7d5c20">
+    <parameter name="StartupVoltage_V" type="float" raw_type="float" />
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[15]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="SOCWU_DiagCalib" comment="低SOC唤醒静置法标定检查段：切诊断响应调度表并启动诊断调度，依次读取 DID 0x1000、0x1001、0x1005 并逐字段比对目标值；结束后停 LIN 调度并断电 60 s 重启 IBS。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="3c9a71e0-11a4-4b6e-9a1f-2f4b0e7d5c21">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[16]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="SOCWU_Hold25Min" comment="低SOC唤醒静置法第二段：重启后重新开启 Normal LIN 取新鲜温度，按图示温区中值与两个 10 A 限流设压并到压，保持 25 min；保持结束再取一次温度与 DVM，温度变化时按新值重算并调整；结束停 LIN，电源输出保持开启。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="3c9a71e0-11a4-4b6e-9a1f-2f4b0e7d5c22">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[17]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="SOCWU_LowSOCWakeup" comment="低SOC唤醒静置法第三段：写 SOCWU_Ena=1 与阈值后短暂启动 Normal 调度发送配置再停表；记录 Wakeups 基线后先观察 30 min 不得增加；随后按阈值对 OCV25 表做相邻点线性插值并减 0.2 V 设压到压；在 LIN 调度全程停止前提每秒采样 Wakeups，最长 3.7 h；计数增加后才恢复 Normal LIN 并判六个唤醒原因信号。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="3c9a71e0-11a4-4b6e-9a1f-2f4b0e7d5c23">
+    <parameter name="Threshold_pct" type="float" raw_type="float" />
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[18]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="ResetRepeatedPowerCycleCase" comment="复位测试-反复上下电：先设 8.5 V 与充放电各 0.5 A 并上电到压，随后启动 Normal LIN 调度并在整个测试期间保持运行（由 Completion 停止）。循环 1000 轮，每轮上电 3 s、断电 1 s：上电后先等 100 ms 容忍初始错误帧，再锁存有效/无效帧计数基线并监测 2900 ms，判有效 Measured_Data 帧计数增长且无效计数不增；断电段不停止调度，观察 1000 ms 后判 Frames 不增、ErrorsResp 增长且 DVM 在 0 V±1 V。失败信息包含轮次与上电/下电阶段。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="8c2e5a14-6d93-4b71-8f52-1a3c9e07d4b6">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[19]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="SOFWakeChargeDischarge" comment="SOF-充、放电唤醒请求测试聚合用例（需求 6.11）：先关模拟器输出，用原生 set 接入真实电池（沿用 SOC_RestCalibration / VoltageAccuracyTest 先例），读取 U0 并确认 9～14 V 且未达 14.5 V 停测上限，原生写 IBS_Frame4 唤醒配置（SOCWU_Ena=0，充/放电使能=1，两侧阈值物理 160 mA，LDF 分别编码 raw16/raw75）。循环 5 轮，每轮先充电方向后放电方向，方向成立才执行：发送配置 2 s、停 LIN 调度、在 Case 原生页面步骤中于 90 s 内确认休眠跳变、按相邻两个有效新采样校验 0 附近与近似 17 mA 的双向跳变（均需在 0～18 mA 内）、配置双向 1 A 限流、等 5 s、200 s 内不得出现 LIN 唤醒、开输出后 60 s 内等唤醒、收到唤醒立即恢复 LIN、自新有效 Calc_Data_1 帧起满 2 s 校验本方向唤醒状态与原因位、补足 10 s 通讯后停 LIN 关输出。所有失败路径都由 SegOK 门控：休眠未确认、200 s 窗口出现唤醒、60 s 未收到唤醒、未收到新有效帧时都不会施加输出或继续校验，而是直接跳到 Case 尾部安全收尾；方向不成立只记未覆盖且不凑轮，U0 达 14.5 V 触发停测并退出轮次。Case 尾部在全部路径都会执行：停 LIN、关输出、原生 set 断开真实电池、确认 DVM 回零，随后由固定 Completion 收尾。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="4df21a2b-b74f-4264-9692-d84d39667d10">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[20]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="SOFWakeChargeDischargeOnce" comment="SOF-充、放电唤醒请求单轮用例（需求 6.11）：先关模拟器输出，用原生 set 接入真实电池（沿用 SOC_RestCalibration / VoltageAccuracyTest 先例），读取 U0 并确认 9～14 V 且未达 14.5 V 停测上限，原生写 IBS_Frame4 唤醒配置（SOCWU_Ena=0，充/放电使能=1，两侧阈值物理 160 mA，LDF 分别编码 raw16/raw75）。循环 5 轮，每轮先充电方向后放电方向，方向成立才执行：发送配置 2 s、停 LIN 调度、在 Case 原生页面步骤中于 90 s 内确认休眠跳变、按相邻两个有效新采样校验 0 附近与近似 17 mA 的双向跳变（均需在 0～18 mA 内）、配置双向 1 A 限流、等 5 s、200 s 内不得出现 LIN 唤醒、开输出后 60 s 内等唤醒、收到唤醒立即恢复 LIN、自新有效 Calc_Data_1 帧起满 2 s 校验本方向唤醒状态与原因位、补足 10 s 通讯后停 LIN 关输出。所有失败路径都由 SegOK 门控：休眠未确认、200 s 窗口出现唤醒、60 s 未收到唤醒、未收到新有效帧时都不会施加输出或继续校验，而是直接跳到 Case 尾部安全收尾；方向不成立只记未覆盖且不凑轮，U0 达 14.5 V 触发停测并退出轮次。Case 尾部在全部路径都会执行：停 LIN、关输出、原生 set 断开真实电池、确认 DVM 回零，随后由固定 Completion 收尾。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="cc7c3d4b-8952-4dc4-b599-61cd66df3590">
+    <parameter name="RoundIndex" type="int64" raw_type="int" />
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[21]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="SOCWU_RequestOnce" comment="One independent full-battery SOC wake request round. Failed checks abort into case completion; no subsequent round starts." signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="f57c150d-4d4e-4fb1-a772-c9ea10628070">
+    <parameter name="RoundIndex" type="int64" raw_type="int" />
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[22]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="WorkVoltageCycle" comment="单次工作电压升降循环：先断 CAB1500、保持 IBS 接通并上电，LIN Normal 启动后升压 6→16 V、降压 15→6 V 逐档执行；每档以 200 ms 内 DVM 达目标 ±0.1 V 为到压判据，随后保持并监控 5 min（30 个 10 s 窗口核验三帧、无效信号与 DVM）；最后关闭输出。每档失败写入报告后继续执行，不中断循环。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="e7b0a710-0000-4b19-a710-000000000100">
+    <parameter name="CycleIndex" type="int64" raw_type="int" />
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[23]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
     <implementation_language lang="TTE" />
   </testcase>
   <function name="PHASE_Prepare" comment="准备段：开日志、停 LIN、关唤醒节点、关输出、继电器切 IDLE" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true" guid="1a4d6e92-73c5-4f08-9b21-5d8e0c7a3f61">

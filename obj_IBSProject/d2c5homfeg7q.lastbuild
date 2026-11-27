@@ -1,156 +1,228 @@
-﻿14:42:39 # Build of test unit 'IBSTest' started...
-14:42:39 - Build Step #0: BuildPreparation (ArtefactID: -1)
-14:42:39 - ------------------------------------------------
-14:42:39 - ============================== Build Step #0 finished ==============================
-14:42:39 - Build Step #1: PreBuildEvent (ArtefactID: -1)
-14:42:39 - ---------------------------------------------
-14:42:39 - ============================== Build Step #1 finished ==============================
-14:42:39 - Build Step #2: BuildTestSequenceDiagramDependencyTree (ArtefactID: -1)
-14:42:39 - ----------------------------------------------------------------------
-14:42:39 - Nothing to do (no Test Sequence Diagram Files)
-14:42:39 - ============================== Build Step #2 finished ==============================
-14:42:39 - Build Step #3: TraceArtefactIds (ArtefactID: -1)
-14:42:39 - ------------------------------------------------
-14:42:39 - Artefact IDs:
-14:42:39 -   0 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt
-14:42:39 -   1 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam
-14:42:39 -   2 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can
-14:42:39 - ============================== Build Step #3 finished ==============================
-14:42:39 - Build Step #4: ValidateTestUnit (ArtefactID: -1)
-14:42:39 - ------------------------------------------------
-14:42:39 # Checking test unit consistency
-14:42:39 - ============================== Build Step #4 finished ==============================
-14:42:39 - Build Step #13: CopyParameterFile (ArtefactID: 1)
-14:42:39 - -------------------------------------------------
-14:42:39 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vparam' is outdated
-14:42:39 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-24 14:25:20) differs from 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 19:56:13) stored in MAKE database
-14:42:39 - Copied file 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vparam'
-14:42:39 - ============================== Build Step #13 finished ==============================
-14:42:39 - Build Step #5: BuildParameterTypeLibs (ArtefactID: -1)
-14:42:39 - ------------------------------------------------------
-14:42:39 - Nothing to do (no C# documents and no .NET assemblies)
-14:42:39 - ============================== Build Step #5 finished ==============================
-14:42:39 - Build Step #6: BuildCaplTypeLibs (ArtefactID: -1)
-14:42:39 - -------------------------------------------------
-14:42:39 - Nothing to do (no C# documents and no .NET assemblies)
-14:42:39 - ============================== Build Step #6 finished ==============================
-14:42:39 - Build Step #7: BuildSysVarTypeLibs (ArtefactID: -1)
-14:42:39 - ---------------------------------------------------
-14:42:39 - Nothing to do (no C# documents and no .NET assemblies)
-14:42:39 - ============================== Build Step #7 finished ==============================
-14:42:39 - Build Step #8: BuildCoTypeLib (ArtefactID: -1)
-14:42:39 - ----------------------------------------------
-14:42:39 - Nothing to do (no C# documents and no .NET assemblies or no CO-Lib)
-14:42:39 - ============================== Build Step #8 finished ==============================
-14:42:39 - Build Step #9: ValidateTteFile (ArtefactID: 0)
-14:42:39 - ----------------------------------------------
-14:42:39 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' is outdated
-14:42:39 - Reason: Export Tables have changed
-14:42:39 # Compiling file 'IBSTest.vtt' in test unit 'IBSTest'
-14:42:39 # Compilation succeeded (14:42:39) -- 0 errors, 0 warnings
-14:42:39 - ============================== Build Step #9 finished ==============================
-14:42:39 - Build Step #10: ValidateParameterFile (ArtefactID: 1)
-14:42:39 - -----------------------------------------------------
-14:42:39 - Dependent files:
-14:42:39 - C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q=VP.vvarprop
-14:42:39 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' is outdated
-14:42:39 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-24 14:25:20) differs from 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 19:56:13) stored in MAKE database
-14:42:39 # Compiling file 'IBSTest.vparam' in test unit 'IBSTest'
-14:42:39 # Compilation succeeded (14:42:39) -- 0 errors, 0 warnings
-14:42:39 - ============================== Build Step #10 finished ==============================
-14:42:39 - Build Step #11: ValidateCaplFile (ArtefactID: 2)
-14:42:39 - ------------------------------------------------
-14:42:39 - CAPL file dependencies (direct dependencies only):
-14:42:39 - C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can --> <IBSTest.vparam>, <d2c5homfeg7q=VP.vvarprop>
-14:42:39 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSFunctions.cbf' is outdated
-14:42:39 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-24 14:25:20) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 19:56:13) stored in MAKE database
-14:42:39 - BuildStepUtilities.CompileCaplFile: 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can' --> 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSFunctions.cbf'
-14:42:39 # Compiling file 'IBSFunctions.can' in test unit 'IBSTest'
-14:42:39 # Compilation succeeded (14:42:39) -- 0 errors, 0 warnings
-14:42:39 - ============================== Build Step #11 finished ==============================
-14:42:39 - Build Step #12: ConditionalBuildAbort (ArtefactID: -1)
-14:42:39 - ------------------------------------------------------
-14:42:39 - All Validation succeeded - continue build.
-14:42:39 - ============================== Build Step #12 finished ==============================
-14:42:39 - Build Step #14: CollectNavigationInfo (ArtefactID: 0)
-14:42:39 - -----------------------------------------------------
-14:42:39 - ============================== Build Step #14 finished ==============================
-14:42:39 - Build Step #15: CompileVtt2Vxtx (ArtefactID: 0)
-14:42:39 - -----------------------------------------------
-14:42:39 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx' is outdated
-14:42:39 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' (2026-11-24 14:27:57) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' (2026-11-23 20:29:52) stored in MAKE database
-14:42:39 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' is outdated
-14:42:39 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' (2026-11-24 14:27:57) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' (2026-11-23 20:29:52) stored in MAKE database
-14:42:39 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx' is outdated
-14:42:39 - Reason: Export Tables have changed
-14:42:39 - ============================== Build Step #15 finished ==============================
-14:42:39 - Build Step #16: CompileGeneratedCapl (ArtefactID: 0)
-14:42:39 - ----------------------------------------------------
-14:42:39 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.cbf' is outdated
-14:42:39 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' (2026-11-24 14:42:39) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' (2026-11-23 20:29:53) stored in MAKE database
-14:42:39 - BuildStepUtilities.CompileCaplFile: 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' --> 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.cbf'
-14:42:40 - Copied file 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q~3-0.' to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__ExpTbl_\IBSTest.vtt.export.xml'
-14:42:40 - Copied file 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vtt'
-14:42:40 - ============================== Build Step #16 finished ==============================
-14:42:40 - Build Step #17: MergeCaplDocument (ArtefactID: 2)
-14:42:40 - -------------------------------------------------
-14:42:40 - CAPL file dependencies (direct dependencies only):
-14:42:40 - C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can --> <IBSTest.vparam>, <d2c5homfeg7q=VP.vvarprop>
-14:42:40 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSFunctions.can' is outdated
-14:42:40 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-24 14:25:20) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-23 19:56:13) stored in MAKE database
-14:42:40 - Copied file 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q~0-0.' to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__ExpTbl_\IBSFunctions.can.export.xml'
-14:42:40 - ============================== Build Step #17 finished ==============================
-14:42:40 - Build Step #18: MoveCSharpXmlDocumentation (ArtefactID: -1)
-14:42:40 - -----------------------------------------------------------
-14:42:40 - MoveCSharpXmlDocumentation: Skipped because option is deactivated
-14:42:40 - ============================== Build Step #18 finished ==============================
-14:42:40 - Build Step #19: ValidateTteFile (ArtefactID: 0)
-14:42:40 - -----------------------------------------------
-14:42:40 - ============================== Build Step #19 finished ==============================
-14:42:40 - Build Step #20: ValidateIdUsage (ArtefactID: -1)
-14:42:40 - ------------------------------------------------
-14:42:40 - ============================== Build Step #20 finished ==============================
-14:42:40 - Build Step #21: ExportTraceabilityMatrix (ArtefactID: -1)
-14:42:40 - ---------------------------------------------------------
-14:42:40 - ExportTraceabilityMatrix: Skipped because option is deactivated
-14:42:40 - ============================== Build Step #21 finished ==============================
-14:42:40 - Build Step #22: IncludeSources (ArtefactID: -1)
-14:42:40 - -----------------------------------------------
-14:42:40 - IncludeSources: Skipped because option is deactivated
-14:42:40 - ============================== Build Step #22 finished ==============================
-14:42:40 - Build Step #23: WriteSystemEnvironment (ArtefactID: -1)
-14:42:40 - -------------------------------------------------------
-14:42:40 - Copy merged Test System Variable file...
-14:42:40 - Copy <0ksehen3jd7c-MTSV> to C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\TestSysVars.vsysvar
-14:42:40 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\TestSysVars.vsysvar' is up to date (regarding to dependencies in MAKE database)
-14:42:40 - Add variant property file...
-14:42:40 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest_ctrlvars1.vvarprop' is up to date (regarding to dependencies in MAKE database)
-14:42:40 - ============================== Build Step #23 finished ==============================
-14:42:40 - Build Step #24: WriteTUProperties (ArtefactID: -1)
-14:42:40 - --------------------------------------------------
-14:42:40 - ============================== Build Step #24 finished ==============================
-14:42:40 - Build Step #25: WriteTetEntries (ArtefactID: -1)
-14:42:40 - ------------------------------------------------
-14:42:40 - ============================== Build Step #25 finished ==============================
-14:42:40 - Build Step #26: WriteManifest (ArtefactID: -1)
-14:42:40 - ----------------------------------------------
-14:42:40 - Writing manifest C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vtumanifest
-14:42:40 - ============================== Build Step #26 finished ==============================
-14:42:40 - Build Step #31: RemoveOrphanedBuildArtfacts (ArtefactID: -1)
-14:42:40 - ------------------------------------------------------------
-14:42:40 - Removing orphaned build artefacts from the vtuexe's main folder...
-14:42:40 - Nothing to do.
-14:42:40 - ============================== Build Step #31 finished ==============================
-14:42:40 - Build Step #27: WriteMetainfo (ArtefactID: -1)
-14:42:40 - ----------------------------------------------
-14:42:40 - BUILD TIME excluding ZIP/UNZIP (hours:minutes:seconds:milliseconds): 00:00:01:224
-14:42:40 - ============================== Build Step #27 finished ==============================
-14:42:40 - Build Step #28: WriteVtuexe (ArtefactID: -1)
-14:42:40 - --------------------------------------------
-14:42:40 # Test unit created 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtuexe'
-14:42:40 - ============================== Build Step #28 finished ==============================
-14:42:40 - Build Step #29: PostBuildEvent (ArtefactID: -1)
-14:42:40 - -----------------------------------------------
-14:42:40 - ============================== Build Step #29 finished ==============================
-14:42:40 - Build Step #30: BuildCleanup (ArtefactID: -1)
-14:42:40 - ---------------------------------------------
+﻿11:12:45 # Build of test unit 'IBSTest' started...
+11:12:45 - Build Step #0: BuildPreparation (ArtefactID: -1)
+11:12:45 - ------------------------------------------------
+11:12:45 - ============================== Build Step #0 finished ==============================
+11:12:45 - Build Step #1: PreBuildEvent (ArtefactID: -1)
+11:12:45 - ---------------------------------------------
+11:12:45 - ============================== Build Step #1 finished ==============================
+11:12:45 - Build Step #2: BuildTestSequenceDiagramDependencyTree (ArtefactID: -1)
+11:12:45 - ----------------------------------------------------------------------
+11:12:45 - Nothing to do (no Test Sequence Diagram Files)
+11:12:45 - ============================== Build Step #2 finished ==============================
+11:12:45 - Build Step #3: TraceArtefactIds (ArtefactID: -1)
+11:12:45 - ------------------------------------------------
+11:12:45 - Artefact IDs:
+11:12:45 -   0 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt
+11:12:45 -   1 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam
+11:12:45 -   2 C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can
+11:12:45 - ============================== Build Step #3 finished ==============================
+11:12:45 - Build Step #4: ValidateTestUnit (ArtefactID: -1)
+11:12:45 - ------------------------------------------------
+11:12:45 # Checking test unit consistency
+11:12:45 - ============================== Build Step #4 finished ==============================
+11:12:45 - Build Step #13: CopyParameterFile (ArtefactID: 1)
+11:12:45 - -------------------------------------------------
+11:12:45 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vparam' is outdated
+11:12:45 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:12:44) differs from 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:02:30) stored in MAKE database
+11:12:45 - Copied file 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vparam'
+11:12:45 - ============================== Build Step #13 finished ==============================
+11:12:45 - Build Step #5: BuildParameterTypeLibs (ArtefactID: -1)
+11:12:45 - ------------------------------------------------------
+11:12:45 - Nothing to do (no C# documents and no .NET assemblies)
+11:12:45 - ============================== Build Step #5 finished ==============================
+11:12:45 - Build Step #6: BuildCaplTypeLibs (ArtefactID: -1)
+11:12:45 - -------------------------------------------------
+11:12:45 - Nothing to do (no C# documents and no .NET assemblies)
+11:12:45 - ============================== Build Step #6 finished ==============================
+11:12:45 - Build Step #7: BuildSysVarTypeLibs (ArtefactID: -1)
+11:12:45 - ---------------------------------------------------
+11:12:45 - Nothing to do (no C# documents and no .NET assemblies)
+11:12:45 - ============================== Build Step #7 finished ==============================
+11:12:45 - Build Step #8: BuildCoTypeLib (ArtefactID: -1)
+11:12:45 - ----------------------------------------------
+11:12:45 - Nothing to do (no C# documents and no .NET assemblies or no CO-Lib)
+11:12:45 - ============================== Build Step #8 finished ==============================
+11:12:45 - Build Step #9: ValidateTteFile (ArtefactID: 0)
+11:12:45 - ----------------------------------------------
+11:12:45 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' is up to date (regarding to export table hash)
+11:12:45 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' is outdated
+11:12:45 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:12:44) differs from 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:02:30) stored in MAKE database
+11:12:45 # Compiling file 'IBSTest.vtt' in test unit 'IBSTest'
+11:12:45 #  CAPL Inline: 记录唤醒计数基线与 30 min 观察起点: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 每秒检查 Wakeups 是否仍等于基线: Warning(s) in CAPL code 
+2224 at (4,17): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 重启计时并清零唤醒判定标志: Warning(s) in CAPL code 
+2224 at (1,17): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 检查计数是否达到基线+1: Warning(s) in CAPL code 
+2224 at (4,17): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 保存断电前 LIN 统计量基线: Warning(s) in CAPL code 
+2224 at (1,21): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs. 
+2224 at (2,19): System Variable ErrorsResp is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 判定本轮下电状态并标注失败轮次: Warning(s) in CAPL code 
+2224 at (4,19): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs. 
+2224 at (5,16): System Variable ErrorsResp is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：记录 LIN 停表时的帧基线与采样基线: Warning(s) in CAPL code 
+2224 at (5,22): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：核对 LIN 帧未增长并判定相邻两有效采样的双向跳变: Warning(s) in CAPL code 
+2224 at (6,21): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：记录唤醒计数基线与 200 s 观察起点: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：每秒采样 Wakeups 是否仍等于基线: Warning(s) in CAPL code 
+2224 at (4,19): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：开启输出前先记录唤醒基线与观察起点: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：采样唤醒计数是否相对基线增加: Warning(s) in CAPL code 
+2224 at (4,19): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：记录 LIN 停表时的帧基线与采样基线: Warning(s) in CAPL code 
+2224 at (5,22): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：核对 LIN 帧未增长并判定相邻两有效采样的双向跳变: Warning(s) in CAPL code 
+2224 at (6,21): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：记录唤醒计数基线与 200 s 观察起点: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：每秒采样 Wakeups 是否仍等于基线: Warning(s) in CAPL code 
+2224 at (4,19): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：开启输出前先记录唤醒基线与观察起点: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：采样唤醒计数是否相对基线增加: Warning(s) in CAPL code 
+2224 at (4,19): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：记录 LIN 停表时的帧基线与采样基线: Warning(s) in CAPL code 
+2224 at (5,22): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：核对 LIN 帧未增长并判定相邻两有效采样的双向跳变: Warning(s) in CAPL code 
+2224 at (6,21): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：记录唤醒计数基线与 200 s 观察起点: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：每秒采样 Wakeups 是否仍等于基线: Warning(s) in CAPL code 
+2224 at (4,19): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：开启输出前先记录唤醒基线与观察起点: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 充电段：采样唤醒计数是否相对基线增加: Warning(s) in CAPL code 
+2224 at (4,19): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：记录 LIN 停表时的帧基线与采样基线: Warning(s) in CAPL code 
+2224 at (5,22): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：核对 LIN 帧未增长并判定相邻两有效采样的双向跳变: Warning(s) in CAPL code 
+2224 at (6,21): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：记录唤醒计数基线与 200 s 观察起点: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：每秒采样 Wakeups 是否仍等于基线: Warning(s) in CAPL code 
+2224 at (4,19): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：开启输出前先记录唤醒基线与观察起点: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:45 #  CAPL Inline: 放电段：采样唤醒计数是否相对基线增加: Warning(s) in CAPL code 
+2224 at (4,19): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:46 #  CAPL Inline: 确认停表后 LIN 帧基线与 CAB 新帧基线: Warning(s) in CAPL code 
+2224 at (1,20): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:46 #  CAPL Inline: 只在 CAB 接收计数增加时比较相邻电流样本且 LIN 帧不得增加: Warning(s) in CAPL code 
+2224 at (4,16): System Variable Frames is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:46 #  CAPL Inline: 记录自动唤醒统计，仅供诊断: Warning(s) in CAPL code 
+2224 at (1,18): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:46 #  CAPL Inline: 200 s 内只接受 LIN 请求事件超时返回 0: Warning(s) in CAPL code 
+2224 at (3,94): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:46 #  CAPL Inline: 最长 2.1 h 等待 LIN 请求，负值及超时均失败并立即收尾: Warning(s) in CAPL code 
+2224 at (7,96): System Variable Wakeups is only for analysis purposes and should not be accessed in simulation / test programs.
+11:12:46 # Compilation succeeded (11:12:46) -- 0 errors, 35 warnings
+11:12:46 - ============================== Build Step #9 finished ==============================
+11:12:46 - Build Step #10: ValidateParameterFile (ArtefactID: 1)
+11:12:46 - -----------------------------------------------------
+11:12:46 - Dependent files:
+11:12:46 - C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q=VP.vvarprop
+11:12:46 - 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' is outdated
+11:12:46 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:12:44) differs from 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:02:30) stored in MAKE database
+11:12:46 # Compiling file 'IBSTest.vparam' in test unit 'IBSTest'
+11:12:46 # Compilation succeeded (11:12:46) -- 0 errors, 0 warnings
+11:12:46 - ============================== Build Step #10 finished ==============================
+11:12:46 - Build Step #11: ValidateCaplFile (ArtefactID: 2)
+11:12:46 - ------------------------------------------------
+11:12:46 - CAPL file dependencies (direct dependencies only):
+11:12:46 - C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can --> <IBSTest.vparam>, <d2c5homfeg7q=VP.vvarprop>
+11:12:46 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSFunctions.cbf' is outdated
+11:12:46 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:12:44) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:02:30) stored in MAKE database
+11:12:46 - BuildStepUtilities.CompileCaplFile: 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can' --> 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSFunctions.cbf'
+11:12:46 # Compiling file 'IBSFunctions.can' in test unit 'IBSTest'
+11:12:46 # Compilation succeeded (11:12:46) -- 0 errors, 0 warnings
+11:12:46 - ============================== Build Step #11 finished ==============================
+11:12:46 - Build Step #12: ConditionalBuildAbort (ArtefactID: -1)
+11:12:46 - ------------------------------------------------------
+11:12:46 - All Validation succeeded - continue build.
+11:12:46 - ============================== Build Step #12 finished ==============================
+11:12:46 - Build Step #14: CollectNavigationInfo (ArtefactID: 0)
+11:12:46 - -----------------------------------------------------
+11:12:46 - ============================== Build Step #14 finished ==============================
+11:12:46 - Build Step #15: CompileVtt2Vxtx (ArtefactID: 0)
+11:12:46 - -----------------------------------------------
+11:12:46 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx' is outdated
+11:12:46 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:12:44) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:02:30) stored in MAKE database
+11:12:46 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' is outdated
+11:12:46 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:12:44) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:02:30) stored in MAKE database
+11:12:46 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx' is up to date (regarding to export table hash)
+11:12:46 - ============================== Build Step #15 finished ==============================
+11:12:46 - Build Step #16: CompileGeneratedCapl (ArtefactID: 0)
+11:12:46 - ----------------------------------------------------
+11:12:46 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.cbf' is outdated
+11:12:46 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' (2026-11-27 11:12:46) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' (2026-11-27 11:08:14) stored in MAKE database
+11:12:46 - BuildStepUtilities.CompileCaplFile: 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.can' --> 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__TsoBuildFiles_\IBSTest.vxtx.cbf'
+11:12:46 - Export table file 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q~3-0.' not copied to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__ExpTbl_\IBSTest.vtt.export.xml' because export tables have not changed
+11:12:46 - Copied file 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt' to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vtt'
+11:12:46 - ============================== Build Step #16 finished ==============================
+11:12:46 - Build Step #17: MergeCaplDocument (ArtefactID: 2)
+11:12:46 - -------------------------------------------------
+11:12:46 - CAPL file dependencies (direct dependencies only):
+11:12:46 - C:\Users\HF_company\Desktop\IBS\IBSTest\IBSFunctions.can --> <IBSTest.vparam>, <d2c5homfeg7q=VP.vvarprop>
+11:12:46 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSFunctions.can' is outdated
+11:12:46 - Reason: Last write time of 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:12:44) differs from dependency relation to 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vparam' (2026-11-27 11:02:30) stored in MAKE database
+11:12:46 - Export table file 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\d2c5homfeg7q~0-0.' not copied to 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\__ExpTbl_\IBSFunctions.can.export.xml' because export tables have not changed
+11:12:46 - ============================== Build Step #17 finished ==============================
+11:12:46 - Build Step #18: MoveCSharpXmlDocumentation (ArtefactID: -1)
+11:12:46 - -----------------------------------------------------------
+11:12:46 - MoveCSharpXmlDocumentation: Skipped because option is deactivated
+11:12:46 - ============================== Build Step #18 finished ==============================
+11:12:46 - Build Step #19: ValidateTteFile (ArtefactID: 0)
+11:12:46 - -----------------------------------------------
+11:12:46 - ============================== Build Step #19 finished ==============================
+11:12:46 - Build Step #20: ValidateIdUsage (ArtefactID: -1)
+11:12:46 - ------------------------------------------------
+11:12:46 - ============================== Build Step #20 finished ==============================
+11:12:46 - Build Step #21: ExportTraceabilityMatrix (ArtefactID: -1)
+11:12:46 - ---------------------------------------------------------
+11:12:46 - ExportTraceabilityMatrix: Skipped because option is deactivated
+11:12:46 - ============================== Build Step #21 finished ==============================
+11:12:46 - Build Step #22: IncludeSources (ArtefactID: -1)
+11:12:46 - -----------------------------------------------
+11:12:46 - IncludeSources: Skipped because option is deactivated
+11:12:46 - ============================== Build Step #22 finished ==============================
+11:12:46 - Build Step #23: WriteSystemEnvironment (ArtefactID: -1)
+11:12:46 - -------------------------------------------------------
+11:12:46 - Copy merged Test System Variable file...
+11:12:46 - Copy <0ksehen3jd7c-MTSV> to C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\TestSysVars.vsysvar
+11:12:46 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\TestSysVars.vsysvar' is up to date (regarding to dependencies in MAKE database)
+11:12:46 - Add variant property file...
+11:12:46 - 'C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest_ctrlvars1.vvarprop' is up to date (regarding to dependencies in MAKE database)
+11:12:46 - ============================== Build Step #23 finished ==============================
+11:12:46 - Build Step #24: WriteTUProperties (ArtefactID: -1)
+11:12:46 - --------------------------------------------------
+11:12:46 - ============================== Build Step #24 finished ==============================
+11:12:46 - Build Step #25: WriteTetEntries (ArtefactID: -1)
+11:12:46 - ------------------------------------------------
+11:12:46 - ============================== Build Step #25 finished ==============================
+11:12:46 - Build Step #26: WriteManifest (ArtefactID: -1)
+11:12:46 - ----------------------------------------------
+11:12:46 - Writing manifest C:\Users\HF_company\Desktop\IBS\obj_IBSProject\bin_d2c5homfeg7q\IBSTest.vtumanifest
+11:12:46 - ============================== Build Step #26 finished ==============================
+11:12:46 - Build Step #31: RemoveOrphanedBuildArtfacts (ArtefactID: -1)
+11:12:46 - ------------------------------------------------------------
+11:12:46 - Removing orphaned build artefacts from the vtuexe's main folder...
+11:12:46 - Nothing to do.
+11:12:46 - ============================== Build Step #31 finished ==============================
+11:12:46 - Build Step #27: WriteMetainfo (ArtefactID: -1)
+11:12:46 - ----------------------------------------------
+11:12:46 - BUILD TIME excluding ZIP/UNZIP (hours:minutes:seconds:milliseconds): 00:00:01:105
+11:12:46 - ============================== Build Step #27 finished ==============================
+11:12:46 - Build Step #28: WriteVtuexe (ArtefactID: -1)
+11:12:46 - --------------------------------------------
+11:12:46 # Test unit created 'C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtuexe'
+11:12:46 - ============================== Build Step #28 finished ==============================
+11:12:46 - Build Step #29: PostBuildEvent (ArtefactID: -1)
+11:12:46 - -----------------------------------------------
+11:12:46 - ============================== Build Step #29 finished ==============================
+11:12:46 - Build Step #30: BuildCleanup (ArtefactID: -1)
+11:12:46 - ---------------------------------------------

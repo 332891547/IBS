@@ -46,10 +46,34 @@ Group	IBS_Case
 ScalarSingleRecord
 
 Name	Type	Info	Value
-IBS::TB_BatteryMin_V	Float	接电池允许最低电压，单位 V	10.0
+IBS::TB_BatteryMin_V	Float	接电池允许最低电压，单位 V	8.0
 IBS::TB_BatteryMax_V	Float	接电池允许最高电压，单位 V	15.5
 IBS::TB_MaxSwitchVoltage_V	Float	切继电器允许的最高电压，单位 V	1.0
 IBS::TB_RequireOutputOffForBattery	Integer	接电池前必须先关输出，0/1	1
+
+Group	工作电流测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::WC_StartVoltage_V	Integer	起始电压 V	10
+IBS::WC_EndVoltage_V	Integer	终止电压 V	14
+IBS::WC_VoltageStep_V	Integer	步长 V	1
+IBS::WC_ChargeLimit_A	Float	充电限流 A，原文 1 A	1.0
+IBS::WC_DischargeLimit_A	Float	放电限流 A，原文 1 A	1.0
+IBS::WC_VoltageTimeout_ms	Integer	到压限时 ms，原文 2 s	2000
+IBS::WC_VoltageTolerance_V	Float	DVM 到压允许差 V	0.5
+IBS::WC_UbattTimeout_ms	Integer	LIN 电压反馈限时 ms，原文 1 s	1000
+IBS::WC_UbattTolerance_V	Float	LIN 电压反馈允许差 V	0.5
+IBS::WC_TimeTolerance_s	Float	积分时长允许短于窗口 s	2.0
+IBS::WC_AvgLimit_mA	Float	平均电流严格小于 mA，原文 25 mA	25.0
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::WC_IntegrationWindow_ms	Auto	连续积分窗口 ms，原文 10 min	600000	20000
 
 Group	休眠平均电流测试
 
@@ -76,30 +100,6 @@ IBS::SC_LinMonitor_ms	Auto	随后监控 ms	10000	2000
 IBS::SC_SleepWait_ms	Auto	停 LIN 后静置 ms，TBD	60000	2000
 IBS::SC_IntegrationWindow_ms	Auto	连续积分窗口 ms	1200000	20000
 
-
-Group	工作电流测试
-
-ScalarSingleRecord
-
-Name	Type	Info	Value
-IBS::WC_StartVoltage_V	Integer	起始电压 V	10
-IBS::WC_EndVoltage_V	Integer	终止电压 V	14
-IBS::WC_VoltageStep_V	Integer	步长 V	1
-IBS::WC_ChargeLimit_A	Float	充电限流 A，原文 1 A	1.0
-IBS::WC_DischargeLimit_A	Float	放电限流 A，原文 1 A	1.0
-IBS::WC_VoltageTimeout_ms	Integer	到压限时 ms，原文 2 s	2000
-IBS::WC_VoltageTolerance_V	Float	DVM 到压允许差 V	0.5
-IBS::WC_UbattTimeout_ms	Integer	LIN 电压反馈限时 ms，原文 1 s	1000
-IBS::WC_UbattTolerance_V	Float	LIN 电压反馈允许差 V	0.5
-IBS::WC_TimeTolerance_s	Float	积分时长允许短于窗口 s	2.0
-IBS::WC_AvgLimit_mA	Float	平均电流严格小于 mA，原文 25 mA	25.0
-
-
-ScalarMultiRecord
-
-Name	Type	Info	Value
-SelectorType	[Mode]		Normal	Test
-IBS::WC_IntegrationWindow_ms	Auto	连续积分窗口 ms，原文 10 min	600000	20000
 Group	SOC自校准测试
 
 ScalarSingleRecord
@@ -119,6 +119,16 @@ SelectorType	[Mode]		Normal	Test
 IBS::SOC_StepTimeout_ms	Auto	充放电到目标 SOC 限时 ms，旧工程 20 h/1 min	72000000	60000
 IBS::SOC_PointRest_ms	Auto	每档静置 ms，旧工程 4 h/1 min	14400000	60000
 
+Group	电压精度测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::VA_SampleInterval_ms	Integer	每组内相邻采样间隔，单位 ms	2000
+IBS::VA_TolerancePct	Float	单次配对相对偏差限值，单位 %	0.25
+
+Group	SOC满充矫正法测试
+
 ScalarSingleRecord
 
 Name	Type	Info	Value
@@ -135,20 +145,102 @@ IBS::SOC_ChartLowFloor_V	Float	中高温段下限电压 V	13.5
 IBS::SOC_ChartHigh_V	Float	温压区域上限电压 V	15.5
 IBS::SOC_ChartLowSlope_V_perC	Float	低温段下限每升高 1 ℃ 的下降量 V	0.1
 IBS::SOC_ChartHighSlope_V_perC	Float	高温段上限每升高 1 ℃ 的下降量 V	0.05
-IBS::SOC_HoldSampleInterval_ms	Integer	满充保持段采样间隔 ms	10000
+IBS::SOCWU_StartupVoltage_V	Float	首次取温前供电启动电压 V，TBD 待台架确认	12.0
+IBS::SOCWU_Threshold_pct	Float	低 SOC 唤醒阈值 %，同时写入 SOCWU_Treshold	80
 
 
 ScalarMultiRecord
 
 Name	Type	Info	Value
 SelectorType	[Mode]		Normal	Test
+IBS::SOC_HoldSampleInterval_ms	Auto	满充保持段采样间隔 ms	10000	1000
 IBS::SOC_FullChargeHold_ms	Auto	满充达门槛后持续充电 ms，Normal 25 min	1500000	60000
-IBS::SOC_FullChargeRestartOff_ms	Auto	满充矫正法每档断 IBS 电 ms	60000	6000
+IBS::SOC_FullChargeRestartOff_ms	Auto	每档断 IBS 电 ms，Normal 60 s	60000	6000
 
-Group	电压精度测试
+Group	低SOC唤醒静置法测试
 
 ScalarSingleRecord
 
 Name	Type	Info	Value
-IBS::VA_SampleInterval_ms	Integer	每组内相邻采样间隔，单位 ms	2000
-IBS::VA_TolerancePct	Float	单次配对相对偏差限值，单位 %	0.25
+IBS::SOCWU_StaticSampleInterval_ms	Integer	唤醒观察采样间隔 ms	1000
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::SOCWU_StaticNoWakeWindow_ms	Auto	满充后无唤醒观察窗 ms，原文 30 min	1800000	90000
+IBS::SOCWU_StaticWakeTimeout_ms	Auto	等待低 SOC 唤醒超时 ms，原文 3.7 h	13320000	120000
+
+Group	SOC唤醒请求测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::SOCWU_ReqSampleInterval_ms	Integer	唤醒观察采样间隔 ms	1000
+IBS::SOCWU_ReqDischargeVoltage_V	Float	放电恒压设定 V	11.0
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::SOCWU_ReqChargeHold_ms	Auto	满充保持上限 ms，原文 25 min	1501000	60000
+IBS::SOCWU_ReqNoWakeWindow_ms	Auto	施加输出前无唤醒窗口 ms，原文 200 s	200000	20000
+IBS::SOCWU_ReqWakeTimeout_ms	Auto	等待 LIN 唤醒超时 ms，原文 2.1 h	7560000	120000
+IBS::SOCWU_ReqDvmStartTimeout_ms	Auto	满充到压 DVM>13.5V 等待超时 ms，原文 30 min	1800000	60000
+
+Group	复位测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::RST_RepeatCount	Integer	上下电循环次数	10
+IBS::RST_VoltageTimeout_ms	Integer	DVM 到压超时 ms	5000
+IBS::RST_VoltageTolerance_V	Float	DVM 到压容差 V	0.5
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::RST_OffTime_ms	Auto	每次断电时长 ms	6000	1000
+IBS::RST_PowerOnSettle_ms	Auto	上电后稳定等待 ms	5000	1000
+
+Group	SOF充放电唤醒测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::SOF_SampleInterval_ms	Integer	观察采样间隔 ms	1000
+IBS::SOF_Uout_V	Float	施加输出恒压 V	13.0
+IBS::SOF_CurrentLimit_A	Float	施加输出双向限流 A	1.0
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::SOF_SleepConfirmWindow_ms	Auto	停 LIN 后休眠确认窗 ms，原文 90 s	90000	10000
+IBS::SOF_NoWakeWindow_ms	Auto	施加输出前无唤醒窗口 ms，原文 200 s	200000	20000
+IBS::SOF_WakeWindow_ms	Auto	施加输出后等待唤醒窗口 ms，原文 60 s	60000	10000
+
+Group	工作电压范围测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::WV_VoltageTolerance_V	Float	每档 DVM 到压容差 V	0.1
+IBS::WV_CurrentLimit_A	Float	N8361 充放电双向限流 A	0.5
+IBS::WV_MonitorWindow_ms	Integer	监控分段窗口 ms	10000
+IBS::WV_StartVoltage_V	Integer	升压起点 V	6
+IBS::WV_TurnVoltage_V	Integer	升压终点 V	16
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::WV_HoldPerStep_ms	Auto	每档保持监控 ms，原文 5 min	300000	20000
+IBS::WV_VoltageTimeout_ms	Auto	每档到压超时 ms	200	200
+
