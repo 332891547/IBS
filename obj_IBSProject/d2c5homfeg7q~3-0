@@ -196,6 +196,11 @@
     <nestedTcIds>e7b0a710-0001-4b19-a710-000000000102</nestedTcIds>
     <nestedTcIds>e7b0a710-0001-4b19-a710-000000000103</nestedTcIds>
   </testsequence>
+  <testsequence name="TransientLowVoltageTest" comment="7.5 瞬态低电压测试（受限口径）：断开真实电池与 CAB1500、保持 IBS 供电；10.8 V 起以 6 个离散档位在 1.8 s 内降至 9 V，在 9 V 用 500 ms 窗口确认正常通信后以 6 档回升至 10.8 V，并对降压前、9 V 与回升后通信执行既有监控。离散设压与 DVM 采样不构成原文 1.8 ms 瞬态波形验证结论。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="e7b0a710-182b-4567-a710-000000000002">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/ts_definitions[1]/ts_definition[12]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+    <nestedTcIds>e7b0a710-0000-4b19-a710-000000000200</nestedTcIds>
+  </testsequence>
   <testcase name="SleepCurrent" comment="单个电压点的休眠平均电流：每点 3 轮，每轮关输出、设压限流、开输出、等到压、LIN 通讯 60 s、监控 10 s（三帧有效性）、停 LIN、静置 60 s、连续积分 20 min 并判定平均电流小于 0.250 mA。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="b7c1a2d3-0000-4a01-9b01-000000000000">
     <parameter name="OutPutVoltage" type="float" raw_type="float" />
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[1]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
@@ -308,6 +313,10 @@
   <testcase name="WorkVoltageCycle" comment="单次工作电压升降循环：先断 CAB1500、保持 IBS 接通并上电，LIN Normal 启动后升压 6→16 V、降压 15→6 V 逐档执行；每档以 200 ms 内 DVM 达目标 ±0.1 V 为到压判据，随后保持并监控 5 min（30 个 10 s 窗口核验三帧、无效信号与 DVM）；最后关闭输出。每档失败写入报告后继续执行，不中断循环。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="e7b0a710-0000-4b19-a710-000000000100">
     <parameter name="CycleIndex" type="int64" raw_type="int" />
     <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[23]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
+    <implementation_language lang="TTE" />
+  </testcase>
+  <testcase name="TransientLowVoltageOnce" comment="7.5 瞬态低电压单次模拟（受限口径，按确认以 1.8 s 变化沿替代原文 1.8 ms）：输出关闭时断开真实电池与 CAB1500、保持 IBS 供电，10.8 V 起双向限流 IGTV_CurrentLimit_A；LIN Normal 启动后先监控正常通信，再以 6 个离散档位在 IGTV_Ramp_ms 内降至 9 V，在 9 V 用 IGTV_LowWindow_ms 窗口确认三类新鲜有效帧且无新增无效帧，随后以 6 档在 IGTV_Ramp_ms 内回升至 10.8 V，最后监控通信并关输出。离散设压与 DVM 采样不能证明连续斜坡或原文瞬态容差。" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="true" IsNetSignatureAndDefinedInExternalDll="true" guid="e7b0a710-0000-4b19-a710-000000000200">
+    <document_position><![CDATA[<XPathDocumentPosition xmlns:SerializedType="Vector.ITE.Document.XPathDocumentPosition"><XPath>/ttroot/ttlib[1]/tc_definitions[1]/tc_definition[24]/name[1]</XPath></XPathDocumentPosition>]]></document_position>
     <implementation_language lang="TTE" />
   </testcase>
   <function name="PHASE_Prepare" comment="准备段：开日志、停 LIN、关唤醒节点、关输出、继电器切 IDLE" signature="" file="C:\Users\HF_company\Desktop\IBS\IBSTest\IBSTest.vtt" SourceFilePersistencyGuid="e6reu9mdl1t1" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true" guid="1a4d6e92-73c5-4f08-9b21-5d8e0c7a3f61">

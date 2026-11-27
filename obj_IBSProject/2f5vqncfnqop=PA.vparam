@@ -244,3 +244,20 @@ SelectorType	[Mode]		Normal	Test
 IBS::WV_HoldPerStep_ms	Auto	每档保持监控 ms，原文 5 min	300000	20000
 IBS::WV_VoltageTimeout_ms	Auto	每档到压超时 ms	200	200
 
+Group	瞬态低电压测试
+
+ScalarSingleRecord
+
+Name	Type	Info	Value
+IBS::IGTV_StartVoltage_V	Float	起始与恢复电压 V，原文 Umax 10.8	10.8
+IBS::IGTV_CurrentLimit_A	Float	N8361 充放电双向限流 A	0.5
+IBS::IGTV_VoltageTolerance_V	Float	每档 DVM 到压容差 V	0.1
+
+
+ScalarMultiRecord
+
+Name	Type	Info	Value
+SelectorType	[Mode]		Normal	Test
+IBS::IGTV_Ramp_ms	Auto	单个变化沿总时长 ms，原文 1.8 ms，按确认取 1.8 s	1800	1800
+IBS::IGTV_VoltageTimeout_ms	Auto	每档到压超时 ms	200	200
+IBS::IGTV_LowWindow_ms	Auto	9 V 阶段通信确认窗口 ms，原文 tpruf	500	500

@@ -47,6 +47,10 @@
         <title>7.1 工作电压范围测试</title>
         <name>WorkVoltageRangeTest</name>
       </tttestsequence>
+      <tttestsequence navid="e7b0a710-182b-4567-a710-000000000002">
+        <title>7.5 瞬态低电压测试</title>
+        <name>TransientLowVoltageTest</name>
+      </tttestsequence>
     </tg>
     <tg navid="7f3b9c41-2d5e-4a88-b1c6-3e9d0a7f12b4">
       <title>框架验证</title>
@@ -2890,6 +2894,38 @@ else
         </tttestcase>
         <completion>
           <title>结束测试并恢复安全态</title>
+          <ttfunction>
+            <title>PHASE_Complete</title>
+            <name>PHASE_Complete</name>
+          </ttfunction>
+        </completion>
+      </ts_definition>
+      <ts_definition navid="e7b0a710-182b-4567-a710-000000000002">
+        <name>TransientLowVoltageTest</name>
+        <description>7.5 瞬态低电压测试（受限口径）：断开真实电池与 CAB1500、保持 IBS 供电；10.8 V 起以 6 个离散档位在 1.8 s 内降至 9 V，在 9 V 用 500 ms 窗口确认正常通信后以 6 档回升至 10.8 V，并对降压前、9 V 与回升后通信执行既有监控。离散设压与 DVM 采样不构成原文 1.8 ms 瞬态波形验证结论。</description>
+        <parameters />
+        <variables />
+        <preparation>
+          <title>准备瞬态低电压测试环境</title>
+          <ttfunction>
+            <title>PHASE_Prepare</title>
+            <name>PHASE_Prepare</name>
+            <param>
+              <type>string</type>
+              <value>
+                <const>TransientLowVoltageTest</const>
+              </value>
+            </param>
+          </ttfunction>
+        </preparation>
+        <breakonfail>true</breakonfail>
+        <tttestcase>
+          <title>一次 10.8→9→10.8 V 瞬态低电压模拟及通信检查</title>
+          <name>TransientLowVoltageOnce</name>
+          <tcid>e7b0a710-0000-4b19-a710-000000000200</tcid>
+        </tttestcase>
+        <completion>
+          <title>完成测试并恢复安全态</title>
           <ttfunction>
             <title>PHASE_Complete</title>
             <name>PHASE_Complete</name>
@@ -9845,6 +9881,941 @@ write("[WV][CYCLE][DIR] cycle=%d dir=down t=%I64d", CycleIndex, timeNowInt64());
           <title>记录本轮结束</title>
           <code>write("[WV][CYCLE][END] cycle=%d t=%I64d", CycleIndex, timeNowInt64());</code>
         </caplinline>
+      </tc_definition>
+      <tc_definition>
+        <name>TransientLowVoltageOnce</name>
+        <description>7.5 瞬态低电压单次模拟（受限口径，按确认以 1.8 s 变化沿替代原文 1.8 ms）：输出关闭时断开真实电池与 CAB1500、保持 IBS 供电，10.8 V 起双向限流 IGTV_CurrentLimit_A；LIN Normal 启动后先监控正常通信，再以 6 个离散档位在 IGTV_Ramp_ms 内降至 9 V，在 9 V 用 IGTV_LowWindow_ms 窗口确认三类新鲜有效帧且无新增无效帧，随后以 6 档在 IGTV_Ramp_ms 内回升至 10.8 V，最后监控通信并关输出。离散设压与 DVM 采样不能证明连续斜坡或原文瞬态容差。</description>
+        <tcid>e7b0a710-0000-4b19-a710-000000000200</tcid>
+        <parameters />
+        <variables>
+          <variable_definition>
+            <name>BandWait_ms</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Start_s</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Elapsed_ms</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>WindowBudget_ms</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>WindowRemain_ms</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>MeasuredBase</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Calc1Base</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>Calc2Base</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+          <variable_definition>
+            <name>InvalidBase</name>
+            <type>int</type>
+            <source>
+              <const>0</const>
+            </source>
+          </variable_definition>
+        </variables>
+        <breakonfail>true</breakonfail>
+        <set>
+          <title>测试开始前确认 N8361 输出命令关闭</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutputSts|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <set>
+          <title>断开 CAB1500 供电</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|CAB1500_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>1</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <set>
+          <title>保持 IBS 供电接通</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|IBS_PowerCtrl|Power_RelayCrtl|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <caplinline>
+          <title>按 6 档确认计算每档等待预算</title>
+          <code>BandWait_ms = (int)syspar::IBS::IGTV_Ramp_ms / 6;
+if (BandWait_ms &lt; 1)
+  testStepFail(&quot;IGTV_Band&quot;, &quot;IGTV_Ramp_ms=%d cannot be split into 6 bands&quot;, (int)syspar::IBS::IGTV_Ramp_ms);
+write(&quot;[IGTV][PREP] ramp_ms=%d band_wait_ms=%d low_window_ms=%d&quot;,
+      (int)syspar::IBS::IGTV_Ramp_ms, BandWait_ms, (int)syspar::IBS::IGTV_LowWindow_ms);</code>
+        </caplinline>
+        <set>
+          <title>设定初始电压 IGTV_StartVoltage_V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_StartVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <set>
+          <title>设定充电限流 IGTV_CurrentLimit_A</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_ChargeCurrent|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_CurrentLimit_A|END_OF_OBJECT_ChParScalar|</dbobject>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <set>
+          <title>设定放电限流 IGTV_CurrentLimit_A</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_DicChargeCurrent|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_CurrentLimit_A|END_OF_OBJECT_ChParScalar|</dbobject>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <set>
+          <title>开启 N8361 输出</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutputSts|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>1</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>等待 DVM 达初始电压 ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_StartVoltage_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <caplfunction>
+          <title>开启 LIN Normal 调度并等首帧</title>
+          <name>LIN_OpenNormal_Check</name>
+        </caplfunction>
+        <caplfunction>
+          <title>降压前检查正常通信</title>
+          <name>SleepCurrent_Monitor_Check</name>
+        </caplfunction>
+        <set>
+          <title>下降第 1 档：设定 10.5 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>10.5</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>下降第 1 档：DVM 达 10.5 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>10.5</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>下降第 1 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>下降第 2 档：设定 10.2 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>10.2</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>下降第 2 档：DVM 达 10.2 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>10.2</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>下降第 2 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>下降第 3 档：设定 9.9 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>9.9</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>下降第 3 档：DVM 达 9.9 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>9.9</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>下降第 3 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>下降第 4 档：设定 9.6 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>9.6</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>下降第 4 档：DVM 达 9.6 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>9.6</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>下降第 4 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>下降第 5 档：设定 9.3 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>9.3</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>下降第 5 档：DVM 达 9.3 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>9.3</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>下降第 5 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>下降第 6 档：设定 9.0 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>9.0</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>下降第 6 档：DVM 达 9.0 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>9.0</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>下降第 6 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <caplinline>
+          <title>锁存 9 V 阶段计数基线与 500 ms 截止时刻</title>
+          <code>Start_s      = (int)(timeNowInt64() / 1000000000);
+WindowBudget_ms = (int)syspar::IBS::IGTV_LowWindow_ms;
+MeasuredBase = (int)@sysvar::LIN::ResetMeasuredCounter;
+Calc1Base    = (int)@sysvar::LIN::ResetCalc1Counter;
+Calc2Base    = (int)@sysvar::LIN::ResetCalc2Counter;
+InvalidBase  = (int)@sysvar::LIN::ResetInvalidCounter;
+WindowRemain_ms = WindowBudget_ms;
+write(&quot;[IGTV][WINDOW][BEGIN] start_s=%d budget_ms=%d&quot;, Start_s, WindowBudget_ms);</code>
+        </caplinline>
+        <awaitvaluematch>
+          <title>500 ms 窗口内等待三类新鲜有效帧</title>
+          <timeout>
+            <value>
+              <variable>WindowRemain_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|ResetMeasuredCounter|LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <gt>
+              <variable>MeasuredBase</variable>
+            </gt>
+          </compare>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|ResetCalc1Counter|LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <gt>
+              <variable>Calc1Base</variable>
+            </gt>
+          </compare>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|ResetCalc2Counter|LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <gt>
+              <variable>Calc2Base</variable>
+            </gt>
+          </compare>
+        </awaitvaluematch>
+        <statecheck>
+          <title>低压窗口内无新增无效通信</title>
+          <expected>
+            <compare>
+              <value>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|ResetInvalidCounter|LIN|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </value>
+              <eq>
+                <variable>InvalidBase</variable>
+              </eq>
+            </compare>
+          </expected>
+        </statecheck>
+        <caplinline>
+          <title>核验 500 ms 判定总耗时</title>
+          <code>Elapsed_ms = ((int)(timeNowInt64() / 1000000000) - Start_s) * 1000;
+if (Elapsed_ms &gt; (int)syspar::IBS::IGTV_LowWindow_ms)
+  testStepFail(&quot;IGTV_LowWindow&quot;, &quot;low-voltage checks used %d ms, exceeding %d ms&quot;,
+               Elapsed_ms, (int)syspar::IBS::IGTV_LowWindow_ms);
+else
+  testStepPass(&quot;IGTV_LowWindow&quot;, &quot;low-voltage checks completed in %d ms of %d ms&quot;,
+               Elapsed_ms, (int)syspar::IBS::IGTV_LowWindow_ms);
+write(&quot;[IGTV][WINDOW][END] elapsed_ms=%d&quot;, Elapsed_ms);</code>
+        </caplinline>
+        <caplfunction>
+          <title>9 V 阶段监控正常通信</title>
+          <name>SleepCurrent_Monitor_Check</name>
+        </caplfunction>
+        <set>
+          <title>回升第 1 档：设定 9.3 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>9.3</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>回升第 1 档：DVM 达 9.3 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>9.3</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>回升第 1 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>回升第 2 档：设定 9.6 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>9.6</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>回升第 2 档：DVM 达 9.6 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>9.6</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>回升第 2 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>回升第 3 档：设定 9.9 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>9.9</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>回升第 3 档：DVM 达 9.9 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>9.9</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>回升第 3 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>回升第 4 档：设定 10.2 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>10.2</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>回升第 4 档：DVM 达 10.2 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>10.2</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>回升第 4 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>回升第 5 档：设定 10.5 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>10.5</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>回升第 5 档：DVM 达 10.5 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>10.5</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>回升第 5 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <set>
+          <title>回升第 6 档：设定 10.8 V</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutPutVoltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>10.8</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
+        <awaitvaluematch>
+          <title>回升第 6 档：DVM 达 10.8 V ±IGTV_VoltageTolerance_V</title>
+          <timeout>
+            <value>
+              <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTimeout_ms|END_OF_OBJECT_ChParScalar|</dbobject>
+            </value>
+            <unit>ms</unit>
+          </timeout>
+          <joincondition>
+            <enum>all</enum>
+          </joincondition>
+          <await_nextupdate>
+            <bool>true</bool>
+          </await_nextupdate>
+          <compare>
+            <dbobject>SysVar_BEGIN_OF_OBJECT|1|DVM_Voltage|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+            <range>
+              <based>
+                <base>
+                  <const>10.8</const>
+                </base>
+                <down_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </down_tolerance>
+                <up_tolerance>
+                  <dbobject>ChParScalar_BEGIN_OF_OBJECT|1|IBS::IGTV_VoltageTolerance_V|END_OF_OBJECT_ChParScalar|</dbobject>
+                </up_tolerance>
+              </based>
+            </range>
+          </compare>
+        </awaitvaluematch>
+        <wait>
+          <title>回升第 6 档：补足本档时间预算</title>
+          <time>
+            <value>
+              <variable>BandWait_ms</variable>
+            </value>
+            <unit>ms</unit>
+          </time>
+        </wait>
+        <caplfunction>
+          <title>回升后检查正常通信</title>
+          <name>SleepCurrent_Monitor_Check</name>
+        </caplfunction>
+        <set>
+          <title>关闭 N8361 输出</title>
+          <in>
+            <assignment>
+              <sink>
+                <dbobject>SysVar_BEGIN_OF_OBJECT|1|Set_OutputSts|N8361|-1|0|END_OF_OBJECT_SysVar|</dbobject>
+              </sink>
+              <source>
+                <const>0</const>
+              </source>
+            </assignment>
+          </in>
+        </set>
       </tc_definition>
     </tc_definitions>
     <function_definitions>
